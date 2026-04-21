@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTP · Reporte de Torneos · Marzo–Abril 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --otp-blue: #0B38D6;
+    --otp-blue-dark: #081F7A;
+    --otp-blue-ink: #030E3A;
+    --otp-lime: #C9FD2E;
+    --otp-white: #FFFFFF;
+    --otp-coral: #FF4F7B;
+    --otp-coral-soft: #FFE3EB;
+    --otp-lime-soft: #F1FFCC;
+    --otp-ink: #0A1033;
+    --otp-muted: #6B7590;
+    --otp-line: #E4E8F2;
+    --otp-bg: #F6F7FB;
+    --otp-bg-alt: #ECEEF7;
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, monospace;
+    --r-sm: 8px;
+    --r-md: 14px;
+    --r-lg: 22px;
+    --r-xl: 32px;
+    --shadow-sm: 0 1px 2px rgba(11,56,214,0.04), 0 2px 8px rgba(10,16,51,0.04);
+    --shadow-md: 0 4px 16px rgba(11,56,214,0.08), 0 8px 32px rgba(10,16,51,0.06);
+    --ease: cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font-sans);
+    background: var(--otp-bg);
+    color: var(--otp-ink);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ============ LAYOUT SHELL ============ */
+  .shell {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    min-height: 100vh;
+  }
+
+  /* ============ SIDEBAR ============ */
+  .sidebar {
+    background: var(--otp-blue-ink);
+    color: var(--otp-white);
+    padding: 32px 24px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--otp-white);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .brand-mark svg { width: 28px; height: 28px; }
+  .brand-text { font-weight: 700; letter-spacing: -0.02em; font-size: 20px; }
+  .brand-text small {
+    display: block;
+    font-weight: 400;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    margin-top: 2px;
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .nav-label {
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 14px;
+    padding-left: 14px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 14px;
+    border-radius: var(--r-sm);
+    color: rgba(255,255,255,0.72);
+    cursor: pointer;
+    font-size: 14.5px;
+    font-weight: 500;
+    transition: all 0.18s var(--ease);
+    border: none;
+    background: transparent;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+    position: relative;
+  }
+  .nav-item:hover { background: rgba(255,255,255,0.06); color: var(--otp-white); }
+  .nav-item.active { background: var(--otp-blue); color: var(--otp-white); box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset; }
+  .nav-item.active::before {
+    content:'';
+    position: absolute;
+    left: -24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 20px;
+    background: var(--otp-lime);
+    border-radius: 0 2px 2px 0;
+  }
+  .nav-item .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.45;
+  }
+  .nav-item.active .dot { background: var(--otp-lime); opacity: 1; }
+
+  .sidebar-footer {
+    margin-top: auto;
+    font-size: 11px;
+    opacity: 0.4;
+    line-height: 1.55;
+  }
+  .sidebar-footer strong { color: var(--otp-lime); font-weight: 500; }
+
+  /* ============ MAIN ============ */
+  .main { padding: 40px 56px 80px; max-width: 1400px; }
+
+  .page-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--otp-line);
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .page-head h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
+  }
+  .page-head h1 em {
+    font-style: normal;
+    color: var(--otp-blue);
+    position: relative;
+    display: inline-block;
+  }
+  .page-head h1 em::after {
+    content:'';
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: var(--otp-lime);
+    z-index: -1;
+    opacity: 0.9;
+  }
+  .page-head .sub {
+    color: var(--otp-muted);
+    font-size: 14px;
+    margin-top: 8px;
+    font-family: var(--font-mono);
+    letter-spacing: -0.01em;
+  }
+  .period-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: var(--otp-blue-ink);
+    color: var(--otp-white);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .period-badge .pulse {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--otp-lime);
+    box-shadow: 0 0 0 0 var(--otp-lime);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(201,253,46,0.7); }
+    70%  { box-shadow: 0 0 0 8px rgba(201,253,46,0); }
+    100% { box-shadow: 0 0 0 0 rgba(201,253,46,0); }
+  }
+
+  /* ============ SECTIONS ============ */
+  section { display: none; animation: fadeUp 0.5s var(--ease); }
+  section.active { display: block; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--otp-muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::before {
+    content:'';
+    width: 6px;
+    height: 6px;
+    background: var(--otp-blue);
+    border-radius: 50%;
+  }
+
+  /* ============ KPI GRID ============ */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .kpi {
+    background: var(--otp-white);
+    border-radius: var(--r-md);
+    padding: 20px 22px;
+    border: 1px solid var(--otp-line);
+    transition: all 0.2s var(--ease);
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: transparent; }
+  .kpi-label {
+    font-size: 11.5px;
+    color: var(--otp-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .kpi-value {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    color: var(--otp-ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .kpi-split {
+    margin-top: 14px;
+    display: flex;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--otp-line);
+  }
+  .kpi-split > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .kpi-split .label {
+    font-size: 10.5px;
+    color: var(--otp-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .kpi-split .val {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--otp-ink);
+  }
+  .kpi.accent-blue { border-top: 3px solid var(--otp-blue); }
+  .kpi.accent-lime { border-top: 3px solid var(--otp-lime); }
+  .kpi.accent-coral { border-top: 3px solid var(--otp-coral); }
+  .kpi.accent-ink { border-top: 3px solid var(--otp-blue-ink); }
+
+  /* ============ CARDS ============ */
+  .card {
+    background: var(--otp-white);
+    border-radius: var(--r-lg);
+    padding: 28px 32px;
+    border: 1px solid var(--otp-line);
+    margin-bottom: 24px;
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .card-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .card-subtitle {
+    color: var(--otp-muted);
+    font-size: 13.5px;
+    margin-top: 3px;
+  }
+
+  /* ============ PLAYER TABLE ============ */
+  .table-controls {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+  .search {
+    position: relative;
+    flex: 1;
+    min-width: 240px;
+  }
+  .search input {
+    width: 100%;
+    padding: 12px 14px 12px 42px;
+    border: 1px solid var(--otp-line);
+    border-radius: 10px;
+    background: var(--otp-bg);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--otp-ink);
+    outline: none;
+    transition: all 0.15s var(--ease);
+  }
+  .search input:focus { background: var(--otp-white); border-color: var(--otp-blue); box-shadow: 0 0 0 3px rgba(11,56,214,0.12); }
+  .search svg {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--otp-muted);
+    width: 16px;
+    height: 16px;
+  }
+  .segment {
+    display: inline-flex;
+    padding: 4px;
+    background: var(--otp-bg);
+    border: 1px solid var(--otp-line);
+    border-radius: 10px;
+  }
+  .segment button {
+    padding: 8px 14px;
+    border: none;
+    background: transparent;
+    border-radius: 7px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--otp-muted);
+    transition: all 0.15s var(--ease);
+  }
+  .segment button.on { background: var(--otp-white); color: var(--otp-ink); box-shadow: var(--shadow-sm); }
+  .count-badge {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--otp-muted);
+  }
+
+  .player-table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+  .player-table thead th {
+    text-align: left;
+    padding: 12px 14px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--otp-muted);
+    border-bottom: 1px solid var(--otp-line);
+  }
+  .player-table tbody td {
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--otp-line);
+    font-size: 14px;
+  }
+  .player-table tbody tr { transition: background 0.12s; }
+  .player-table tbody tr:hover { background: var(--otp-bg); }
+  .player-table .rank {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--otp-muted);
+    width: 40px;
+  }
+  .player-table .name { font-weight: 500; }
+  .player-table .num { text-align: right; font-family: var(--font-mono); color: var(--otp-ink); }
+  .player-table .num.muted { color: var(--otp-muted); }
+  .player-table .num.total { font-weight: 600; }
+  .player-table .bar-cell { width: 140px; text-align: right; }
+  .bar-wrap { position: relative; height: 6px; background: var(--otp-bg-alt); border-radius: 3px; overflow: hidden; margin-left: auto; max-width: 120px; }
+  .bar-fill { position: absolute; left: 0; top: 0; bottom: 0; background: var(--otp-blue); border-radius: 3px; transition: width 0.6s var(--ease); }
+  .damas .bar-fill { background: var(--otp-coral); }
+  .podium td { background: linear-gradient(90deg, rgba(201,253,46,0.14), transparent 50%); }
+  .damas .podium td { background: linear-gradient(90deg, rgba(255,79,123,0.10), transparent 50%); }
+  .podium .rank { color: var(--otp-blue); font-weight: 700; }
+  .damas .podium .rank { color: var(--otp-coral); }
+
+  .table-footer {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+  }
+  .btn-expand {
+    padding: 12px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--otp-line);
+    background: var(--otp-white);
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--otp-ink);
+    transition: all 0.15s var(--ease);
+  }
+  .btn-expand:hover { border-color: var(--otp-blue); color: var(--otp-blue); transform: translateY(-1px); }
+  .btn-expand svg { width: 14px; height: 14px; transition: transform 0.2s; }
+  .btn-expand.expanded svg { transform: rotate(180deg); }
+
+  /* ============ DISTRIBUTION (punto 3) ============ */
+  .dist-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .dist-item {
+    background: var(--otp-white);
+    border: 1px solid var(--otp-line);
+    border-radius: var(--r-md);
+    padding: 18px 16px 16px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: all 0.2s var(--ease);
+  }
+  .dist-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .dist-item .bucket {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--otp-muted);
+  }
+  .dist-item .count {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .dist-item .pct {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--otp-muted);
+  }
+  .dist-item .mini-bar {
+    height: 3px;
+    background: var(--otp-bg-alt);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .dist-item .mini-bar span {
+    display: block;
+    height: 100%;
+    background: var(--otp-blue);
+    transition: width 0.8s var(--ease);
+  }
+  .damas .dist-item .mini-bar span { background: var(--otp-coral); }
+  .dist-item.highlight { background: var(--otp-blue); color: var(--otp-white); border-color: transparent; }
+  .dist-item.highlight .bucket,
+  .dist-item.highlight .pct { color: rgba(255,255,255,0.7); }
+  .dist-item.highlight .mini-bar { background: rgba(255,255,255,0.2); }
+  .dist-item.highlight .mini-bar span { background: var(--otp-lime); }
+  .damas .dist-item.highlight { background: var(--otp-coral); }
+  .damas .dist-item.highlight .mini-bar span { background: var(--otp-white); }
+
+  /* ============ OVERVIEW SPLIT BLOCK ============ */
+  .split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .split-card {
+    border-radius: var(--r-lg);
+    padding: 32px;
+    position: relative;
+    overflow: hidden;
+    color: var(--otp-white);
+  }
+  .split-card.cab { background: linear-gradient(135deg, var(--otp-blue) 0%, var(--otp-blue-dark) 100%); }
+  .split-card.dam { background: linear-gradient(135deg, #E8386A 0%, #B01E4B 100%); }
+  .split-card::before {
+    content:'';
+    position: absolute;
+    right: -40px;
+    top: -40px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+  }
+  .split-card::after {
+    content:'';
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+  }
+  .split-card h3 {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+  .split-card .big {
+    font-size: 64px;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 4px;
+  }
+  .split-card .ctx { font-size: 14px; opacity: 0.78; }
+  .split-card .stats-row {
+    margin-top: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .split-card .stats-row .lbl {
+    font-size: 10.5px;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .split-card .stats-row .val {
+    font-family: var(--font-mono);
+    font-size: 17px;
+    font-weight: 500;
+  }
+  .split-card .pctg {
+    position: absolute;
+    bottom: 24px;
+    right: 32px;
+    text-align: right;
+  }
+  .split-card .pctg .n { font-size: 38px; font-weight: 600; line-height: 1; }
+  .split-card .pctg .l { font-size: 11px; opacity: 0.65; letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ============ CHART (prom x periodo) ============ */
+  .avg-chart {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 8px 4px;
+  }
+  .avg-block { position: relative; }
+  .avg-block h4 {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    margin-bottom: 18px;
+    color: var(--otp-ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .avg-block h4 .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .avg-block.cab h4 .dot { background: var(--otp-blue); }
+  .avg-block.dam h4 .dot { background: var(--otp-coral); }
+
+  .avg-bars {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 0;
+  }
+  .avg-bars .lbl { font-size: 13.5px; color: var(--otp-muted); }
+  .avg-bars .lbl.partial::after {
+    content:' (parcial)';
+    font-size: 11px;
+    opacity: 0.7;
+  }
+  .avg-bars .track {
+    height: 14px;
+    background: var(--otp-bg-alt);
+    border-radius: 7px;
+    overflow: hidden;
+    position: relative;
+  }
+  .avg-bars .fill {
+    height: 100%;
+    border-radius: 7px;
+    transition: width 1s var(--ease);
+  }
+  .cab .avg-bars .fill { background: linear-gradient(90deg, var(--otp-blue), var(--otp-blue-dark)); }
+  .dam .avg-bars .fill { background: linear-gradient(90deg, var(--otp-coral), #B01E4B); }
+  .avg-bars .num {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    font-weight: 500;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ============ COMPARATIVE BARS ============ */
+  .compare-row {
+    display: grid;
+    grid-template-columns: 120px 1fr 80px;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--otp-line);
+  }
+  .compare-row:last-child { border-bottom: none; }
+  .compare-row .label { font-size: 13.5px; font-weight: 500; }
+  .compare-row .split-bar {
+    display: flex;
+    height: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--otp-bg-alt);
+  }
+  .compare-row .split-bar .cab-part {
+    background: var(--otp-blue);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: var(--otp-white);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 500;
+    transition: width 0.8s var(--ease);
+    justify-content: flex-end;
+  }
+  .compare-row .split-bar .dam-part {
+    background: var(--otp-coral);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: var(--otp-white);
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    font-weight: 500;
+    transition: width 0.8s var(--ease);
+  }
+  .compare-row .total { font-family: var(--font-mono); font-weight: 600; text-align: right; }
+
+  .legend {
+    display: flex;
+    gap: 18px;
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--otp-line);
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--otp-muted);
+  }
+  .legend-item .sw { width: 14px; height: 14px; border-radius: 4px; }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 1100px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .dist-grid { grid-template-columns: repeat(4, 1fr); }
+    .split-grid { grid-template-columns: 1fr; }
+    .avg-chart { grid-template-columns: 1fr; gap: 30px; }
+  }
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: 1fr; }
+    .sidebar { position: relative; height: auto; flex-direction: row; flex-wrap: wrap; padding: 18px; gap: 18px; }
+    .sidebar-footer { display: none; }
+    .nav { flex-direction: row; flex-wrap: wrap; }
+    .nav-label { display: none; }
+    .nav-item.active::before { display: none; }
+    .main { padding: 28px 20px 60px; }
+    .dist-grid { grid-template-columns: repeat(2, 1fr); }
+    .card { padding: 20px; }
+    .compare-row { grid-template-columns: 80px 1fr 60px; gap: 10px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="18" stroke="#0B38D6" stroke-width="2.2"/>
+          <path d="M8 20 Q 20 4, 32 20" stroke="#0B38D6" stroke-width="2.2" fill="none"/>
+          <path d="M8 20 Q 20 36, 32 20" stroke="#0B38D6" stroke-width="2.2" fill="none"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        OTP
+        <small>Reporte Torneos</small>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <div class="nav-label">Navegación</div>
+      <button class="nav-item active" data-target="overview">
+        <span class="dot"></span> Overview
+      </button>
+      <button class="nav-item" data-target="caballeros">
+        <span class="dot"></span> Caballeros
+      </button>
+      <button class="nav-item" data-target="damas">
+        <span class="dot"></span> Damas
+      </button>
+      <button class="nav-item" data-target="distribucion">
+        <span class="dot"></span> Distribución
+      </button>
+      <button class="nav-item" data-target="comparativa">
+        <span class="dot"></span> Comparativa
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      Período · Marzo 2026 <strong>→</strong> Abril 2026<br>
+      Actualizado al cierre de cada semana.
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+    <header class="page-head">
+      <div>
+        <h1>Reporte <em>Torneos</em></h1>
+        <div class="sub">Marzo · Abril 2026 — datos agregados</div>
+      </div>
+      <div class="period-badge"><span class="pulse"></span> Abril en curso</div>
+    </header>
+
+    <!-- ============ SECCIÓN: OVERVIEW ============ -->
+    <section id="overview" class="active">
+      <div class="section-title">Resumen general</div>
+
+      <div class="kpi-grid">
+        <div class="kpi accent-blue">
+          <div class="kpi-label">Torneos totales</div>
+          <div class="kpi-value" data-count="242">242</div>
+          <div class="kpi-split">
+            <div><span class="label">Marzo</span><span class="val">135</span></div>
+            <div><span class="label">Abril</span><span class="val">107</span></div>
+          </div>
+        </div>
+        <div class="kpi accent-lime">
+          <div class="kpi-label">Caballeros únicos</div>
+          <div class="kpi-value" data-count="2739">2.739</div>
+          <div class="kpi-split">
+            <div><span class="label">Marzo</span><span class="val">1.891</span></div>
+            <div><span class="label">Abril</span><span class="val">1.510</span></div>
+          </div>
+        </div>
+        <div class="kpi accent-coral">
+          <div class="kpi-label">Damas únicas</div>
+          <div class="kpi-value" data-count="933">933</div>
+          <div class="kpi-split">
+            <div><span class="label">Marzo</span><span class="val">572</span></div>
+            <div><span class="label">Abril</span><span class="val">532</span></div>
+          </div>
+        </div>
+        <div class="kpi accent-ink">
+          <div class="kpi-label">Total jugadores</div>
+          <div class="kpi-value" data-count="3672">3.672</div>
+          <div class="kpi-split">
+            <div><span class="label">% Cab.</span><span class="val">74,6%</span></div>
+            <div><span class="label">% Dam.</span><span class="val">25,4%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="split-grid">
+        <div class="split-card cab">
+          <h3>Caballeros</h3>
+          <div class="big">2.739</div>
+          <div class="ctx">jugadores únicos en 203 torneos</div>
+          <div class="stats-row">
+            <div><div class="lbl">Torneos</div><div class="val">203</div></div>
+            <div><div class="lbl">Marzo</div><div class="val">115</div></div>
+            <div><div class="lbl">Abril</div><div class="val">88</div></div>
+          </div>
+          <div class="pctg">
+            <div class="n">74,6%</div>
+            <div class="l">del total</div>
+          </div>
+        </div>
+        <div class="split-card dam">
+          <h3>Damas</h3>
+          <div class="big">933</div>
+          <div class="ctx">jugadoras únicas en 94 torneos</div>
+          <div class="stats-row">
+            <div><div class="lbl">Torneos</div><div class="val">94</div></div>
+            <div><div class="lbl">Marzo</div><div class="val">54</div></div>
+            <div><div class="lbl">Abril</div><div class="val">40</div></div>
+          </div>
+          <div class="pctg">
+            <div class="n">25,4%</div>
+            <div class="l">del total</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Promedio de jugadores por torneo</div>
+            <div class="card-subtitle">Jugadores únicos ÷ cantidad de torneos, por período</div>
+          </div>
+        </div>
+        <div class="avg-chart">
+          <div class="avg-block cab">
+            <h4><span class="dot"></span>Caballeros</h4>
+            <div class="avg-bars">
+              <div class="lbl">Marzo</div>
+              <div class="track"><div class="fill" data-w="94"></div></div>
+              <div class="num">16,4</div>
+            </div>
+            <div class="avg-bars">
+              <div class="lbl partial">Abril</div>
+              <div class="track"><div class="fill" data-w="99"></div></div>
+              <div class="num">17,2</div>
+            </div>
+            <div class="avg-bars">
+              <div class="lbl">Total</div>
+              <div class="track"><div class="fill" data-w="77"></div></div>
+              <div class="num">13,5</div>
+            </div>
+          </div>
+          <div class="avg-block dam">
+            <h4><span class="dot"></span>Damas</h4>
+            <div class="avg-bars">
+              <div class="lbl">Marzo</div>
+              <div class="track"><div class="fill" data-w="61"></div></div>
+              <div class="num">10,6</div>
+            </div>
+            <div class="avg-bars">
+              <div class="lbl partial">Abril</div>
+              <div class="track"><div class="fill" data-w="76"></div></div>
+              <div class="num">13,3</div>
+            </div>
+            <div class="avg-bars">
+              <div class="lbl">Total</div>
+              <div class="track"><div class="fill" data-w="57"></div></div>
+              <div class="num">9,9</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECCIÓN: CABALLEROS ============ -->
+    <section id="caballeros">
+      <div class="section-title">Ranking caballeros</div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Jugadores por torneos jugados</div>
+            <div class="card-subtitle">2.739 caballeros · ordenados de mayor a menor actividad</div>
+          </div>
+        </div>
+        <div class="table-controls">
+          <div class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="search-cab" placeholder="Buscar caballero por nombre…">
+          </div>
+          <div class="segment" id="seg-cab">
+            <button class="on" data-sort="t">Total</button>
+            <button data-sort="m">Marzo</button>
+            <button data-sort="a">Abril</button>
+          </div>
+          <div class="count-badge" id="count-cab">— jugadores</div>
+        </div>
+        <table class="player-table" id="table-cab">
+          <thead>
+            <tr>
+              <th class="rank">#</th>
+              <th>Jugador</th>
+              <th class="num">Marzo</th>
+              <th class="num">Abril</th>
+              <th class="num">Total</th>
+              <th class="bar-cell">Actividad</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="table-footer">
+          <button class="btn-expand" id="expand-cab">
+            <span>Ver todos los 2.739 caballeros</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECCIÓN: DAMAS ============ -->
+    <section id="damas" class="damas">
+      <div class="section-title">Ranking damas</div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Jugadoras por torneos jugados</div>
+            <div class="card-subtitle">933 damas · ordenadas de mayor a menor actividad</div>
+          </div>
+        </div>
+        <div class="table-controls">
+          <div class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.35-4.35"/></svg>
+            <input type="text" id="search-dam" placeholder="Buscar dama por nombre…">
+          </div>
+          <div class="segment" id="seg-dam">
+            <button class="on" data-sort="t">Total</button>
+            <button data-sort="m">Marzo</button>
+            <button data-sort="a">Abril</button>
+          </div>
+          <div class="count-badge" id="count-dam">— jugadoras</div>
+        </div>
+        <table class="player-table" id="table-dam">
+          <thead>
+            <tr>
+              <th class="rank">#</th>
+              <th>Jugadora</th>
+              <th class="num">Marzo</th>
+              <th class="num">Abril</th>
+              <th class="num">Total</th>
+              <th class="bar-cell">Actividad</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="table-footer">
+          <button class="btn-expand" id="expand-dam">
+            <span>Ver todas las 933 damas</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECCIÓN: DISTRIBUCIÓN ============ -->
+    <section id="distribucion">
+      <div class="section-title">Distribución por cantidad de torneos</div>
+
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Caballeros</div>
+            <div class="card-subtitle">Cómo se reparten los 2.739 caballeros según cuántos torneos jugaron</div>
+          </div>
+        </div>
+        <div class="dist-grid" id="dist-cab"></div>
+      </div>
+
+      <div class="card damas">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Damas</div>
+            <div class="card-subtitle">Cómo se reparten las 933 damas según cuántos torneos jugaron</div>
+          </div>
+        </div>
+        <div class="dist-grid" id="dist-dam"></div>
+      </div>
+    </section>
+
+    <!-- ============ SECCIÓN: COMPARATIVA ============ -->
+    <section id="comparativa">
+      <div class="section-title">Caballeros vs Damas</div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <div class="card-title">Comparativa global</div>
+            <div class="card-subtitle">Distribución proporcional entre caballeros y damas por cada métrica</div>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="sw" style="background:var(--otp-blue)"></span> Caballeros</div>
+          <div class="legend-item"><span class="sw" style="background:var(--otp-coral)"></span> Damas</div>
+        </div>
+        <div id="compare-rows"></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+const DATA = {"caballeros":[{"n":"Max Grigorev","m":16,"a":7,"t":23},{"n":"Celso Howlin","m":13,"a":6,"t":19},{"n":"Martin Rioseco","m":10,"a":7,"t":17},{"n":"Maximiliano Ozan","m":11,"a":4,"t":15},{"n":"Sebastian Cimino","m":10,"a":4,"t":14},{"n":"Juan Choi","m":9,"a":5,"t":14},{"n":"Matias Nudel","m":7,"a":7,"t":14},{"n":"Agustin Nahuel Cassieri","m":10,"a":3,"t":13},{"n":"Alejandro Pariente","m":9,"a":4,"t":13},{"n":"Sergio Fernández","m":9,"a":4,"t":13},{"n":"Sergio Ventura","m":9,"a":4,"t":13},{"n":"Christian Samuelian","m":8,"a":4,"t":12},{"n":"Evgeny Gurulev","m":8,"a":4,"t":12},{"n":"Exequiel Sens Hourcade","m":8,"a":4,"t":12},{"n":"Jorge Alvarez","m":8,"a":4,"t":12},{"n":"Mariano Gimenez","m":8,"a":4,"t":12},{"n":"Daniel Salaberry","m":10,"a":1,"t":11},{"n":"Luca Guidolin","m":8,"a":3,"t":11},{"n":"Mariano Pocrnjic","m":7,"a":4,"t":11},{"n":"Nicolas Alejanndro Perez","m":7,"a":4,"t":11},{"n":"Pablo Ariel Recanatti","m":5,"a":6,"t":11},{"n":"Matias Platas","m":7,"a":3,"t":10},{"n":"Mariano Lopez","m":6,"a":4,"t":10},{"n":"Alan Gliksberg","m":5,"a":5,"t":10},{"n":"Carlos Strazzullo","m":5,"a":5,"t":10},{"n":"Lucas Martino","m":5,"a":4,"t":9},{"n":"Mikhail Kirillov","m":5,"a":4,"t":9},{"n":"Ramiro Martinez Dios","m":4,"a":5,"t":9},{"n":"Guido Lopez","m":6,"a":2,"t":8},{"n":"Juan Manuel Stalla","m":6,"a":2,"t":8},{"n":"Nicolas Cherne","m":6,"a":2,"t":8},{"n":"Ariel Scarcella","m":5,"a":3,"t":8},{"n":"Artem Titov","m":5,"a":3,"t":8},{"n":"Emanuel Samuelian","m":5,"a":3,"t":8},{"n":"Mariano Javier Lopez","m":5,"a":3,"t":8},{"n":"Matias Ariosa","m":5,"a":3,"t":8},{"n":"Nahuel Matias Leone","m":5,"a":3,"t":8},{"n":"Pablo Sanchez","m":5,"a":3,"t":8},{"n":"Rodrigo Ezcurra","m":5,"a":3,"t":8},{"n":"Tomás Milessi","m":5,"a":3,"t":8},{"n":"Albano Crocci","m":4,"a":4,"t":8},{"n":"Federico Vicente","m":4,"a":4,"t":8},{"n":"Fredy Montes De Oca","m":4,"a":4,"t":8},{"n":"Maximiliano Sung","m":4,"a":4,"t":8},{"n":"Vlad Ganshin","m":4,"a":4,"t":8},{"n":"Gustavo Gauna","m":7,"a":0,"t":7},{"n":"Andy Jazmin","m":6,"a":1,"t":7},{"n":"Carlos Resco","m":6,"a":1,"t":7},{"n":"Diego Lorenzon","m":5,"a":2,"t":7},{"n":"Ezequiel Cuniolo","m":5,"a":2,"t":7},{"n":"Gabriela Gimenez","m":5,"a":2,"t":7},{"n":"Hernan Bock","m":5,"a":2,"t":7},{"n":"Lautaro Cochia","m":5,"a":2,"t":7},{"n":"Roberto Albornoz","m":5,"a":2,"t":7},{"n":"Armando Ponce","m":4,"a":3,"t":7},{"n":"Cristian Lecchi","m":4,"a":3,"t":7},{"n":"Edgardo Zurlo","m":4,"a":3,"t":7},{"n":"Gabriel Cardozo","m":4,"a":3,"t":7},{"n":"Hugo Lacrampette","m":4,"a":3,"t":7},{"n":"Joan Oliva","m":4,"a":3,"t":7},{"n":"Mauro Galatti","m":4,"a":3,"t":7},{"n":"Miguel Pragier","m":4,"a":3,"t":7},{"n":"Nahuel Nicolás Boderone","m":4,"a":3,"t":7},{"n":"Pablo Kitaigorodsky","m":4,"a":3,"t":7},{"n":"Pablo Pastore","m":4,"a":3,"t":7},{"n":"Patricio Caruso","m":4,"a":3,"t":7},{"n":"Sebastian Fresia Miceli","m":4,"a":3,"t":7},{"n":"Sergio Binetti","m":4,"a":3,"t":7},{"n":"Sergio Jaureguiberry","m":4,"a":3,"t":7},{"n":"Sergio Olguin","m":4,"a":3,"t":7},{"n":"Tobías Pérez","m":4,"a":3,"t":7},{"n":"Emanuel Da Motta","m":3,"a":4,"t":7},{"n":"Ezequiel Espina","m":3,"a":4,"t":7},{"n":"Gibson Villamizar","m":3,"a":4,"t":7},{"n":"Martin Varela","m":3,"a":4,"t":7},{"n":"Esteban Radanich","m":2,"a":5,"t":7},{"n":"Marcelo Roman","m":6,"a":0,"t":6},{"n":"Ariel Rocchi","m":5,"a":1,"t":6},{"n":"Juan Manuel Florez","m":5,"a":1,"t":6},{"n":"Manuel Mansilla","m":5,"a":1,"t":6},{"n":"Nicolás Fernandes","m":5,"a":1,"t":6},{"n":"Santiago Alvarez","m":5,"a":1,"t":6},{"n":"Santiago Campo","m":5,"a":1,"t":6},{"n":"Santino Rocchi","m":5,"a":1,"t":6},{"n":"Agustin Williams","m":4,"a":2,"t":6},{"n":"Ariel Trefiletti","m":4,"a":2,"t":6},{"n":"Artem Kononenko","m":4,"a":2,"t":6},{"n":"Caetano Camelia","m":4,"a":2,"t":6},{"n":"Claudia Sayago","m":4,"a":2,"t":6},{"n":"Federico Camps","m":4,"a":2,"t":6},{"n":"Gabriel Rios","m":4,"a":2,"t":6},{"n":"Gonzalo Dotto","m":4,"a":2,"t":6},{"n":"Gustavo Gonzalez","m":4,"a":2,"t":6},{"n":"Hernán Tommaso","m":4,"a":2,"t":6},{"n":"Lautaro Sicher","m":4,"a":2,"t":6},{"n":"Leonardo Jacob","m":4,"a":2,"t":6},{"n":"Maksim Goncharov","m":4,"a":2,"t":6},{"n":"Matias Alessandrello","m":4,"a":2,"t":6},{"n":"Matias Martin","m":4,"a":2,"t":6},{"n":"Nahuel Gaggieta","m":4,"a":2,"t":6},{"n":"Octavio Seiner","m":4,"a":2,"t":6},{"n":"Pablo De Vega","m":4,"a":2,"t":6},{"n":"Agustin Emilio Izaguirre","m":3,"a":3,"t":6},{"n":"Angel Esteban","m":3,"a":3,"t":6},{"n":"Enzo Chiaramonte","m":3,"a":3,"t":6},{"n":"Gonzalo Elías","m":3,"a":3,"t":6},{"n":"Ignacio Germán Semilla","m":3,"a":3,"t":6},{"n":"Juan Pablo Costilla","m":3,"a":3,"t":6},{"n":"Julián Valle","m":3,"a":3,"t":6},{"n":"Kevin Pelender","m":3,"a":3,"t":6},{"n":"Leandro Parodi","m":3,"a":3,"t":6},{"n":"Mariano Racco","m":3,"a":3,"t":6},{"n":"Mariano Velasco","m":3,"a":3,"t":6},{"n":"Nicolas Nocetti","m":3,"a":3,"t":6},{"n":"Orlando Raicedo","m":3,"a":3,"t":6},{"n":"Diego Rojo","m":2,"a":4,"t":6},{"n":"Gustavo Cuevas Merlo","m":2,"a":4,"t":6},{"n":"Joaquín Palenzuela","m":2,"a":4,"t":6},{"n":"Rodrigo Llinares","m":2,"a":4,"t":6},{"n":"Diego Sivori","m":1,"a":5,"t":6},{"n":"Fabian Ariel Nuñez","m":5,"a":0,"t":5},{"n":"Federico Danieli","m":5,"a":0,"t":5},{"n":"Gabriel Costa","m":5,"a":0,"t":5},{"n":"Guido Costa","m":5,"a":0,"t":5},{"n":"Nicolas Iva","m":5,"a":0,"t":5},{"n":"Valentin Hermoshilla","m":5,"a":0,"t":5},{"n":"Alan Chuquel","m":4,"a":1,"t":5},{"n":"Augusto Danzi Biaus","m":4,"a":1,"t":5},{"n":"Bruno Stocco","m":4,"a":1,"t":5},{"n":"Claudio Chura","m":4,"a":1,"t":5},{"n":"Daniel Chang","m":4,"a":1,"t":5},{"n":"Daniel Hong","m":4,"a":1,"t":5},{"n":"Federico Medina","m":4,"a":1,"t":5},{"n":"Federico Peon","m":4,"a":1,"t":5},{"n":"Fernando Vazquez","m":4,"a":1,"t":5},{"n":"Juan Pablo Martin","m":4,"a":1,"t":5},{"n":"Kevin Kim","m":4,"a":1,"t":5},{"n":"Lucas Mareque","m":4,"a":1,"t":5},{"n":"Luciano Shin","m":4,"a":1,"t":5},{"n":"Melisa Gimenez","m":4,"a":1,"t":5},{"n":"Nicolas Viñas","m":4,"a":1,"t":5},{"n":"Thiago De Cillis","m":4,"a":1,"t":5},{"n":"Yuri Rossi","m":4,"a":1,"t":5},{"n":"Aaron Hwang","m":3,"a":2,"t":5},{"n":"Alejandro Javier Epiro","m":3,"a":2,"t":5},{"n":"Andrei Guzhavin","m":3,"a":2,"t":5},{"n":"Ariel Ciclone","m":3,"a":2,"t":5},{"n":"Ariel Kowiensky","m":3,"a":2,"t":5},{"n":"Cristian Martin","m":3,"a":2,"t":5},{"n":"Ivan Cappelli","m":3,"a":2,"t":5},{"n":"Martín Rinemberg","m":3,"a":2,"t":5},{"n":"Matias Javier Borre","m":3,"a":2,"t":5},{"n":"Mikhail Smusev","m":3,"a":2,"t":5},{"n":"Nacho Myronec","m":3,"a":2,"t":5},{"n":"Nicolas Martin","m":3,"a":2,"t":5},{"n":"Pablo Fernandez","m":3,"a":2,"t":5},{"n":"Pablo Ivanoff","m":3,"a":2,"t":5},{"n":"Alfredo Mansilla","m":2,"a":3,"t":5},{"n":"Cristian Boldrini","m":2,"a":3,"t":5},{"n":"Daniel Rebull","m":2,"a":3,"t":5},{"n":"Diego Radío","m":2,"a":3,"t":5},{"n":"Federico Delise","m":2,"a":3,"t":5},{"n":"Gregorio Dieguez","m":2,"a":3,"t":5},{"n":"Ian Franco Gatto Martins Curto","m":2,"a":3,"t":5},{"n":"Juan Francisco Brunati Vera","m":2,"a":3,"t":5},{"n":"Juan Jorge De Tomaso","m":2,"a":3,"t":5},{"n":"Juan Pablo De Tomaso","m":2,"a":3,"t":5},{"n":"Kevin Alvarez Sly","m":2,"a":3,"t":5},{"n":"Lucas Oviedo","m":2,"a":3,"t":5},{"n":"Luis Eduardo Retola","m":2,"a":3,"t":5},{"n":"Nicolás Verdú","m":2,"a":3,"t":5},{"n":"Pablo Guimaraes","m":2,"a":3,"t":5},{"n":"Rodrigo Laco","m":2,"a":3,"t":5},{"n":"Rodrigo Valdivieso","m":2,"a":3,"t":5},{"n":"Sebastián Luguercio","m":2,"a":3,"t":5},{"n":"Matias Alfini","m":0,"a":5,"t":5},{"n":"Brian Wainer","m":4,"a":0,"t":4},{"n":"Cristian Juarez","m":4,"a":0,"t":4},{"n":"Daniel Choi","m":4,"a":0,"t":4},{"n":"Daro Sánchez","m":4,"a":0,"t":4},{"n":"Diego Carballo","m":4,"a":0,"t":4},{"n":"Enzo Castro","m":4,"a":0,"t":4},{"n":"Facundo Marinkovic","m":4,"a":0,"t":4},{"n":"Federico Hernandez","m":4,"a":0,"t":4},{"n":"Germán Berwanger","m":4,"a":0,"t":4},{"n":"Germán Silva","m":4,"a":0,"t":4},{"n":"Juan Montorro","m":4,"a":0,"t":4},{"n":"Julian Lahittette","m":4,"a":0,"t":4},{"n":"Lucas Lee","m":4,"a":0,"t":4},{"n":"Lucas Peralta","m":4,"a":0,"t":4},{"n":"Lucas Quint","m":4,"a":0,"t":4},{"n":"Manuel Indij","m":4,"a":0,"t":4},{"n":"Mateo Fitzsimons","m":4,"a":0,"t":4},{"n":"Matias Nejamkis","m":4,"a":0,"t":4},{"n":"Matías Coronato","m":4,"a":0,"t":4},{"n":"Nicolas Juarez","m":4,"a":0,"t":4},{"n":"Nicolás Turkovic","m":4,"a":0,"t":4},{"n":"Paz Coarasa","m":4,"a":0,"t":4},{"n":"Pedro Polyblank","m":4,"a":0,"t":4},{"n":"Renzo Cobos","m":4,"a":0,"t":4},{"n":"Ricardo Sarmentero","m":4,"a":0,"t":4},{"n":"Santino Sanchez Peral","m":4,"a":0,"t":4},{"n":"Valentino Sachsenhauser","m":4,"a":0,"t":4},{"n":"Alex Kim","m":3,"a":1,"t":4},{"n":"Andrei Kuzmin","m":3,"a":1,"t":4},{"n":"Belen Guasch","m":3,"a":1,"t":4},{"n":"Benjamin De Vega Sanchez","m":3,"a":1,"t":4},{"n":"Braian Cabrera","m":3,"a":1,"t":4},{"n":"Christian Forte","m":3,"a":1,"t":4},{"n":"Christian Lepore","m":3,"a":1,"t":4},{"n":"Chung Chin Cho","m":3,"a":1,"t":4},{"n":"Cristiam Haddad","m":3,"a":1,"t":4},{"n":"Damián Espina","m":3,"a":1,"t":4},{"n":"Diego Olivadoti","m":3,"a":1,"t":4},{"n":"Eduardo Zacchigna","m":3,"a":1,"t":4},{"n":"Emiliano Teevi","m":3,"a":1,"t":4},{"n":"Ezequiel Cinqugrana","m":3,"a":1,"t":4},{"n":"Federico Cavallo","m":3,"a":1,"t":4},{"n":"Francisco Banchero","m":3,"a":1,"t":4},{"n":"Francisco Bizzanelli","m":3,"a":1,"t":4},{"n":"Gabriel Lupo","m":3,"a":1,"t":4},{"n":"Gabriel Urbano","m":3,"a":1,"t":4},{"n":"Gonzalo Bailaque","m":3,"a":1,"t":4},{"n":"Ignacio Priegue","m":3,"a":1,"t":4},{"n":"Ihar Abchynets","m":3,"a":1,"t":4},{"n":"Ivan Balzano","m":3,"a":1,"t":4},{"n":"Ivan Fonin","m":3,"a":1,"t":4},{"n":"Javier Lanci","m":3,"a":1,"t":4},{"n":"Joaquin Gabriel Arbesu","m":3,"a":1,"t":4},{"n":"Joaquin Hagelstrom","m":3,"a":1,"t":4},{"n":"Juan Martin Dindart","m":3,"a":1,"t":4},{"n":"Julian Valdez","m":3,"a":1,"t":4},{"n":"Keinny Pacheco","m":3,"a":1,"t":4},{"n":"Leandro Ban","m":3,"a":1,"t":4},{"n":"Leandro Heffes","m":3,"a":1,"t":4},{"n":"Leonardo Larrusse","m":3,"a":1,"t":4},{"n":"Loreley Montes De Oca","m":3,"a":1,"t":4},{"n":"Lucas Lim","m":3,"a":1,"t":4},{"n":"Lucas Puglia","m":3,"a":1,"t":4},{"n":"Lucia Rodriguez","m":3,"a":1,"t":4},{"n":"Marcelo Moya","m":3,"a":1,"t":4},{"n":"Mariano Maiola","m":3,"a":1,"t":4},{"n":"Mauro Agüero","m":3,"a":1,"t":4},{"n":"Milton Garcia","m":3,"a":1,"t":4},{"n":"Pedro Benozzi","m":3,"a":1,"t":4},{"n":"Rocio Risoluto","m":3,"a":1,"t":4},{"n":"Santiago Cavallo","m":3,"a":1,"t":4},{"n":"Sergio Quintero","m":3,"a":1,"t":4},{"n":"Tobías Motta Bittencourt","m":3,"a":1,"t":4},{"n":"Tomas Brillo","m":3,"a":1,"t":4},{"n":"Tomas Vroonland","m":3,"a":1,"t":4},{"n":"Tony Sanchez","m":3,"a":1,"t":4},{"n":"Agustin Gomel","m":2,"a":2,"t":4},{"n":"Agustin Peluffo","m":2,"a":2,"t":4},{"n":"Alejandro Oh","m":2,"a":2,"t":4},{"n":"Andrew Ross","m":2,"a":2,"t":4},{"n":"Braian Rodríguez","m":2,"a":2,"t":4},{"n":"Carlos Martearena","m":2,"a":2,"t":4},{"n":"Daniel Jaimes","m":2,"a":2,"t":4},{"n":"Daniel Torres","m":2,"a":2,"t":4},{"n":"Dario Amaro","m":2,"a":2,"t":4},{"n":"Elias Arias","m":2,"a":2,"t":4},{"n":"Elio Cortiña","m":2,"a":2,"t":4},{"n":"Ezequiel Ciccone","m":2,"a":2,"t":4},{"n":"Ezequiel Ortiz","m":2,"a":2,"t":4},{"n":"Facundo Esteban Mojico","m":2,"a":2,"t":4},{"n":"Facundo Finola","m":2,"a":2,"t":4},{"n":"Facundo Vega","m":2,"a":2,"t":4},{"n":"Federico Villarino","m":2,"a":2,"t":4},{"n":"Franco Cocchiarale","m":2,"a":2,"t":4},{"n":"Franco Scagnetti","m":2,"a":2,"t":4},{"n":"Franco Tomasone","m":2,"a":2,"t":4},{"n":"Gabriel Herecarte","m":2,"a":2,"t":4},{"n":"German Tomakinyan","m":2,"a":2,"t":4},{"n":"Gianni Faini","m":2,"a":2,"t":4},{"n":"Gustavo Diaz","m":2,"a":2,"t":4},{"n":"Ignacio Ezequiel Kiri","m":2,"a":2,"t":4},{"n":"Javier Mato","m":2,"a":2,"t":4},{"n":"Joel Fraga","m":2,"a":2,"t":4},{"n":"Juan Gonzalez","m":2,"a":2,"t":4},{"n":"Juan Marcelo Sayago","m":2,"a":2,"t":4},{"n":"Juan Sebastian Tarascon","m":2,"a":2,"t":4},{"n":"Julian Oroñas","m":2,"a":2,"t":4},{"n":"Leonardo Berejano","m":2,"a":2,"t":4},{"n":"Marco Senoseti","m":2,"a":2,"t":4},{"n":"Martin Bec","m":2,"a":2,"t":4},{"n":"Nicolas Rossi","m":2,"a":2,"t":4},{"n":"Nicolas Simeone","m":2,"a":2,"t":4},{"n":"Olga Ro","m":2,"a":2,"t":4},{"n":"Patricio Moni","m":2,"a":2,"t":4},{"n":"Santiago Gancedo","m":2,"a":2,"t":4},{"n":"Santiago Gil","m":2,"a":2,"t":4},{"n":"Soledad Herrero","m":2,"a":2,"t":4},{"n":"Tomas Ruiz","m":2,"a":2,"t":4},{"n":"Eugenia Perez Huergo","m":1,"a":3,"t":4},{"n":"Fernando Ponzi","m":1,"a":3,"t":4},{"n":"Iñaki Serra","m":1,"a":3,"t":4},{"n":"Juan Gomez","m":1,"a":3,"t":4},{"n":"Marcos Ortiz","m":1,"a":3,"t":4},{"n":"Mariano Malitti","m":1,"a":3,"t":4},{"n":"Martin Almada","m":1,"a":3,"t":4},{"n":"Matías Layral Villasboas","m":1,"a":3,"t":4},{"n":"Nicolas Zanotti","m":1,"a":3,"t":4},{"n":"Pablo M Gonzalez","m":1,"a":3,"t":4},{"n":"Rodrigo Ferradas","m":1,"a":3,"t":4},{"n":"Alan Pichot","m":3,"a":0,"t":3},{"n":"Alejo Vieyra","m":3,"a":0,"t":3},{"n":"Andres Biagini","m":3,"a":0,"t":3},{"n":"Cecilia Celeste Frascaroli","m":3,"a":0,"t":3},{"n":"Damian Javier Cialdella","m":3,"a":0,"t":3},{"n":"Daniel Kim","m":3,"a":0,"t":3},{"n":"Diego Menafra","m":3,"a":0,"t":3},{"n":"Diego Santos","m":3,"a":0,"t":3},{"n":"Edgardo Byun","m":3,"a":0,"t":3},{"n":"Emiliano Alderete","m":3,"a":0,"t":3},{"n":"Emir Baca","m":3,"a":0,"t":3},{"n":"Ezequiel Wesolowski","m":3,"a":0,"t":3},{"n":"Facundo Tami","m":3,"a":0,"t":3},{"n":"Federico Quintana Roman","m":3,"a":0,"t":3},{"n":"Fernando Velazquez","m":3,"a":0,"t":3},{"n":"Francisco Olives","m":3,"a":0,"t":3},{"n":"Gaston Garcia","m":3,"a":0,"t":3},{"n":"Gaston Saksida","m":3,"a":0,"t":3},{"n":"Guido Bustos Alvarez","m":3,"a":0,"t":3},{"n":"Hector Fernando Moreno","m":3,"a":0,"t":3},{"n":"Hernan Gargiulo","m":3,"a":0,"t":3},{"n":"Jorge Salomé","m":3,"a":0,"t":3},{"n":"Juan Ignacio Castro","m":3,"a":0,"t":3},{"n":"Juan Ignacio Fernandez","m":3,"a":0,"t":3},{"n":"Juan Lopez Del Molino","m":3,"a":0,"t":3},{"n":"Juluan Oroñas","m":3,"a":0,"t":3},{"n":"Leonardo Rodriguez","m":3,"a":0,"t":3},{"n":"Luca Veron","m":3,"a":0,"t":3},{"n":"Lucas Martín Colella","m":3,"a":0,"t":3},{"n":"Matias Garcia","m":3,"a":0,"t":3},{"n":"Mauricio Lopardo","m":3,"a":0,"t":3},{"n":"Mauro Alberto Paccanini","m":3,"a":0,"t":3},{"n":"Maximiliano Mantesi Chaban","m":3,"a":0,"t":3},{"n":"Máximo Serra","m":3,"a":0,"t":3},{"n":"Nicanor Magni","m":3,"a":0,"t":3},{"n":"Pablo Gonzalez","m":3,"a":0,"t":3},{"n":"Paul Lean Cole","m":3,"a":0,"t":3},{"n":"Santiago Bosco","m":3,"a":0,"t":3},{"n":"Sergio Rodríguez","m":3,"a":0,"t":3},{"n":"Uriel Simone","m":3,"a":0,"t":3},{"n":"Alexander Busto","m":2,"a":1,"t":3},{"n":"Andrei Zolin","m":2,"a":1,"t":3},{"n":"Anibal Straforini","m":2,"a":1,"t":3},{"n":"Ary Bacher","m":2,"a":1,"t":3},{"n":"Axel Bacher","m":2,"a":1,"t":3},{"n":"Belén Suarez","m":2,"a":1,"t":3},{"n":"Benicio Estevanez","m":2,"a":1,"t":3},{"n":"Braian Lise","m":2,"a":1,"t":3},{"n":"Carlos Narbe","m":2,"a":1,"t":3},{"n":"Christian Azcoaga","m":2,"a":1,"t":3},{"n":"Daniel Fernandez","m":2,"a":1,"t":3},{"n":"Diego Chebel","m":2,"a":1,"t":3},{"n":"Diego Fernandez","m":2,"a":1,"t":3},{"n":"Edgardo Olazaguirre","m":2,"a":1,"t":3},{"n":"Elias Emanuel Messina","m":2,"a":1,"t":3},{"n":"Emanuel Cuinas","m":2,"a":1,"t":3},{"n":"Emiliano Petrillo","m":2,"a":1,"t":3},{"n":"Ezequiel Conde","m":2,"a":1,"t":3},{"n":"Ezequiel Maldonado Riquelme","m":2,"a":1,"t":3},{"n":"Federico Gaston Morales","m":2,"a":1,"t":3},{"n":"Federico Pereira","m":2,"a":1,"t":3},{"n":"Federico Rosilo","m":2,"a":1,"t":3},{"n":"Federico Zardon","m":2,"a":1,"t":3},{"n":"Felipe Donato","m":2,"a":1,"t":3},{"n":"Fernando Cho","m":2,"a":1,"t":3},{"n":"Fernando Mazan","m":2,"a":1,"t":3},{"n":"Fernando Vaccaro","m":2,"a":1,"t":3},{"n":"Francisco Kim","m":2,"a":1,"t":3},{"n":"Francisco Seidenari","m":2,"a":1,"t":3},{"n":"Franco Daglio","m":2,"a":1,"t":3},{"n":"Gaston Frutos","m":2,"a":1,"t":3},{"n":"Gaston Kisiala","m":2,"a":1,"t":3},{"n":"Gonzalo Dávila","m":2,"a":1,"t":3},{"n":"Gonzalo Gimenez","m":2,"a":1,"t":3},{"n":"Guido Calvi","m":2,"a":1,"t":3},{"n":"Gustavo Cantero","m":2,"a":1,"t":3},{"n":"Hernan Hagelstrom","m":2,"a":1,"t":3},{"n":"Ignacio Gigena","m":2,"a":1,"t":3},{"n":"Ivan Pérez Lombardo","m":2,"a":1,"t":3},{"n":"Javier Burocco","m":2,"a":1,"t":3},{"n":"Javier Monedero","m":2,"a":1,"t":3},{"n":"Jefferson Dos Santos","m":2,"a":1,"t":3},{"n":"Jesus Calvo","m":2,"a":1,"t":3},{"n":"Joan Paz","m":2,"a":1,"t":3},{"n":"Joaquin Garcia","m":2,"a":1,"t":3},{"n":"Joaquin Notta","m":2,"a":1,"t":3},{"n":"Joaquin Palazzo","m":2,"a":1,"t":3},{"n":"Joaquin Sanchez","m":2,"a":1,"t":3},{"n":"Joaquín Silva Ludman","m":2,"a":1,"t":3},{"n":"Jonatan Ariel Cobas","m":2,"a":1,"t":3},{"n":"Jonatan Dumbrosvski","m":2,"a":1,"t":3},{"n":"Juan Francisco Arcieri","m":2,"a":1,"t":3},{"n":"Juan Francisco Valente","m":2,"a":1,"t":3},{"n":"Juan Hernandez","m":2,"a":1,"t":3},{"n":"Juan Ignacio Serafini","m":2,"a":1,"t":3},{"n":"Juan Manuel Garcia Aldabe","m":2,"a":1,"t":3},{"n":"Juan Pablo Romanelli","m":2,"a":1,"t":3},{"n":"Juanse Vila","m":2,"a":1,"t":3},{"n":"Julian Valenzuela","m":2,"a":1,"t":3},{"n":"Leandro Bruzzi","m":2,"a":1,"t":3},{"n":"Leandro Suarez","m":2,"a":1,"t":3},{"n":"Lucas Armanino","m":2,"a":1,"t":3},{"n":"Lucas Massarelli","m":2,"a":1,"t":3},{"n":"Lucas Ramos","m":2,"a":1,"t":3},{"n":"Luciano Aguilo D Amico","m":2,"a":1,"t":3},{"n":"Luciano Alessio","m":2,"a":1,"t":3},{"n":"Lucio Bianco","m":2,"a":1,"t":3},{"n":"Manuel Camejo","m":2,"a":1,"t":3},{"n":"Manuel Recchi","m":2,"a":1,"t":3},{"n":"Marco Di Croce","m":2,"a":1,"t":3},{"n":"Marcos Pittaluga","m":2,"a":1,"t":3},{"n":"Mariano Troitiño","m":2,"a":1,"t":3},{"n":"Martin Multisanti","m":2,"a":1,"t":3},{"n":"Martin Villegas","m":2,"a":1,"t":3},{"n":"Martín Aguirre","m":2,"a":1,"t":3},{"n":"Matias Osorio","m":2,"a":1,"t":3},{"n":"Matias Silva","m":2,"a":1,"t":3},{"n":"Matías Dañada","m":2,"a":1,"t":3},{"n":"Matías González","m":2,"a":1,"t":3},{"n":"Matías Magnetti","m":2,"a":1,"t":3},{"n":"Maxi Choi","m":2,"a":1,"t":3},{"n":"Maximiliano Martinez","m":2,"a":1,"t":3},{"n":"Maximiliano Meurer","m":2,"a":1,"t":3},{"n":"Nahuel Jurado","m":2,"a":1,"t":3},{"n":"Nicolas Fernandez Leon","m":2,"a":1,"t":3},{"n":"Nicolás Brandariz","m":2,"a":1,"t":3},{"n":"Nicolás Romero","m":2,"a":1,"t":3},{"n":"Patricio Iglesias","m":2,"a":1,"t":3},{"n":"Pedro Kleiman","m":2,"a":1,"t":3},{"n":"Rodrigo Ferreyra","m":2,"a":1,"t":3},{"n":"Santiago De Aurteneche","m":2,"a":1,"t":3},{"n":"Santiago Lucente","m":2,"a":1,"t":3},{"n":"Santiago Rejas","m":2,"a":1,"t":3},{"n":"Santino Magallanes","m":2,"a":1,"t":3},{"n":"Sebastian Lira","m":2,"a":1,"t":3},{"n":"Sebastian Nuño","m":2,"a":1,"t":3},{"n":"Sebastián Ariel Quetglas","m":2,"a":1,"t":3},{"n":"Sergio Perez","m":2,"a":1,"t":3},{"n":"Sergio Szymaniuk","m":2,"a":1,"t":3},{"n":"Thiago Rodriguez","m":2,"a":1,"t":3},{"n":"Tomas Almeira","m":2,"a":1,"t":3},{"n":"Tomas Wolaniuk","m":2,"a":1,"t":3},{"n":"Uriel Rubin","m":2,"a":1,"t":3},{"n":"Wilmer Pacheco","m":2,"a":1,"t":3},{"n":"Yanina Barbagelata","m":2,"a":1,"t":3},{"n":"Yonathan Szymaniuk","m":2,"a":1,"t":3},{"n":"Agustin Pantano","m":1,"a":2,"t":3},{"n":"Agustin Quiroz","m":1,"a":2,"t":3},{"n":"Agustin Soto","m":1,"a":2,"t":3},{"n":"Alejandro Lugones","m":1,"a":2,"t":3},{"n":"Alexey Gorbanev","m":1,"a":2,"t":3},{"n":"Andrea Garcia","m":1,"a":2,"t":3},{"n":"Ariel Antognini","m":1,"a":2,"t":3},{"n":"Ariel Kim","m":1,"a":2,"t":3},{"n":"Ariel Tarantino","m":1,"a":2,"t":3},{"n":"Beky Vera","m":1,"a":2,"t":3},{"n":"Boris Ulasevich","m":1,"a":2,"t":3},{"n":"Bruno Manzoni","m":1,"a":2,"t":3},{"n":"Bruno Zaffrani","m":1,"a":2,"t":3},{"n":"Christian Martin","m":1,"a":2,"t":3},{"n":"Cristian Kim","m":1,"a":2,"t":3},{"n":"Damian Uezen","m":1,"a":2,"t":3},{"n":"Danila Gorbanev","m":1,"a":2,"t":3},{"n":"Danilo Barreto","m":1,"a":2,"t":3},{"n":"Diego Dinter","m":1,"a":2,"t":3},{"n":"Diego Intagliata","m":1,"a":2,"t":3},{"n":"Diego Villavicencio","m":1,"a":2,"t":3},{"n":"Facundo Marianucci","m":1,"a":2,"t":3},{"n":"Facundo Pereyra","m":1,"a":2,"t":3},{"n":"Franco Lazarte","m":1,"a":2,"t":3},{"n":"Franco Lee","m":1,"a":2,"t":3},{"n":"Franco Toretta","m":1,"a":2,"t":3},{"n":"Gabriel Fuentes","m":1,"a":2,"t":3},{"n":"Guillermo Yoon","m":1,"a":2,"t":3},{"n":"Gustavo Liberzone","m":1,"a":2,"t":3},{"n":"Hernan Chun","m":1,"a":2,"t":3},{"n":"Ilan Chaskielberg","m":1,"a":2,"t":3},{"n":"Javier Marinelli","m":1,"a":2,"t":3},{"n":"Jose Meretta","m":1,"a":2,"t":3},{"n":"Juan Pablo Cascardo","m":1,"a":2,"t":3},{"n":"Julian Perez Blanco","m":1,"a":2,"t":3},{"n":"Leandro Alvarez","m":1,"a":2,"t":3},{"n":"Luca Errecart","m":1,"a":2,"t":3},{"n":"Lucas Morales","m":1,"a":2,"t":3},{"n":"Luciano Szylder","m":1,"a":2,"t":3},{"n":"Luciano Vedrovink","m":1,"a":2,"t":3},{"n":"Manuel Alonso","m":1,"a":2,"t":3},{"n":"Marcelo Escudero","m":1,"a":2,"t":3},{"n":"Marcos Clementti","m":1,"a":2,"t":3},{"n":"Mateo Arenas","m":1,"a":2,"t":3},{"n":"Mateo Cosentino","m":1,"a":2,"t":3},{"n":"Matias Bolzi","m":1,"a":2,"t":3},{"n":"Matias Bovio","m":1,"a":2,"t":3},{"n":"Matias Cohen","m":1,"a":2,"t":3},{"n":"Matias Güida","m":1,"a":2,"t":3},{"n":"Matias Maradona","m":1,"a":2,"t":3},{"n":"Matias Ortiz","m":1,"a":2,"t":3},{"n":"Matías Gastón Marianucci","m":1,"a":2,"t":3},{"n":"Matías Tarantino","m":1,"a":2,"t":3},{"n":"Mauro Fracchia","m":1,"a":2,"t":3},{"n":"Maximiliano Garces","m":1,"a":2,"t":3},{"n":"Maximo Jung","m":1,"a":2,"t":3},{"n":"Nacho Perez Calvia","m":1,"a":2,"t":3},{"n":"Nahuel Freso","m":1,"a":2,"t":3},{"n":"Nahuel Luna","m":1,"a":2,"t":3},{"n":"Nahuel Mejía","m":1,"a":2,"t":3},{"n":"Nicolas Choi","m":1,"a":2,"t":3},{"n":"Oscar Estrada","m":1,"a":2,"t":3},{"n":"Santino Heuser","m":1,"a":2,"t":3},{"n":"Sebastian Canaletti","m":1,"a":2,"t":3},{"n":"Tomas Brizuela","m":1,"a":2,"t":3},{"n":"Tomas Fernandez","m":1,"a":2,"t":3},{"n":"Tomas Leyria","m":1,"a":2,"t":3},{"n":"Vladimir Ulasevich","m":1,"a":2,"t":3},{"n":"Alexander Chacon","m":0,"a":3,"t":3},{"n":"Baltazar Borgonovo","m":0,"a":3,"t":3},{"n":"Emiliano Biscaiburo","m":0,"a":3,"t":3},{"n":"Francisco Basigalup","m":0,"a":3,"t":3},{"n":"Javier Camperi","m":0,"a":3,"t":3},{"n":"Joaquin Cordoba","m":0,"a":3,"t":3},{"n":"Matias Niborski","m":0,"a":3,"t":3},{"n":"Agustin Giovanoudis","m":2,"a":0,"t":2},{"n":"Agustin Repetto","m":2,"a":0,"t":2},{"n":"Agustina Torres","m":2,"a":0,"t":2},{"n":"Agustín Coustau","m":2,"a":0,"t":2},{"n":"Agustín Fernández","m":2,"a":0,"t":2},{"n":"Agustín Otazzu","m":2,"a":0,"t":2},{"n":"Agustín Valentinetti","m":2,"a":0,"t":2},{"n":"Alan Kim","m":2,"a":0,"t":2},{"n":"Alan López","m":2,"a":0,"t":2},{"n":"Alejandro Bertini","m":2,"a":0,"t":2},{"n":"Alejandro Del Corso","m":2,"a":0,"t":2},{"n":"Alejandro Gonzalez","m":2,"a":0,"t":2},{"n":"Alejandro Scherzer","m":2,"a":0,"t":2},{"n":"Andres Coria","m":2,"a":0,"t":2},{"n":"Andres Jun","m":2,"a":0,"t":2},{"n":"Artemio Tshakmakian","m":2,"a":0,"t":2},{"n":"Axel Marcos","m":2,"a":0,"t":2},{"n":"Axel Mercado","m":2,"a":0,"t":2},{"n":"Bastian Cardiff","m":2,"a":0,"t":2},{"n":"Benjamin Daher","m":2,"a":0,"t":2},{"n":"Brian Kim","m":2,"a":0,"t":2},{"n":"Bruno Manuel Gay","m":2,"a":0,"t":2},{"n":"Candela Filocamo","m":2,"a":0,"t":2},{"n":"Carlos Lozano","m":2,"a":0,"t":2},{"n":"Chanwool Ahn","m":2,"a":0,"t":2},{"n":"Cristian Banega","m":2,"a":0,"t":2},{"n":"Cristian Sagula","m":2,"a":0,"t":2},{"n":"Damian Pantano","m":2,"a":0,"t":2},{"n":"Damian Pimentel","m":2,"a":0,"t":2},{"n":"Daniel Marinkovic","m":2,"a":0,"t":2},{"n":"David Kim","m":2,"a":0,"t":2},{"n":"Deimon Noh","m":2,"a":0,"t":2},{"n":"Denis Safin","m":2,"a":0,"t":2},{"n":"Diego Monti","m":2,"a":0,"t":2},{"n":"Diego Nasti","m":2,"a":0,"t":2},{"n":"Diego Oranges","m":2,"a":0,"t":2},{"n":"Diego Petronio","m":2,"a":0,"t":2},{"n":"Diego Piuselli","m":2,"a":0,"t":2},{"n":"Duncan Alex Bortman","m":2,"a":0,"t":2},{"n":"Eduardo García Villamayor","m":2,"a":0,"t":2},{"n":"Emanuel Insua","m":2,"a":0,"t":2},{"n":"Emanuel Santos","m":2,"a":0,"t":2},{"n":"Emilio Lopardo","m":2,"a":0,"t":2},{"n":"Ezequiel Luna","m":2,"a":0,"t":2},{"n":"Ezequiel Onofrio","m":2,"a":0,"t":2},{"n":"Ezequiel Valentin Mazon","m":2,"a":0,"t":2},{"n":"Facundo Canavese","m":2,"a":0,"t":2},{"n":"Facundo Carabajal","m":2,"a":0,"t":2},{"n":"Federico Andres Coppari","m":2,"a":0,"t":2},{"n":"Federico Beun","m":2,"a":0,"t":2},{"n":"Federico Marin","m":2,"a":0,"t":2},{"n":"Federico Tammaro","m":2,"a":0,"t":2},{"n":"Fernando Cifarelli","m":2,"a":0,"t":2},{"n":"Fernando Elster","m":2,"a":0,"t":2},{"n":"Francisco Hauser","m":2,"a":0,"t":2},{"n":"Francisco Oddi","m":2,"a":0,"t":2},{"n":"Franco Aita","m":2,"a":0,"t":2},{"n":"Franco Dardenne","m":2,"a":0,"t":2},{"n":"Franco De Roia","m":2,"a":0,"t":2},{"n":"Franco Lopez","m":2,"a":0,"t":2},{"n":"Gabriel Byun","m":2,"a":0,"t":2},{"n":"Gabriel Serkin","m":2,"a":0,"t":2},{"n":"Gaston Fridman","m":2,"a":0,"t":2},{"n":"Gaston Tobias Maccagnani","m":2,"a":0,"t":2},{"n":"Gaston Tujcher","m":2,"a":0,"t":2},{"n":"Georgina Guerini","m":2,"a":0,"t":2},{"n":"Giuliano Politi","m":2,"a":0,"t":2},{"n":"Gonzalo Tanito Hammoe","m":2,"a":0,"t":2},{"n":"Gregorio Tarrio","m":2,"a":0,"t":2},{"n":"Guillermina Eiguchi","m":2,"a":0,"t":2},{"n":"Guillermo Sparapani","m":2,"a":0,"t":2},{"n":"Hernan Gersomino","m":2,"a":0,"t":2},{"n":"Hernan Pidre","m":2,"a":0,"t":2},{"n":"Hernan Sun","m":2,"a":0,"t":2},{"n":"Hernán Gonzalez","m":2,"a":0,"t":2},{"n":"Hernán Mastrángelo","m":2,"a":0,"t":2},{"n":"Ignacio Brezin","m":2,"a":0,"t":2},{"n":"Ignacio Corral","m":2,"a":0,"t":2},{"n":"Ignacio Suárez","m":2,"a":0,"t":2},{"n":"Ivanna López Lado","m":2,"a":0,"t":2},{"n":"Jonathan Dumbrosvski","m":2,"a":0,"t":2},{"n":"Jonathan Fiorda","m":2,"a":0,"t":2},{"n":"Jorge Cerviño","m":2,"a":0,"t":2},{"n":"Jorge Maradona","m":2,"a":0,"t":2},{"n":"Jose Luis Muñoz","m":2,"a":0,"t":2},{"n":"José María Tejedor","m":2,"a":0,"t":2},{"n":"Juan Cruz Ammirato","m":2,"a":0,"t":2},{"n":"Juan Miguel Iannone","m":2,"a":0,"t":2},{"n":"Juan Pablo Cabrera","m":2,"a":0,"t":2},{"n":"Juan Pablo De Felice","m":2,"a":0,"t":2},{"n":"Juan Pablo Torrillas","m":2,"a":0,"t":2},{"n":"Juan Pose","m":2,"a":0,"t":2},{"n":"Juanmanuel Gomez Espinosa","m":2,"a":0,"t":2},{"n":"Julian Ruiz","m":2,"a":0,"t":2},{"n":"Lautaro Magno","m":2,"a":0,"t":2},{"n":"Lautaro Sandoval","m":2,"a":0,"t":2},{"n":"Leandro Marquez","m":2,"a":0,"t":2},{"n":"Leandro Mondin","m":2,"a":0,"t":2},{"n":"Leonardo Fontana","m":2,"a":0,"t":2},{"n":"Lucas  Perez","m":2,"a":0,"t":2},{"n":"Lucas Contreras","m":2,"a":0,"t":2},{"n":"Lucas Riondini","m":2,"a":0,"t":2},{"n":"Lucas Spinelli","m":2,"a":0,"t":2},{"n":"Luciano Bloj","m":2,"a":0,"t":2},{"n":"Luciano Leal","m":2,"a":0,"t":2},{"n":"Manuel Pereyra","m":2,"a":0,"t":2},{"n":"Marcelo Lencina","m":2,"a":0,"t":2},{"n":"Marco Tymczyszyn","m":2,"a":0,"t":2},{"n":"Marcos Martín","m":2,"a":0,"t":2},{"n":"Mariano Martínez","m":2,"a":0,"t":2},{"n":"Mariano Santaguida","m":2,"a":0,"t":2},{"n":"Mariano Sobron","m":2,"a":0,"t":2},{"n":"Martin Califano","m":2,"a":0,"t":2},{"n":"Martin Chon","m":2,"a":0,"t":2},{"n":"Martin Gil Paricio","m":2,"a":0,"t":2},{"n":"Martin Marcelo Isaac","m":2,"a":0,"t":2},{"n":"Martin Mendez","m":2,"a":0,"t":2},{"n":"Martin Podesta","m":2,"a":0,"t":2},{"n":"Martin Soto","m":2,"a":0,"t":2},{"n":"Martín Jaroslavsky","m":2,"a":0,"t":2},{"n":"María Del Rosario Olivadoti","m":2,"a":0,"t":2},{"n":"Matias Brenns","m":2,"a":0,"t":2},{"n":"Matias Caride","m":2,"a":0,"t":2},{"n":"Matias Ezequiel Trimboli","m":2,"a":0,"t":2},{"n":"Matias Lera","m":2,"a":0,"t":2},{"n":"Matias Luppino","m":2,"a":0,"t":2},{"n":"Matias Migale","m":2,"a":0,"t":2},{"n":"Matias Pérez Acuña","m":2,"a":0,"t":2},{"n":"Matías Argibay","m":2,"a":0,"t":2},{"n":"Matías Milán","m":2,"a":0,"t":2},{"n":"Matías Nunez","m":2,"a":0,"t":2},{"n":"Matías Valditara","m":2,"a":0,"t":2},{"n":"Mauricio Martinez","m":2,"a":0,"t":2},{"n":"Mauro Barletta","m":2,"a":0,"t":2},{"n":"Maximiliano Lopez","m":2,"a":0,"t":2},{"n":"Maximiliano Morgante","m":2,"a":0,"t":2},{"n":"Mikhail Makarovskii","m":2,"a":0,"t":2},{"n":"Milagros Peon","m":2,"a":0,"t":2},{"n":"Milo Stankiewicz","m":2,"a":0,"t":2},{"n":"Milton Appel","m":2,"a":0,"t":2},{"n":"Nahuel Chimenti","m":2,"a":0,"t":2},{"n":"Nicolas Gimenez","m":2,"a":0,"t":2},{"n":"Nicolas Guillan","m":2,"a":0,"t":2},{"n":"Nicolas Marinkovic","m":2,"a":0,"t":2},{"n":"Nicolás Myler","m":2,"a":0,"t":2},{"n":"Nicolás Picallo","m":2,"a":0,"t":2},{"n":"Nikita Brotsman","m":2,"a":0,"t":2},{"n":"Pablo Alejandro Coppari","m":2,"a":0,"t":2},{"n":"Pablo Cristodero","m":2,"a":0,"t":2},{"n":"Pablo Firpo","m":2,"a":0,"t":2},{"n":"Pablo Son","m":2,"a":0,"t":2},{"n":"Pamela Sifra","m":2,"a":0,"t":2},{"n":"Pedro Baca Castex","m":2,"a":0,"t":2},{"n":"Pedro Corrado","m":2,"a":0,"t":2},{"n":"Rafael Ayr","m":2,"a":0,"t":2},{"n":"Ramiro Lopez","m":2,"a":0,"t":2},{"n":"Roberto Gonzalez","m":2,"a":0,"t":2},{"n":"Roberto Jung","m":2,"a":0,"t":2},{"n":"Rodrigo Gomez","m":2,"a":0,"t":2},{"n":"Ryan Eo","m":2,"a":0,"t":2},{"n":"Santiago Hidalgo","m":2,"a":0,"t":2},{"n":"Sebastian Moavro","m":2,"a":0,"t":2},{"n":"Sebastian Techeira","m":2,"a":0,"t":2},{"n":"Sergio Compañero","m":2,"a":0,"t":2},{"n":"Soledad Grandi","m":2,"a":0,"t":2},{"n":"Steven Fernandez","m":2,"a":0,"t":2},{"n":"Tadeo Quiroga","m":2,"a":0,"t":2},{"n":"Telemaco Trippetta","m":2,"a":0,"t":2},{"n":"Thiago Costa","m":2,"a":0,"t":2},{"n":"Thiago Gimenez","m":2,"a":0,"t":2},{"n":"Tiago Maccarrone","m":2,"a":0,"t":2},{"n":"Tiziano Trippetta","m":2,"a":0,"t":2},{"n":"Tomas Db","m":2,"a":0,"t":2},{"n":"Tomas Risoleo","m":2,"a":0,"t":2},{"n":"Tomas Sánchez","m":2,"a":0,"t":2},{"n":"Valentin Pérez García","m":2,"a":0,"t":2},{"n":"Walter Saksida","m":2,"a":0,"t":2},{"n":"Yamil Quezada","m":2,"a":0,"t":2},{"n":"Ybrahim Pacheco","m":2,"a":0,"t":2},{"n":"Adrian Priano","m":1,"a":1,"t":2},{"n":"Adrian Rodríguez","m":1,"a":1,"t":2},{"n":"Agustin Aguirre","m":1,"a":1,"t":2},{"n":"Agustin Alvarez Unzue","m":1,"a":1,"t":2},{"n":"Agustin Arturi","m":1,"a":1,"t":2},{"n":"Agustin Bigatti","m":1,"a":1,"t":2},{"n":"Agustin Fadda","m":1,"a":1,"t":2},{"n":"Agustina Buldorini","m":1,"a":1,"t":2},{"n":"Alan Soto","m":1,"a":1,"t":2},{"n":"Alberto Ho","m":1,"a":1,"t":2},{"n":"Aldana Mazzuchi","m":1,"a":1,"t":2},{"n":"Ale Bossio","m":1,"a":1,"t":2},{"n":"Alejandro Chiossi","m":1,"a":1,"t":2},{"n":"Alejandro Domingo","m":1,"a":1,"t":2},{"n":"Alejandro Maximiliano Camaño Ramos","m":1,"a":1,"t":2},{"n":"Alejandro Peretti","m":1,"a":1,"t":2},{"n":"Alejo Clerici","m":1,"a":1,"t":2},{"n":"Alejo Zerbo","m":1,"a":1,"t":2},{"n":"Alexey Chistov","m":1,"a":1,"t":2},{"n":"Alexis Fasano","m":1,"a":1,"t":2},{"n":"Andres Mendez","m":1,"a":1,"t":2},{"n":"Ariel Valdez","m":1,"a":1,"t":2},{"n":"Ariel Yi","m":1,"a":1,"t":2},{"n":"Augusto Monteiro","m":1,"a":1,"t":2},{"n":"Axel Coslovich","m":1,"a":1,"t":2},{"n":"Bautista Esses","m":1,"a":1,"t":2},{"n":"Brian Navarro","m":1,"a":1,"t":2},{"n":"Bruno Belcastro","m":1,"a":1,"t":2},{"n":"Camila Cleri","m":1,"a":1,"t":2},{"n":"Candela Paszkowski","m":1,"a":1,"t":2},{"n":"Candela Samos","m":1,"a":1,"t":2},{"n":"Carlos Manuel Gayoso","m":1,"a":1,"t":2},{"n":"Carlos Sebastian Park","m":1,"a":1,"t":2},{"n":"Christopher Cabrer","m":1,"a":1,"t":2},{"n":"Ciro Ferrari","m":1,"a":1,"t":2},{"n":"Claudio Corvalan","m":1,"a":1,"t":2},{"n":"Cristian Merello","m":1,"a":1,"t":2},{"n":"Damian Latronico","m":1,"a":1,"t":2},{"n":"Damian Scafidi","m":1,"a":1,"t":2},{"n":"Damian Yoo","m":1,"a":1,"t":2},{"n":"Daniel Lee","m":1,"a":1,"t":2},{"n":"Daniel Park","m":1,"a":1,"t":2},{"n":"Daniela Genovois","m":1,"a":1,"t":2},{"n":"Daniela Purciariello","m":1,"a":1,"t":2},{"n":"Dario H","m":1,"a":1,"t":2},{"n":"Dario Tabak","m":1,"a":1,"t":2},{"n":"Diego Aguirre","m":1,"a":1,"t":2},{"n":"Diego Balboni","m":1,"a":1,"t":2},{"n":"Diego Jeon","m":1,"a":1,"t":2},{"n":"Diego Nahuel Anselmino","m":1,"a":1,"t":2},{"n":"Diego Yoanu","m":1,"a":1,"t":2},{"n":"Dokyung Yun","m":1,"a":1,"t":2},{"n":"Dong Hoon Kim","m":1,"a":1,"t":2},{"n":"Elio Alvarez","m":1,"a":1,"t":2},{"n":"Emanuel Berger","m":1,"a":1,"t":2},{"n":"Emanuel Rearte","m":1,"a":1,"t":2},{"n":"Eneas Ferrer","m":1,"a":1,"t":2},{"n":"Eric Maglione","m":1,"a":1,"t":2},{"n":"Erik Lucero","m":1,"a":1,"t":2},{"n":"Ernesto Ruiz","m":1,"a":1,"t":2},{"n":"Esteban Larrosa","m":1,"a":1,"t":2},{"n":"Eugenia Matioucheva","m":1,"a":1,"t":2},{"n":"Evgenii Gurulev","m":1,"a":1,"t":2},{"n":"Ezequiel Bartolomeo","m":1,"a":1,"t":2},{"n":"Ezequiel Salomon","m":1,"a":1,"t":2},{"n":"Facundo Agustin Eduardo Alvarez","m":1,"a":1,"t":2},{"n":"Facundo Borget","m":1,"a":1,"t":2},{"n":"Facundo Coks","m":1,"a":1,"t":2},{"n":"Facundo Monteverdi","m":1,"a":1,"t":2},{"n":"Facundo Murruni","m":1,"a":1,"t":2},{"n":"Facundo Ramirez","m":1,"a":1,"t":2},{"n":"Favio Flores","m":1,"a":1,"t":2},{"n":"Federico Diaz","m":1,"a":1,"t":2},{"n":"Federico Feres","m":1,"a":1,"t":2},{"n":"Federico Gonzalez","m":1,"a":1,"t":2},{"n":"Federico Pardo Forcherio","m":1,"a":1,"t":2},{"n":"Federico Rodríguez","m":1,"a":1,"t":2},{"n":"Federico Rosciani","m":1,"a":1,"t":2},{"n":"Federico Stoll","m":1,"a":1,"t":2},{"n":"Federico Tokman","m":1,"a":1,"t":2},{"n":"Fernando Zanetti","m":1,"a":1,"t":2},{"n":"Francisco Campo","m":1,"a":1,"t":2},{"n":"Franco Della Paulera","m":1,"a":1,"t":2},{"n":"Franco Escalante","m":1,"a":1,"t":2},{"n":"Franco Garcia","m":1,"a":1,"t":2},{"n":"Franco Malvicini","m":1,"a":1,"t":2},{"n":"Franco Olguin","m":1,"a":1,"t":2},{"n":"Franco Policaro","m":1,"a":1,"t":2},{"n":"Franco Prestisimone","m":1,"a":1,"t":2},{"n":"Franco Torreta","m":1,"a":1,"t":2},{"n":"Gabriel Compagnoni","m":1,"a":1,"t":2},{"n":"Gabriel Espinoza","m":1,"a":1,"t":2},{"n":"Gabriel Marino","m":1,"a":1,"t":2},{"n":"Gaston Blasco","m":1,"a":1,"t":2},{"n":"Gaston Gutierrez","m":1,"a":1,"t":2},{"n":"Gastón Giacobbe","m":1,"a":1,"t":2},{"n":"Gianluca Molinelli","m":1,"a":1,"t":2},{"n":"Gisela Scungio","m":1,"a":1,"t":2},{"n":"Gonzalo Altamiranda","m":1,"a":1,"t":2},{"n":"Gonzalo Campiutti","m":1,"a":1,"t":2},{"n":"Gonzalo Herrera","m":1,"a":1,"t":2},{"n":"Gonzalo Tarnofsky","m":1,"a":1,"t":2},{"n":"Guido Fretes","m":1,"a":1,"t":2},{"n":"Guido Mascheroni","m":1,"a":1,"t":2},{"n":"Gustavo Scida","m":1,"a":1,"t":2},{"n":"Hector Fernandez","m":1,"a":1,"t":2},{"n":"Hernan Cirigliano","m":1,"a":1,"t":2},{"n":"Hernán Aledda","m":1,"a":1,"t":2},{"n":"Hugo Grün","m":1,"a":1,"t":2},{"n":"Ian Gaivironsky","m":1,"a":1,"t":2},{"n":"Ignacio Anderlic","m":1,"a":1,"t":2},{"n":"Ignacio Colasurdo","m":1,"a":1,"t":2},{"n":"Ignacio Mandolesi","m":1,"a":1,"t":2},{"n":"Ignacio Rojas Gallipoli","m":1,"a":1,"t":2},{"n":"Ignacio Vila","m":1,"a":1,"t":2},{"n":"Imanol Mazas","m":1,"a":1,"t":2},{"n":"Joaquin Bergara","m":1,"a":1,"t":2},{"n":"Joaquin Novo Villa","m":1,"a":1,"t":2},{"n":"Joaquin Perez Echegaray","m":1,"a":1,"t":2},{"n":"Joaquin Tobal","m":1,"a":1,"t":2},{"n":"Joaquin Villaflor","m":1,"a":1,"t":2},{"n":"Joel Cabrera","m":1,"a":1,"t":2},{"n":"Jonatan Martin","m":1,"a":1,"t":2},{"n":"Jonathan Carmona","m":1,"a":1,"t":2},{"n":"Jonathan Hong","m":1,"a":1,"t":2},{"n":"Jorge Chain Vidal","m":1,"a":1,"t":2},{"n":"Jose Manuel Rolon","m":1,"a":1,"t":2},{"n":"Juan Ignacio Carro","m":1,"a":1,"t":2},{"n":"Juan Ignacio Vitcop","m":1,"a":1,"t":2},{"n":"Juan Manuel Méndez","m":1,"a":1,"t":2},{"n":"Juan Stefanello","m":1,"a":1,"t":2},{"n":"Julio Baigorria","m":1,"a":1,"t":2},{"n":"Julián Villaflor","m":1,"a":1,"t":2},{"n":"Laureano Vargas","m":1,"a":1,"t":2},{"n":"Lautaro Abraham","m":1,"a":1,"t":2},{"n":"Leandro Padula","m":1,"a":1,"t":2},{"n":"Leonardo Garcia","m":1,"a":1,"t":2},{"n":"Leticia Perez","m":1,"a":1,"t":2},{"n":"Lorenzo Hardy","m":1,"a":1,"t":2},{"n":"Luca Madeo","m":1,"a":1,"t":2},{"n":"Luca Senoseti","m":1,"a":1,"t":2},{"n":"Lucas Arditti","m":1,"a":1,"t":2},{"n":"Lucas Bottos","m":1,"a":1,"t":2},{"n":"Lucas Clara","m":1,"a":1,"t":2},{"n":"Lucas Córdoba","m":1,"a":1,"t":2},{"n":"Lucas Hueso","m":1,"a":1,"t":2},{"n":"Lucas Mansilla","m":1,"a":1,"t":2},{"n":"Lucas Palavecino","m":1,"a":1,"t":2},{"n":"Luciano Lopo","m":1,"a":1,"t":2},{"n":"Luciano Menarini","m":1,"a":1,"t":2},{"n":"Lucila Valese","m":1,"a":1,"t":2},{"n":"Luis Acevedo","m":1,"a":1,"t":2},{"n":"Luis Iman","m":1,"a":1,"t":2},{"n":"Lula Gutierrez","m":1,"a":1,"t":2},{"n":"Manuel Espinosa","m":1,"a":1,"t":2},{"n":"Marcelo Gonzalez","m":1,"a":1,"t":2},{"n":"Marcos Isla","m":1,"a":1,"t":2},{"n":"Marcos Tronconi","m":1,"a":1,"t":2},{"n":"Mariano Lemus","m":1,"a":1,"t":2},{"n":"Mariano Rojas","m":1,"a":1,"t":2},{"n":"Mario Sosa","m":1,"a":1,"t":2},{"n":"Martin Hong","m":1,"a":1,"t":2},{"n":"Martin Ramirez","m":1,"a":1,"t":2},{"n":"Martin Rodríguez","m":1,"a":1,"t":2},{"n":"Martin Rua","m":1,"a":1,"t":2},{"n":"Mateo Di Sciascio","m":1,"a":1,"t":2},{"n":"Matias Isaurralde","m":1,"a":1,"t":2},{"n":"Matias Oliveri","m":1,"a":1,"t":2},{"n":"Matías De Hoz","m":1,"a":1,"t":2},{"n":"Matías García","m":1,"a":1,"t":2},{"n":"Matías Mussegaard","m":1,"a":1,"t":2},{"n":"Matías Torres","m":1,"a":1,"t":2},{"n":"Mauro Fernández","m":1,"a":1,"t":2},{"n":"Mauro Pinardel","m":1,"a":1,"t":2},{"n":"Maxi Bellini","m":1,"a":1,"t":2},{"n":"Maximiliano Montero","m":1,"a":1,"t":2},{"n":"Maximo Gulbinowiez","m":1,"a":1,"t":2},{"n":"Miguel Fleita","m":1,"a":1,"t":2},{"n":"Milton Gutiérrez","m":1,"a":1,"t":2},{"n":"Nahuel Arenas","m":1,"a":1,"t":2},{"n":"Nahuel Giarrocco","m":1,"a":1,"t":2},{"n":"Nicolas De Mattia","m":1,"a":1,"t":2},{"n":"Nicolas Figueredo","m":1,"a":1,"t":2},{"n":"Nicolas González Rouco","m":1,"a":1,"t":2},{"n":"Nicolas Iha","m":1,"a":1,"t":2},{"n":"Nicolas Miatello","m":1,"a":1,"t":2},{"n":"Nicolás Eum","m":1,"a":1,"t":2},{"n":"Nicolás Sebastián Fernández","m":1,"a":1,"t":2},{"n":"Nicolás Tripaldi","m":1,"a":1,"t":2},{"n":"Nikita Gorbanev","m":1,"a":1,"t":2},{"n":"Oscar Franco Cardenas Falconi","m":1,"a":1,"t":2},{"n":"Pablo Cho","m":1,"a":1,"t":2},{"n":"Pablo Cohen","m":1,"a":1,"t":2},{"n":"Pablo Jalil","m":1,"a":1,"t":2},{"n":"Ramiro Daniel Calcagno","m":1,"a":1,"t":2},{"n":"Ricardo Casal","m":1,"a":1,"t":2},{"n":"Rinat Milenskii","m":1,"a":1,"t":2},{"n":"Rodrigo Fernández","m":1,"a":1,"t":2},{"n":"Ryan Lee","m":1,"a":1,"t":2},{"n":"Santiago Malve","m":1,"a":1,"t":2},{"n":"Santiago Moure","m":1,"a":1,"t":2},{"n":"Sebastian Martin Bressan","m":1,"a":1,"t":2},{"n":"Sergio Luna","m":1,"a":1,"t":2},{"n":"Sergio Rocha","m":1,"a":1,"t":2},{"n":"Sieun Kim","m":1,"a":1,"t":2},{"n":"Tiago Gimenez","m":1,"a":1,"t":2},{"n":"Tito Yrala","m":1,"a":1,"t":2},{"n":"Tomas Grebe","m":1,"a":1,"t":2},{"n":"Tomas Nuzzolese","m":1,"a":1,"t":2},{"n":"Tomas Prunes","m":1,"a":1,"t":2},{"n":"Tomas Rodriguez","m":1,"a":1,"t":2},{"n":"Tomas Sanguinetti","m":1,"a":1,"t":2},{"n":"Tomás Gutierrez","m":1,"a":1,"t":2},{"n":"Valentin Muñoz","m":1,"a":1,"t":2},{"n":"Valentino Balzano","m":1,"a":1,"t":2},{"n":"Victoria Amoroso","m":1,"a":1,"t":2},{"n":"Yair Iascas","m":1,"a":1,"t":2},{"n":"Ziyang Guan","m":1,"a":1,"t":2},{"n":"Álvaro Pauluzzi","m":1,"a":1,"t":2},{"n":"Aaron Oh","m":0,"a":2,"t":2},{"n":"Agustin Fiordalisi","m":0,"a":2,"t":2},{"n":"Agustin Kim","m":0,"a":2,"t":2},{"n":"Agustin Palomo","m":0,"a":2,"t":2},{"n":"Agustin Valentinetti","m":0,"a":2,"t":2},{"n":"Agustin Velez Storm","m":0,"a":2,"t":2},{"n":"Alejandro Chuca","m":0,"a":2,"t":2},{"n":"Alejandro Ideses","m":0,"a":2,"t":2},{"n":"Alejo Dougal","m":0,"a":2,"t":2},{"n":"Argenis Barreto","m":0,"a":2,"t":2},{"n":"Augusto Laikam","m":0,"a":2,"t":2},{"n":"Bruno Ambricca","m":0,"a":2,"t":2},{"n":"Catriel Dapice","m":0,"a":2,"t":2},{"n":"Chris Abella","m":0,"a":2,"t":2},{"n":"Christian Fabian","m":0,"a":2,"t":2},{"n":"Ciro Hossein","m":0,"a":2,"t":2},{"n":"Cristian Schultheis","m":0,"a":2,"t":2},{"n":"Damian Diaz","m":0,"a":2,"t":2},{"n":"Damian Espina","m":0,"a":2,"t":2},{"n":"Damián Silveiro","m":0,"a":2,"t":2},{"n":"Daniel Ortiz","m":0,"a":2,"t":2},{"n":"Daniel Rodriguez","m":0,"a":2,"t":2},{"n":"Diego Lenticchia","m":0,"a":2,"t":2},{"n":"Emiliano Ivan Ksiazenicer","m":0,"a":2,"t":2},{"n":"Emmanuel Marino","m":0,"a":2,"t":2},{"n":"Estefania Rizzo","m":0,"a":2,"t":2},{"n":"Evgeny Nikitin","m":0,"a":2,"t":2},{"n":"Facundo Alejandro Vargas","m":0,"a":2,"t":2},{"n":"Facundo Gallardo","m":0,"a":2,"t":2},{"n":"Federico Delgado","m":0,"a":2,"t":2},{"n":"Federico Tula","m":0,"a":2,"t":2},{"n":"Fernando Ratti","m":0,"a":2,"t":2},{"n":"Florencia Perez","m":0,"a":2,"t":2},{"n":"Francisco Martinez","m":0,"a":2,"t":2},{"n":"Franco Parrota","m":0,"a":2,"t":2},{"n":"Gabriel Germán Alberich","m":0,"a":2,"t":2},{"n":"Gaston Chaparro","m":0,"a":2,"t":2},{"n":"Gaston Louro","m":0,"a":2,"t":2},{"n":"Gonzalo Ucha","m":0,"a":2,"t":2},{"n":"Gustavo Dong","m":0,"a":2,"t":2},{"n":"Gustavo Redrado","m":0,"a":2,"t":2},{"n":"Ignacio Sanahuja","m":0,"a":2,"t":2},{"n":"Ivan Laino","m":0,"a":2,"t":2},{"n":"Joaquin Britos","m":0,"a":2,"t":2},{"n":"Joaquin Maritano","m":0,"a":2,"t":2},{"n":"John O'Connor","m":0,"a":2,"t":2},{"n":"Jonatan Alvarez","m":0,"a":2,"t":2},{"n":"Jonathan Redrado","m":0,"a":2,"t":2},{"n":"Jose Oliveros","m":0,"a":2,"t":2},{"n":"Jose Zorrilla","m":0,"a":2,"t":2},{"n":"José María Molina","m":0,"a":2,"t":2},{"n":"Juan Cruz Raverta","m":0,"a":2,"t":2},{"n":"Juan Manuel Vecchio","m":0,"a":2,"t":2},{"n":"Juan Martín Uranga","m":0,"a":2,"t":2},{"n":"Juan Pablo Esperanza","m":0,"a":2,"t":2},{"n":"Juan Pablo Hossein","m":0,"a":2,"t":2},{"n":"Juan Pablo Nakielski","m":0,"a":2,"t":2},{"n":"Juan Puchetta","m":0,"a":2,"t":2},{"n":"Juan Redrado","m":0,"a":2,"t":2},{"n":"Kevin Tata","m":0,"a":2,"t":2},{"n":"Lautaro Fernandez Blanco","m":0,"a":2,"t":2},{"n":"Leandro Caneto","m":0,"a":2,"t":2},{"n":"Leonardo Bejarano","m":0,"a":2,"t":2},{"n":"Leonel Quintana","m":0,"a":2,"t":2},{"n":"Lola Barreto","m":0,"a":2,"t":2},{"n":"Lucas Distefano","m":0,"a":2,"t":2},{"n":"Lucas Dominguez","m":0,"a":2,"t":2},{"n":"Luciano Strano","m":0,"a":2,"t":2},{"n":"Lucio Macchi","m":0,"a":2,"t":2},{"n":"Mariano José Ures","m":0,"a":2,"t":2},{"n":"Martin Montmasson","m":0,"a":2,"t":2},{"n":"Martin Palmero","m":0,"a":2,"t":2},{"n":"Martin Santagati","m":0,"a":2,"t":2},{"n":"Martin Yunes","m":0,"a":2,"t":2},{"n":"Martín Alejandro Costa Solano","m":0,"a":2,"t":2},{"n":"Martín Suárez Ermacora","m":0,"a":2,"t":2},{"n":"Mateo Rocha","m":0,"a":2,"t":2},{"n":"Matias Pahk","m":0,"a":2,"t":2},{"n":"Matías Agustín Stocco","m":0,"a":2,"t":2},{"n":"Mauro Lauricella","m":0,"a":2,"t":2},{"n":"Micaela Reyes","m":0,"a":2,"t":2},{"n":"Michele Venuto","m":0,"a":2,"t":2},{"n":"Nazareno Cruz Muñoa","m":0,"a":2,"t":2},{"n":"Nicolas Colombi","m":0,"a":2,"t":2},{"n":"Nicolas Hernandez","m":0,"a":2,"t":2},{"n":"Nicolas Sanchez","m":0,"a":2,"t":2},{"n":"Pablo Park","m":0,"a":2,"t":2},{"n":"Ricardo Bazzi","m":0,"a":2,"t":2},{"n":"Santiago Fretes","m":0,"a":2,"t":2},{"n":"Santiago Hossein","m":0,"a":2,"t":2},{"n":"Santino Mazza","m":0,"a":2,"t":2},{"n":"Seba Raices","m":0,"a":2,"t":2},{"n":"Simón García Paez Allende","m":0,"a":2,"t":2},{"n":"Aaron Catalan","m":1,"a":0,"t":1},{"n":"Adolfo Gordillo","m":1,"a":0,"t":1},{"n":"Adrian Anolles","m":1,"a":0,"t":1},{"n":"Adrian Cieri","m":1,"a":0,"t":1},{"n":"Adrian Flores","m":1,"a":0,"t":1},{"n":"Adrian Lara","m":1,"a":0,"t":1},{"n":"Adriano Mamone","m":1,"a":0,"t":1},{"n":"Adriel Calvo","m":1,"a":0,"t":1},{"n":"Adrián Rodriguez","m":1,"a":0,"t":1},{"n":"Adrián Stella","m":1,"a":0,"t":1},{"n":"Agustin Abajo","m":1,"a":0,"t":1},{"n":"Agustin Barreiro","m":1,"a":0,"t":1},{"n":"Agustin Barrios Saez","m":1,"a":0,"t":1},{"n":"Agustin Bustos","m":1,"a":0,"t":1},{"n":"Agustin Cerrudo","m":1,"a":0,"t":1},{"n":"Agustin Fernandez","m":1,"a":0,"t":1},{"n":"Agustin Ferraro","m":1,"a":0,"t":1},{"n":"Agustin Gimenez","m":1,"a":0,"t":1},{"n":"Agustin Luna","m":1,"a":0,"t":1},{"n":"Agustin No","m":1,"a":0,"t":1},{"n":"Agustin Piastrellini","m":1,"a":0,"t":1},{"n":"Agustin Radziusz","m":1,"a":0,"t":1},{"n":"Agustin Suarez","m":1,"a":0,"t":1},{"n":"Agustina Paez","m":1,"a":0,"t":1},{"n":"Agustina Solis","m":1,"a":0,"t":1},{"n":"Agustín Depoian","m":1,"a":0,"t":1},{"n":"Agustín Ezequiel Araujo","m":1,"a":0,"t":1},{"n":"Agustín Gamba","m":1,"a":0,"t":1},{"n":"Agustín Guajardo","m":1,"a":0,"t":1},{"n":"Agustín Lopez Camelo","m":1,"a":0,"t":1},{"n":"Agustín Machia","m":1,"a":0,"t":1},{"n":"Agustín Marquez","m":1,"a":0,"t":1},{"n":"Agustín Poblete","m":1,"a":0,"t":1},{"n":"Agustín Torres","m":1,"a":0,"t":1},{"n":"Alan Almaraz","m":1,"a":0,"t":1},{"n":"Alan Cervino","m":1,"a":0,"t":1},{"n":"Alan Cichello","m":1,"a":0,"t":1},{"n":"Alan Mendoza","m":1,"a":0,"t":1},{"n":"Alan Pulido","m":1,"a":0,"t":1},{"n":"Alan Romano","m":1,"a":0,"t":1},{"n":"Alan Stordeur","m":1,"a":0,"t":1},{"n":"Alan Weiss","m":1,"a":0,"t":1},{"n":"Alberto Imperiale","m":1,"a":0,"t":1},{"n":"Aldana Hille","m":1,"a":0,"t":1},{"n":"Alejando Gonzalez","m":1,"a":0,"t":1},{"n":"Alejandra Iglesias","m":1,"a":0,"t":1},{"n":"Alejandro  Seijas","m":1,"a":0,"t":1},{"n":"Alejandro Arvigo","m":1,"a":0,"t":1},{"n":"Alejandro Burocco","m":1,"a":0,"t":1},{"n":"Alejandro Cayetti","m":1,"a":0,"t":1},{"n":"Alejandro Jang","m":1,"a":0,"t":1},{"n":"Alejandro Lasca","m":1,"a":0,"t":1},{"n":"Alejandro Lescano","m":1,"a":0,"t":1},{"n":"Alejandro Nieva","m":1,"a":0,"t":1},{"n":"Alejandro Rizzuto","m":1,"a":0,"t":1},{"n":"Alejo Cardelle","m":1,"a":0,"t":1},{"n":"Alejo Kozciki","m":1,"a":0,"t":1},{"n":"Alejo Luna","m":1,"a":0,"t":1},{"n":"Alejo Rivas","m":1,"a":0,"t":1},{"n":"Alejo Valenti","m":1,"a":0,"t":1},{"n":"Alex Gelis","m":1,"a":0,"t":1},{"n":"Alexander Kim","m":1,"a":0,"t":1},{"n":"Alexis Bentron","m":1,"a":0,"t":1},{"n":"Alexis Carranza","m":1,"a":0,"t":1},{"n":"Alexis Lampropulos","m":1,"a":0,"t":1},{"n":"Alfredo Casasola","m":1,"a":0,"t":1},{"n":"Alfredo Cogorno","m":1,"a":0,"t":1},{"n":"Alma Rivas","m":1,"a":0,"t":1},{"n":"Alvaro González","m":1,"a":0,"t":1},{"n":"Amaury Gauvin","m":1,"a":0,"t":1},{"n":"Anabela Costa","m":1,"a":0,"t":1},{"n":"Andres Duszenko","m":1,"a":0,"t":1},{"n":"Andres Golodny","m":1,"a":0,"t":1},{"n":"Andres Luna","m":1,"a":0,"t":1},{"n":"Andres Mazuquin","m":1,"a":0,"t":1},{"n":"Andres Zolin","m":1,"a":0,"t":1},{"n":"Angel Ayala","m":1,"a":0,"t":1},{"n":"Anna Sberegeva","m":1,"a":0,"t":1},{"n":"Ariel Acuña","m":1,"a":0,"t":1},{"n":"Ariel Altamirano","m":1,"a":0,"t":1},{"n":"Ariel Barroso Barroso Ruiz","m":1,"a":0,"t":1},{"n":"Ariel Carbone","m":1,"a":0,"t":1},{"n":"Ariel Gentilini","m":1,"a":0,"t":1},{"n":"Ariel Kaminker","m":1,"a":0,"t":1},{"n":"Ariel León","m":1,"a":0,"t":1},{"n":"Ariel Marmol","m":1,"a":0,"t":1},{"n":"Ariel Mazzeo","m":1,"a":0,"t":1},{"n":"Ariel Orellano","m":1,"a":0,"t":1},{"n":"Ariel San Martin","m":1,"a":0,"t":1},{"n":"Ariel Slotnisky","m":1,"a":0,"t":1},{"n":"Ariel Sosa","m":1,"a":0,"t":1},{"n":"Arsenti Vdovine","m":1,"a":0,"t":1},{"n":"Arti Titov","m":1,"a":0,"t":1},{"n":"Axel Villanueva","m":1,"a":0,"t":1},{"n":"Aylen Pascual","m":1,"a":0,"t":1},{"n":"Ayrton Liuzzo","m":1,"a":0,"t":1},{"n":"Barbara Martínez","m":1,"a":0,"t":1},{"n":"Bautista Alfieri","m":1,"a":0,"t":1},{"n":"Bautista Calvi","m":1,"a":0,"t":1},{"n":"Bautista Ramos","m":1,"a":0,"t":1},{"n":"Bautista Veronica Falapp","m":1,"a":0,"t":1},{"n":"Belen Goizueta","m":1,"a":0,"t":1},{"n":"Belen Grande","m":1,"a":0,"t":1},{"n":"Benjamin Severini","m":1,"a":0,"t":1},{"n":"Bianca Mongelluzzo","m":1,"a":0,"t":1},{"n":"Braian Macias","m":1,"a":0,"t":1},{"n":"Braian Montes","m":1,"a":0,"t":1},{"n":"Brian Nicolas Fritz","m":1,"a":0,"t":1},{"n":"Brian Tixi","m":1,"a":0,"t":1},{"n":"Brian Vazquez","m":1,"a":0,"t":1},{"n":"Bruno Accosato","m":1,"a":0,"t":1},{"n":"Bruno Barone","m":1,"a":0,"t":1},{"n":"Bruno Bordone","m":1,"a":0,"t":1},{"n":"Bruno Pozzoni","m":1,"a":0,"t":1},{"n":"Bruno Sabelli","m":1,"a":0,"t":1},{"n":"Camila Montenegro","m":1,"a":0,"t":1},{"n":"Carlos Dolado","m":1,"a":0,"t":1},{"n":"Carlos Doldan","m":1,"a":0,"t":1},{"n":"Carlos Ernesto Klier","m":1,"a":0,"t":1},{"n":"Carlos Giraldi","m":1,"a":0,"t":1},{"n":"Carlos Meridione","m":1,"a":0,"t":1},{"n":"Carlos Riccitelli","m":1,"a":0,"t":1},{"n":"Carlos Sammarco","m":1,"a":0,"t":1},{"n":"Carolina Benitez","m":1,"a":0,"t":1},{"n":"Carolina Chiarini","m":1,"a":0,"t":1},{"n":"Carolina Leyria","m":1,"a":0,"t":1},{"n":"Catriel Falcon","m":1,"a":0,"t":1},{"n":"Cecilia Kim","m":1,"a":0,"t":1},{"n":"Cesar Bustelo","m":1,"a":0,"t":1},{"n":"Cesar Videla","m":1,"a":0,"t":1},{"n":"Christian Machado","m":1,"a":0,"t":1},{"n":"Christian Pirraglia","m":1,"a":0,"t":1},{"n":"Christian Radwanitzer","m":1,"a":0,"t":1},{"n":"Christian Taboada","m":1,"a":0,"t":1},{"n":"Christian Vaca","m":1,"a":0,"t":1},{"n":"Christian Vivaldi","m":1,"a":0,"t":1},{"n":"Clara Boudou","m":1,"a":0,"t":1},{"n":"Clara Passarelli","m":1,"a":0,"t":1},{"n":"Claudio Lotti","m":1,"a":0,"t":1},{"n":"Claudio Petri","m":1,"a":0,"t":1},{"n":"Cristian Arcos","m":1,"a":0,"t":1},{"n":"Cristian Barrios","m":1,"a":0,"t":1},{"n":"Cristian Berto","m":1,"a":0,"t":1},{"n":"Cristian Dubois","m":1,"a":0,"t":1},{"n":"Cristian Gutiérrez","m":1,"a":0,"t":1},{"n":"Cristian Picardo","m":1,"a":0,"t":1},{"n":"Cristian Quiroga","m":1,"a":0,"t":1},{"n":"Cristisn Srnau","m":1,"a":0,"t":1},{"n":"César Camargo","m":1,"a":0,"t":1},{"n":"Damaris Rivera","m":1,"a":0,"t":1},{"n":"Damian Abourachid","m":1,"a":0,"t":1},{"n":"Damian Antonutti","m":1,"a":0,"t":1},{"n":"Damian Bruno","m":1,"a":0,"t":1},{"n":"Damian Dell Acqua","m":1,"a":0,"t":1},{"n":"Damian Fernandez","m":1,"a":0,"t":1},{"n":"Damian Giacchetta","m":1,"a":0,"t":1},{"n":"Damian Godoy","m":1,"a":0,"t":1},{"n":"Damian Juarez","m":1,"a":0,"t":1},{"n":"Damian Kandel","m":1,"a":0,"t":1},{"n":"Damián Borghesan","m":1,"a":0,"t":1},{"n":"Daniel Ascherl","m":1,"a":0,"t":1},{"n":"Daniel Busciglio","m":1,"a":0,"t":1},{"n":"Daniel Carbone","m":1,"a":0,"t":1},{"n":"Daniel Carrizo","m":1,"a":0,"t":1},{"n":"Daniel Coria","m":1,"a":0,"t":1},{"n":"Daniel Falcato","m":1,"a":0,"t":1},{"n":"Daniel Musso","m":1,"a":0,"t":1},{"n":"Daniela Alejandra Genovois","m":1,"a":0,"t":1},{"n":"Daniela Antognini","m":1,"a":0,"t":1},{"n":"Dante Dante","m":1,"a":0,"t":1},{"n":"Dante Panigazzi","m":1,"a":0,"t":1},{"n":"Dante Piturro","m":1,"a":0,"t":1},{"n":"Dante Rizzo","m":1,"a":0,"t":1},{"n":"Dario Jeon","m":1,"a":0,"t":1},{"n":"Dario Mariaca","m":1,"a":0,"t":1},{"n":"Dario Velazquez","m":1,"a":0,"t":1},{"n":"David Barrientos","m":1,"a":0,"t":1},{"n":"David Chon","m":1,"a":0,"t":1},{"n":"David Gutierrez","m":1,"a":0,"t":1},{"n":"David Rodriguez","m":1,"a":0,"t":1},{"n":"Davor Roglic","m":1,"a":0,"t":1},{"n":"Diego Bentron","m":1,"a":0,"t":1},{"n":"Diego Bonomo","m":1,"a":0,"t":1},{"n":"Diego Bracamonte","m":1,"a":0,"t":1},{"n":"Diego De La Vega","m":1,"a":0,"t":1},{"n":"Diego Gatta","m":1,"a":0,"t":1},{"n":"Diego Gonzalez","m":1,"a":0,"t":1},{"n":"Diego Hernán Bofferon","m":1,"a":0,"t":1},{"n":"Diego López","m":1,"a":0,"t":1},{"n":"Diego Markic","m":1,"a":0,"t":1},{"n":"Diego Ojeda","m":1,"a":0,"t":1},{"n":"Diego Perone","m":1,"a":0,"t":1},{"n":"Eber Marcos Prado","m":1,"a":0,"t":1},{"n":"Edgar Exequiel Cardozo","m":1,"a":0,"t":1},{"n":"Eduardo Guglielmi","m":1,"a":0,"t":1},{"n":"Eial Lew","m":1,"a":0,"t":1},{"n":"Eliana Loleggio","m":1,"a":0,"t":1},{"n":"Emanuel Hong","m":1,"a":0,"t":1},{"n":"Emanuel Samuelin","m":1,"a":0,"t":1},{"n":"Emanuel Volker","m":1,"a":0,"t":1},{"n":"Emiliano Artazo","m":1,"a":0,"t":1},{"n":"Emiliano Cañas","m":1,"a":0,"t":1},{"n":"Emiliano Cozzolino","m":1,"a":0,"t":1},{"n":"Emiliano Cucit","m":1,"a":0,"t":1},{"n":"Emiliano Cuzzilla","m":1,"a":0,"t":1},{"n":"Emiliano Franco Ventura","m":1,"a":0,"t":1},{"n":"Emiliano Imende","m":1,"a":0,"t":1},{"n":"Emiliano Moscato","m":1,"a":0,"t":1},{"n":"Emiliano Mourino","m":1,"a":0,"t":1},{"n":"Emiliano Recalde","m":1,"a":0,"t":1},{"n":"Emiliano Siragusa","m":1,"a":0,"t":1},{"n":"Emilio Bergara","m":1,"a":0,"t":1},{"n":"Emilio Citro","m":1,"a":0,"t":1},{"n":"Emir Sandoval","m":1,"a":0,"t":1},{"n":"Enrique Alfieri","m":1,"a":0,"t":1},{"n":"Enrique Pérez Rodil","m":1,"a":0,"t":1},{"n":"Enzo Rodriguez","m":1,"a":0,"t":1},{"n":"Eric Lee","m":1,"a":0,"t":1},{"n":"Eric Winkler","m":1,"a":0,"t":1},{"n":"Erick Bello","m":1,"a":0,"t":1},{"n":"Erika Natasha Kodelia","m":1,"a":0,"t":1},{"n":"Esteban Ferrero","m":1,"a":0,"t":1},{"n":"Esteban Grabre","m":1,"a":0,"t":1},{"n":"Esteban Milessi","m":1,"a":0,"t":1},{"n":"Estefania Bentolila","m":1,"a":0,"t":1},{"n":"Estefania Byun","m":1,"a":0,"t":1},{"n":"Exequiel Bujones","m":1,"a":0,"t":1},{"n":"Ezequiel Caserio","m":1,"a":0,"t":1},{"n":"Ezequiel Luciani","m":1,"a":0,"t":1},{"n":"Ezequiel Otero","m":1,"a":0,"t":1},{"n":"Ezequiel Raco","m":1,"a":0,"t":1},{"n":"Ezequiel Shin","m":1,"a":0,"t":1},{"n":"Fabian Bellanza","m":1,"a":0,"t":1},{"n":"Fabian Julian","m":1,"a":0,"t":1},{"n":"Fabian Vera","m":1,"a":0,"t":1},{"n":"Fabian Yoon","m":1,"a":0,"t":1},{"n":"Fabricio Montero","m":1,"a":0,"t":1},{"n":"Fabricio Pagano","m":1,"a":0,"t":1},{"n":"Fabrizio Montero","m":1,"a":0,"t":1},{"n":"Fabrizio Pandelo","m":1,"a":0,"t":1},{"n":"Facundo Arce","m":1,"a":0,"t":1},{"n":"Facundo Arredondo","m":1,"a":0,"t":1},{"n":"Facundo Blanco","m":1,"a":0,"t":1},{"n":"Facundo Bouza","m":1,"a":0,"t":1},{"n":"Facundo Bustos","m":1,"a":0,"t":1},{"n":"Facundo Carrica","m":1,"a":0,"t":1},{"n":"Facundo Coria","m":1,"a":0,"t":1},{"n":"Facundo De Torre","m":1,"a":0,"t":1},{"n":"Facundo Fernandez","m":1,"a":0,"t":1},{"n":"Facundo Ferro","m":1,"a":0,"t":1},{"n":"Facundo Gonzales","m":1,"a":0,"t":1},{"n":"Facundo Grimberg","m":1,"a":0,"t":1},{"n":"Facundo Jimenez","m":1,"a":0,"t":1},{"n":"Facundo Lalli","m":1,"a":0,"t":1},{"n":"Facundo Naveira","m":1,"a":0,"t":1},{"n":"Facundo Poblete","m":1,"a":0,"t":1},{"n":"Facundo Quiroga","m":1,"a":0,"t":1},{"n":"Facundo Salim","m":1,"a":0,"t":1},{"n":"Facundo Sanchez","m":1,"a":0,"t":1},{"n":"Facundo Tarakdjian","m":1,"a":0,"t":1},{"n":"Facundo Terán","m":1,"a":0,"t":1},{"n":"Facundo Zuccarelli","m":1,"a":0,"t":1},{"n":"Facuy Farraye","m":1,"a":0,"t":1},{"n":"Fede Romandini","m":1,"a":0,"t":1},{"n":"Federico  Hasbani","m":1,"a":0,"t":1},{"n":"Federico Aiello","m":1,"a":0,"t":1},{"n":"Federico Burrieza","m":1,"a":0,"t":1},{"n":"Federico Bustamante","m":1,"a":0,"t":1},{"n":"Federico Camelino","m":1,"a":0,"t":1},{"n":"Federico Chápela","m":1,"a":0,"t":1},{"n":"Federico Duca","m":1,"a":0,"t":1},{"n":"Federico Echevarría","m":1,"a":0,"t":1},{"n":"Federico Famularo","m":1,"a":0,"t":1},{"n":"Federico Fidel","m":1,"a":0,"t":1},{"n":"Federico Gamito","m":1,"a":0,"t":1},{"n":"Federico Garcia","m":1,"a":0,"t":1},{"n":"Federico González","m":1,"a":0,"t":1},{"n":"Federico Jamus","m":1,"a":0,"t":1},{"n":"Federico Josa","m":1,"a":0,"t":1},{"n":"Federico Matalobos","m":1,"a":0,"t":1},{"n":"Federico Olivera","m":1,"a":0,"t":1},{"n":"Federico Pernicone","m":1,"a":0,"t":1},{"n":"Federico Pérez Grant","m":1,"a":0,"t":1},{"n":"Federico Simonsini","m":1,"a":0,"t":1},{"n":"Federico Suerbier","m":1,"a":0,"t":1},{"n":"Felipe Suarez","m":1,"a":0,"t":1},{"n":"Fernando Castro","m":1,"a":0,"t":1},{"n":"Fernando Ciaponni","m":1,"a":0,"t":1},{"n":"Fernando García","m":1,"a":0,"t":1},{"n":"Fernando García Duque","m":1,"a":0,"t":1},{"n":"Fernando Giménez","m":1,"a":0,"t":1},{"n":"Fernando Lanata","m":1,"a":0,"t":1},{"n":"Fernando Lepore","m":1,"a":0,"t":1},{"n":"Fernando Olivieri","m":1,"a":0,"t":1},{"n":"Fernando Piorno","m":1,"a":0,"t":1},{"n":"Fernando Ruiz Diaz","m":1,"a":0,"t":1},{"n":"Fernando Schmidov","m":1,"a":0,"t":1},{"n":"Fernando Stella","m":1,"a":0,"t":1},{"n":"Fernando Sucasas","m":1,"a":0,"t":1},{"n":"Flor Kelly","m":1,"a":0,"t":1},{"n":"Fran Bozzola","m":1,"a":0,"t":1},{"n":"Francisco Cedeño","m":1,"a":0,"t":1},{"n":"Francisco Lacasagne","m":1,"a":0,"t":1},{"n":"Francisco Maldonado","m":1,"a":0,"t":1},{"n":"Francisco Roca","m":1,"a":0,"t":1},{"n":"Francisco Santojanni","m":1,"a":0,"t":1},{"n":"Franco Azulay","m":1,"a":0,"t":1},{"n":"Franco Bagatin","m":1,"a":0,"t":1},{"n":"Franco Chaves","m":1,"a":0,"t":1},{"n":"Franco Cisneros","m":1,"a":0,"t":1},{"n":"Franco Cosentino Di Rocco","m":1,"a":0,"t":1},{"n":"Franco De Biaggi","m":1,"a":0,"t":1},{"n":"Franco Gonzales","m":1,"a":0,"t":1},{"n":"Franco Joel Martinez","m":1,"a":0,"t":1},{"n":"Franco Mahia","m":1,"a":0,"t":1},{"n":"Franco Mezher","m":1,"a":0,"t":1},{"n":"Franco Muratt","m":1,"a":0,"t":1},{"n":"Franco Pepe","m":1,"a":0,"t":1},{"n":"Franco Spinelli","m":1,"a":0,"t":1},{"n":"Franco Toffolo","m":1,"a":0,"t":1},{"n":"Franco Zuccala","m":1,"a":0,"t":1},{"n":"Freddy Lameda","m":1,"a":0,"t":1},{"n":"Gabriel Aguero","m":1,"a":0,"t":1},{"n":"Gabriel Croce","m":1,"a":0,"t":1},{"n":"Gabriel Fernandez","m":1,"a":0,"t":1},{"n":"Gabriel Hong","m":1,"a":0,"t":1},{"n":"Gabriel Jun","m":1,"a":0,"t":1},{"n":"Gabriel Lee","m":1,"a":0,"t":1},{"n":"Gabriel Peluffo","m":1,"a":0,"t":1},{"n":"Gabriel Soria","m":1,"a":0,"t":1},{"n":"Gabriel Zotta","m":1,"a":0,"t":1},{"n":"Gabriela Córdoba","m":1,"a":0,"t":1},{"n":"Gaby Fritz","m":1,"a":0,"t":1},{"n":"Gaspar De Eurasquin","m":1,"a":0,"t":1},{"n":"Gaston Antonini","m":1,"a":0,"t":1},{"n":"Gaston Bustamante","m":1,"a":0,"t":1},{"n":"Gaston Creado","m":1,"a":0,"t":1},{"n":"Gaston Elizondo","m":1,"a":0,"t":1},{"n":"Gaston Macchi","m":1,"a":0,"t":1},{"n":"Gaston Pecovich","m":1,"a":0,"t":1},{"n":"Gastón Rasguido","m":1,"a":0,"t":1},{"n":"Gerardo Alvarez","m":1,"a":0,"t":1},{"n":"Gerardo Kowiensky","m":1,"a":0,"t":1},{"n":"German Lee","m":1,"a":0,"t":1},{"n":"Germán Boggio","m":1,"a":0,"t":1},{"n":"Germán De Marchi","m":1,"a":0,"t":1},{"n":"Germán Renner","m":1,"a":0,"t":1},{"n":"Gian Faini","m":1,"a":0,"t":1},{"n":"Gian Luca Bellora","m":1,"a":0,"t":1},{"n":"Gianfranco Introcaso","m":1,"a":0,"t":1},{"n":"Gianluca Citadini","m":1,"a":0,"t":1},{"n":"Gimena Invernizzi","m":1,"a":0,"t":1},{"n":"Giuliano Sartorio","m":1,"a":0,"t":1},{"n":"Gonza Cobos","m":1,"a":0,"t":1},{"n":"Gonzalo Aliberti","m":1,"a":0,"t":1},{"n":"Gonzalo Busto","m":1,"a":0,"t":1},{"n":"Gonzalo Casasola","m":1,"a":0,"t":1},{"n":"Gonzalo Diaz Zolorzalo","m":1,"a":0,"t":1},{"n":"Gonzalo Ferreyra","m":1,"a":0,"t":1},{"n":"Gonzalo Garcia Vidal","m":1,"a":0,"t":1},{"n":"Gonzalo Hueche","m":1,"a":0,"t":1},{"n":"Gonzalo Isoldi","m":1,"a":0,"t":1},{"n":"Gonzalo Maccagnani","m":1,"a":0,"t":1},{"n":"Gonzalo Miranda","m":1,"a":0,"t":1},{"n":"Gonzalo Reus","m":1,"a":0,"t":1},{"n":"Gonzalo Rovina","m":1,"a":0,"t":1},{"n":"Gonzalo Slipak","m":1,"a":0,"t":1},{"n":"Gonzalo Toffolo","m":1,"a":0,"t":1},{"n":"Gonzalo Tomasso","m":1,"a":0,"t":1},{"n":"Grabiel Soria","m":1,"a":0,"t":1},{"n":"Guada Ezquerra","m":1,"a":0,"t":1},{"n":"Guido Baldassarre","m":1,"a":0,"t":1},{"n":"Guido Bernasconi","m":1,"a":0,"t":1},{"n":"Guido Capria","m":1,"a":0,"t":1},{"n":"Guido Cuello","m":1,"a":0,"t":1},{"n":"Guido Looez","m":1,"a":0,"t":1},{"n":"Guido Turina","m":1,"a":0,"t":1},{"n":"Guillermo Bazan","m":1,"a":0,"t":1},{"n":"Guillermo Bonelli","m":1,"a":0,"t":1},{"n":"Guillermo Castilha","m":1,"a":0,"t":1},{"n":"Guillermo Ponce","m":1,"a":0,"t":1},{"n":"Guillermo Sartorio","m":1,"a":0,"t":1},{"n":"Guillermo Segovia","m":1,"a":0,"t":1},{"n":"Guillermo Vazquez","m":1,"a":0,"t":1},{"n":"Gustavo Cáceres","m":1,"a":0,"t":1},{"n":"Gustavo Guarinacio","m":1,"a":0,"t":1},{"n":"Gustavo Prots","m":1,"a":0,"t":1},{"n":"Gustavo Quiroga","m":1,"a":0,"t":1},{"n":"Gustavo Renzo Yana Patzi","m":1,"a":0,"t":1},{"n":"Gustavo Stangaferro","m":1,"a":0,"t":1},{"n":"Hector Abalos","m":1,"a":0,"t":1},{"n":"Hector Babino","m":1,"a":0,"t":1},{"n":"Hernan Alonso","m":1,"a":0,"t":1},{"n":"Hernan Bazzurro","m":1,"a":0,"t":1},{"n":"Hernan Chon","m":1,"a":0,"t":1},{"n":"Hernan Croce","m":1,"a":0,"t":1},{"n":"Hernan Foster","m":1,"a":0,"t":1},{"n":"Hernan Furman","m":1,"a":0,"t":1},{"n":"Hernan Galdon","m":1,"a":0,"t":1},{"n":"Hernan Locarnini","m":1,"a":0,"t":1},{"n":"Hernan Mendiola","m":1,"a":0,"t":1},{"n":"Hernan Prandi","m":1,"a":0,"t":1},{"n":"Hernan Scinica","m":1,"a":0,"t":1},{"n":"Hernan Stampachio","m":1,"a":0,"t":1},{"n":"Hernan Villar","m":1,"a":0,"t":1},{"n":"Hernan Viola","m":1,"a":0,"t":1},{"n":"Hernán Brunstein","m":1,"a":0,"t":1},{"n":"Hernán Omar Niñe","m":1,"a":0,"t":1},{"n":"Hernán Parada","m":1,"a":0,"t":1},{"n":"Homero Pavlotsky","m":1,"a":0,"t":1},{"n":"Hugo Bezzati","m":1,"a":0,"t":1},{"n":"Ian Gatto Martins Curto","m":1,"a":0,"t":1},{"n":"Ignacio Bruel","m":1,"a":0,"t":1},{"n":"Ignacio Diaz","m":1,"a":0,"t":1},{"n":"Ignacio Gutierrez","m":1,"a":0,"t":1},{"n":"Ignacio Kiri","m":1,"a":0,"t":1},{"n":"Ignacio Lee","m":1,"a":0,"t":1},{"n":"Ignacio Martin Gonzalez","m":1,"a":0,"t":1},{"n":"Ignacio Peretti","m":1,"a":0,"t":1},{"n":"Ignacio Rodriguez Muedra","m":1,"a":0,"t":1},{"n":"Ignacio Scida","m":1,"a":0,"t":1},{"n":"Ignacio Sierra","m":1,"a":0,"t":1},{"n":"Ignacio Tarakdjian","m":1,"a":0,"t":1},{"n":"Ignacio Tomas Consoli","m":1,"a":0,"t":1},{"n":"Ignacio Vidal","m":1,"a":0,"t":1},{"n":"Ignacio Zaffino","m":1,"a":0,"t":1},{"n":"Ilan Groisman","m":1,"a":0,"t":1},{"n":"Ilia Boiarintsev","m":1,"a":0,"t":1},{"n":"Ines Micucci","m":1,"a":0,"t":1},{"n":"Isabella Zugarramurdi","m":1,"a":0,"t":1},{"n":"Ivan Emmanuel Pereira","m":1,"a":0,"t":1},{"n":"Ivan Ivan","m":1,"a":0,"t":1},{"n":"Ivan Ortiz","m":1,"a":0,"t":1},{"n":"Ivo Guarinacio","m":1,"a":0,"t":1},{"n":"Iván Matias Prado","m":1,"a":0,"t":1},{"n":"Jacqueline Rivero","m":1,"a":0,"t":1},{"n":"Jaime Alvarez","m":1,"a":0,"t":1},{"n":"Javier Delfino","m":1,"a":0,"t":1},{"n":"Javier D’Angelo","m":1,"a":0,"t":1},{"n":"Javier Gottlieb","m":1,"a":0,"t":1},{"n":"Javier Kim","m":1,"a":0,"t":1},{"n":"Javier Valdenegro","m":1,"a":0,"t":1},{"n":"Jazmin Alvarez","m":1,"a":0,"t":1},{"n":"Jean Paul Dalmasso","m":1,"a":0,"t":1},{"n":"Jennigery Serjai","m":1,"a":0,"t":1},{"n":"Jeronimo Camargo","m":1,"a":0,"t":1},{"n":"Jesus Treji","m":1,"a":0,"t":1},{"n":"Jhonatan Beserra","m":1,"a":0,"t":1},{"n":"Jimena Garbino","m":1,"a":0,"t":1},{"n":"Joaquin Barral","m":1,"a":0,"t":1},{"n":"Joaquin De Abreu","m":1,"a":0,"t":1},{"n":"Joaquin Queimaño","m":1,"a":0,"t":1},{"n":"Joaquin Suarez","m":1,"a":0,"t":1},{"n":"Joaquin Tornador","m":1,"a":0,"t":1},{"n":"Joaquín Goya","m":1,"a":0,"t":1},{"n":"Joaquín Posada","m":1,"a":0,"t":1},{"n":"Joel Capriz","m":1,"a":0,"t":1},{"n":"Jonatan Herzegonich","m":1,"a":0,"t":1},{"n":"Jonatan Ponce","m":1,"a":0,"t":1},{"n":"Jonathan Barthe","m":1,"a":0,"t":1},{"n":"Jonathan Mendez","m":1,"a":0,"t":1},{"n":"Jonathan Quevedo","m":1,"a":0,"t":1},{"n":"Jorge Cruseño","m":1,"a":0,"t":1},{"n":"Jorge Hormann","m":1,"a":0,"t":1},{"n":"Jorge Sergio Murciano","m":1,"a":0,"t":1},{"n":"Jorge Siarez","m":1,"a":0,"t":1},{"n":"Jorge Viale","m":1,"a":0,"t":1},{"n":"Jose Ignacio Langlois","m":1,"a":0,"t":1},{"n":"Jose Maria Beltramini","m":1,"a":0,"t":1},{"n":"Jose Paiva","m":1,"a":0,"t":1},{"n":"Jose Perez","m":1,"a":0,"t":1},{"n":"José Luis Fechino","m":1,"a":0,"t":1},{"n":"Juan Antonio Rodriguez","m":1,"a":0,"t":1},{"n":"Juan Campolongo","m":1,"a":0,"t":1},{"n":"Juan Carlos Perez Rodil","m":1,"a":0,"t":1},{"n":"Juan Carro","m":1,"a":0,"t":1},{"n":"Juan Costa","m":1,"a":0,"t":1},{"n":"Juan Cruz Acosa","m":1,"a":0,"t":1},{"n":"Juan Cruz Azzolini","m":1,"a":0,"t":1},{"n":"Juan Cruz Gaspoz","m":1,"a":0,"t":1},{"n":"Juan Cruz Marlatto Morales","m":1,"a":0,"t":1},{"n":"Juan Demarciani","m":1,"a":0,"t":1},{"n":"Juan Federici","m":1,"a":0,"t":1},{"n":"Juan Ignacio Cortiñas","m":1,"a":0,"t":1},{"n":"Juan Ignacio Estable","m":1,"a":0,"t":1},{"n":"Juan Ignacio González","m":1,"a":0,"t":1},{"n":"Juan Ignacio Lili","m":1,"a":0,"t":1},{"n":"Juan Ignacio Pesino","m":1,"a":0,"t":1},{"n":"Juan Ignacio Taminato","m":1,"a":0,"t":1},{"n":"Juan Jacobez","m":1,"a":0,"t":1},{"n":"Juan Jose Lorido","m":1,"a":0,"t":1},{"n":"Juan Jose Varela","m":1,"a":0,"t":1},{"n":"Juan Manuel Benitez","m":1,"a":0,"t":1},{"n":"Juan Manuel Díaz","m":1,"a":0,"t":1},{"n":"Juan Manuel Vazquez","m":1,"a":0,"t":1},{"n":"Juan Manuel Vázquez","m":1,"a":0,"t":1},{"n":"Juan Martin Gallo","m":1,"a":0,"t":1},{"n":"Juan Pablo Del Val","m":1,"a":0,"t":1},{"n":"Juan Pablo Fernández","m":1,"a":0,"t":1},{"n":"Juan Pablo Galimany","m":1,"a":0,"t":1},{"n":"Juan Pacheco","m":1,"a":0,"t":1},{"n":"Juan Sayago","m":1,"a":0,"t":1},{"n":"Julian Abbastante","m":1,"a":0,"t":1},{"n":"Julian Bertolini","m":1,"a":0,"t":1},{"n":"Julian Bruzzo","m":1,"a":0,"t":1},{"n":"Julian Celada","m":1,"a":0,"t":1},{"n":"Julian Fiasco","m":1,"a":0,"t":1},{"n":"Julian Koruk","m":1,"a":0,"t":1},{"n":"Julian Rojas","m":1,"a":0,"t":1},{"n":"Julian Roman","m":1,"a":0,"t":1},{"n":"Julian Terracina","m":1,"a":0,"t":1},{"n":"Juliana Varisco","m":1,"a":0,"t":1},{"n":"Julieta Colman","m":1,"a":0,"t":1},{"n":"Julián Temer","m":1,"a":0,"t":1},{"n":"Julián Vqzquez","m":1,"a":0,"t":1},{"n":"Karen Pak","m":1,"a":0,"t":1},{"n":"Kevin Dominguez","m":1,"a":0,"t":1},{"n":"Kevin Magallanes","m":1,"a":0,"t":1},{"n":"Lara Barbiero","m":1,"a":0,"t":1},{"n":"Laura Escobar","m":1,"a":0,"t":1},{"n":"Laura Sragowich","m":1,"a":0,"t":1},{"n":"Laureano Bonfiglio","m":1,"a":0,"t":1},{"n":"Lautaro Banega","m":1,"a":0,"t":1},{"n":"Lautaro Benitez Piloni","m":1,"a":0,"t":1},{"n":"Lautaro Bertini","m":1,"a":0,"t":1},{"n":"Lautaro Chapela","m":1,"a":0,"t":1},{"n":"Lautaro Coria","m":1,"a":0,"t":1},{"n":"Lautaro Garcia","m":1,"a":0,"t":1},{"n":"Lautaro Pizzuto","m":1,"a":0,"t":1},{"n":"Lautaro Rojo","m":1,"a":0,"t":1},{"n":"Lazaro Gonzalez","m":1,"a":0,"t":1},{"n":"Leandro Borello","m":1,"a":0,"t":1},{"n":"Leandro Candeloro","m":1,"a":0,"t":1},{"n":"Leandro Canel","m":1,"a":0,"t":1},{"n":"Leandro Capobianco","m":1,"a":0,"t":1},{"n":"Leandro Castiglia","m":1,"a":0,"t":1},{"n":"Leandro Facendo","m":1,"a":0,"t":1},{"n":"Leandro I","m":1,"a":0,"t":1},{"n":"Leandro Lozzia","m":1,"a":0,"t":1},{"n":"Leandro Magallanes","m":1,"a":0,"t":1},{"n":"Leandro Martino","m":1,"a":0,"t":1},{"n":"Leandro Ortiz","m":1,"a":0,"t":1},{"n":"Leandro Santillan","m":1,"a":0,"t":1},{"n":"Leo Juarez","m":1,"a":0,"t":1},{"n":"Leonardo Peralta","m":1,"a":0,"t":1},{"n":"Leonardo Sayago","m":1,"a":0,"t":1},{"n":"Leonardo Torres","m":1,"a":0,"t":1},{"n":"Leonel Alejandro Valentukonis","m":1,"a":0,"t":1},{"n":"Leonel Mollard","m":1,"a":0,"t":1},{"n":"Leonella Delle Chiaie","m":1,"a":0,"t":1},{"n":"Leticia Marinelli","m":1,"a":0,"t":1},{"n":"Lisandro López","m":1,"a":0,"t":1},{"n":"Lisandro Romero Gentile","m":1,"a":0,"t":1},{"n":"Lorena Peralta","m":1,"a":0,"t":1},{"n":"Lourdes Crncevic","m":1,"a":0,"t":1},{"n":"Lourdes Donofrio","m":1,"a":0,"t":1},{"n":"Luca Castagnola","m":1,"a":0,"t":1},{"n":"Luca Lo Nano","m":1,"a":0,"t":1},{"n":"Luca Zambrana","m":1,"a":0,"t":1},{"n":"Lucas Airoli","m":1,"a":0,"t":1},{"n":"Lucas Andres Camanduli","m":1,"a":0,"t":1},{"n":"Lucas Axel Titiiewsky","m":1,"a":0,"t":1},{"n":"Lucas Berra","m":1,"a":0,"t":1},{"n":"Lucas Bianchi","m":1,"a":0,"t":1},{"n":"Lucas Calmon","m":1,"a":0,"t":1},{"n":"Lucas Carrizo","m":1,"a":0,"t":1},{"n":"Lucas Gissara","m":1,"a":0,"t":1},{"n":"Lucas Greco","m":1,"a":0,"t":1},{"n":"Lucas Lomónaco","m":1,"a":0,"t":1},{"n":"Lucas Matioli","m":1,"a":0,"t":1},{"n":"Lucas Mazur","m":1,"a":0,"t":1},{"n":"Lucas Molina","m":1,"a":0,"t":1},{"n":"Lucas Naccarato","m":1,"a":0,"t":1},{"n":"Lucas Nicoloso","m":1,"a":0,"t":1},{"n":"Lucas Nuñez","m":1,"a":0,"t":1},{"n":"Lucas Pagola","m":1,"a":0,"t":1},{"n":"Lucas Pepe","m":1,"a":0,"t":1},{"n":"Lucas Sanchez","m":1,"a":0,"t":1},{"n":"Lucas Sandoval","m":1,"a":0,"t":1},{"n":"Lucas Taborda","m":1,"a":0,"t":1},{"n":"Lucas Wojciechowski","m":1,"a":0,"t":1},{"n":"Lucas Yannoni","m":1,"a":0,"t":1},{"n":"Lucas Zelaya","m":1,"a":0,"t":1},{"n":"Lucia Vacherand","m":1,"a":0,"t":1},{"n":"Luciano Luna","m":1,"a":0,"t":1},{"n":"Luciano Marlatto","m":1,"a":0,"t":1},{"n":"Luciano Moral","m":1,"a":0,"t":1},{"n":"Luciano Romero","m":1,"a":0,"t":1},{"n":"Luciano Sanchez","m":1,"a":0,"t":1},{"n":"Luciano Serafini","m":1,"a":0,"t":1},{"n":"Lucio Dambra","m":1,"a":0,"t":1},{"n":"Lucio Martorell","m":1,"a":0,"t":1},{"n":"Luis Contreras","m":1,"a":0,"t":1},{"n":"Luis Deguila","m":1,"a":0,"t":1},{"n":"Luis Fonseca","m":1,"a":0,"t":1},{"n":"Luis Luna","m":1,"a":0,"t":1},{"n":"Luna  Fuschetto","m":1,"a":0,"t":1},{"n":"Luna Fuschetto","m":1,"a":0,"t":1},{"n":"Macarena Crnich","m":1,"a":0,"t":1},{"n":"Maecelo Puppio","m":1,"a":0,"t":1},{"n":"Malena Luna","m":1,"a":0,"t":1},{"n":"Manuel Alejo Paez","m":1,"a":0,"t":1},{"n":"Manuel Benito","m":1,"a":0,"t":1},{"n":"Manuel Machicotte","m":1,"a":0,"t":1},{"n":"Marcelo Ammaturo","m":1,"a":0,"t":1},{"n":"Marcelo Bagnati","m":1,"a":0,"t":1},{"n":"Marcelo Bartilone","m":1,"a":0,"t":1},{"n":"Marcelo Carballo","m":1,"a":0,"t":1},{"n":"Marcelo Pereira","m":1,"a":0,"t":1},{"n":"Marcelo Ramírez","m":1,"a":0,"t":1},{"n":"Marcelo Scheider","m":1,"a":0,"t":1},{"n":"Marco Choi","m":1,"a":0,"t":1},{"n":"Marco Cristofani","m":1,"a":0,"t":1},{"n":"Marcos Choi","m":1,"a":0,"t":1},{"n":"Marcos Martin","m":1,"a":0,"t":1},{"n":"Marcos Olivera","m":1,"a":0,"t":1},{"n":"Maria Son","m":1,"a":0,"t":1},{"n":"Mariana Alejandra Ali","m":1,"a":0,"t":1},{"n":"Mariano Agustin","m":1,"a":0,"t":1},{"n":"Mariano Biondi","m":1,"a":0,"t":1},{"n":"Mariano Blasi","m":1,"a":0,"t":1},{"n":"Mariano Cartechini","m":1,"a":0,"t":1},{"n":"Mariano Collados Storni","m":1,"a":0,"t":1},{"n":"Mariano David Echarri","m":1,"a":0,"t":1},{"n":"Mariano Flores","m":1,"a":0,"t":1},{"n":"Mariano Glasserman","m":1,"a":0,"t":1},{"n":"Mariano Hojman","m":1,"a":0,"t":1},{"n":"Mariano Maranta","m":1,"a":0,"t":1},{"n":"Mariano Potenzoni","m":1,"a":0,"t":1},{"n":"Mariano Quinteiro","m":1,"a":0,"t":1},{"n":"Mariano Saccomanno","m":1,"a":0,"t":1},{"n":"Mariano Tolosa","m":1,"a":0,"t":1},{"n":"Marta Rossello","m":1,"a":0,"t":1},{"n":"Martha Figlioli","m":1,"a":0,"t":1},{"n":"Martin Aguirre","m":1,"a":0,"t":1},{"n":"Martin Cena","m":1,"a":0,"t":1},{"n":"Martin Darruspe","m":1,"a":0,"t":1},{"n":"Martin Fiorio","m":1,"a":0,"t":1},{"n":"Martin Garcia","m":1,"a":0,"t":1},{"n":"Martin Giacchetta","m":1,"a":0,"t":1},{"n":"Martin Guaimas","m":1,"a":0,"t":1},{"n":"Martin Gómez","m":1,"a":0,"t":1},{"n":"Martin Illia","m":1,"a":0,"t":1},{"n":"Martin Magnarelli","m":1,"a":0,"t":1},{"n":"Martin Mareque","m":1,"a":0,"t":1},{"n":"Martin Marzano","m":1,"a":0,"t":1},{"n":"Martin Morales","m":1,"a":0,"t":1},{"n":"Martin Quercia","m":1,"a":0,"t":1},{"n":"Martin Rosanes","m":1,"a":0,"t":1},{"n":"Martin Villar","m":1,"a":0,"t":1},{"n":"Martina Caiafa","m":1,"a":0,"t":1},{"n":"Martín Bruñol","m":1,"a":0,"t":1},{"n":"Martín Errante","m":1,"a":0,"t":1},{"n":"Martín Gabriel Lajterman","m":1,"a":0,"t":1},{"n":"Martín Hospital","m":1,"a":0,"t":1},{"n":"Martín Magnarelli","m":1,"a":0,"t":1},{"n":"Martín Mansilla","m":1,"a":0,"t":1},{"n":"Marvin Oxsa","m":1,"a":0,"t":1},{"n":"María Jesús Plo","m":1,"a":0,"t":1},{"n":"María Menéndez","m":1,"a":0,"t":1},{"n":"Mateo Castillo","m":1,"a":0,"t":1},{"n":"Mateo Iglesias","m":1,"a":0,"t":1},{"n":"Mateo Joaquín Acosta Cleries","m":1,"a":0,"t":1},{"n":"Mateo Matias","m":1,"a":0,"t":1},{"n":"Mateo Utsumi","m":1,"a":0,"t":1},{"n":"Matias Altamiranda","m":1,"a":0,"t":1},{"n":"Matias Barco","m":1,"a":0,"t":1},{"n":"Matias Bobeda","m":1,"a":0,"t":1},{"n":"Matias Boccassini","m":1,"a":0,"t":1},{"n":"Matias Campagnoli","m":1,"a":0,"t":1},{"n":"Matias Carnota","m":1,"a":0,"t":1},{"n":"Matias Cirigliano","m":1,"a":0,"t":1},{"n":"Matias Dominguez","m":1,"a":0,"t":1},{"n":"Matias Ezequiel Perez","m":1,"a":0,"t":1},{"n":"Matias Kim","m":1,"a":0,"t":1},{"n":"Matias La  Porta","m":1,"a":0,"t":1},{"n":"Matias Lechuga","m":1,"a":0,"t":1},{"n":"Matias Ledesma","m":1,"a":0,"t":1},{"n":"Matias Mendelovich","m":1,"a":0,"t":1},{"n":"Matias Muello","m":1,"a":0,"t":1},{"n":"Matias Politzer","m":1,"a":0,"t":1},{"n":"Matias Prado","m":1,"a":0,"t":1},{"n":"Matias Querel","m":1,"a":0,"t":1},{"n":"Matias Roca","m":1,"a":0,"t":1},{"n":"Matias Salas","m":1,"a":0,"t":1},{"n":"Matias Sopa","m":1,"a":0,"t":1},{"n":"Matias Stocco","m":1,"a":0,"t":1},{"n":"Matias Victoriano","m":1,"a":0,"t":1},{"n":"Matias Wainstein","m":1,"a":0,"t":1},{"n":"Matías Daglio","m":1,"a":0,"t":1},{"n":"Matías Florio","m":1,"a":0,"t":1},{"n":"Matías Kloster","m":1,"a":0,"t":1},{"n":"Matías Lera","m":1,"a":0,"t":1},{"n":"Matías Ojeda","m":1,"a":0,"t":1},{"n":"Matías Palacios","m":1,"a":0,"t":1},{"n":"Matías Paladino","m":1,"a":0,"t":1},{"n":"Matías Parada De Biase","m":1,"a":0,"t":1},{"n":"Matías Rozen","m":1,"a":0,"t":1},{"n":"Matías Smrdelj","m":1,"a":0,"t":1},{"n":"Mauricio Alvarez","m":1,"a":0,"t":1},{"n":"Mauricio Elena","m":1,"a":0,"t":1},{"n":"Mauricio Luis Higa","m":1,"a":0,"t":1},{"n":"Mauricio Pedalino","m":1,"a":0,"t":1},{"n":"Mauro Anta","m":1,"a":0,"t":1},{"n":"Mauro Cristani","m":1,"a":0,"t":1},{"n":"Mauro Navarro","m":1,"a":0,"t":1},{"n":"Mauro Rueda","m":1,"a":0,"t":1},{"n":"Mauro Soto","m":1,"a":0,"t":1},{"n":"Maxi Borda","m":1,"a":0,"t":1},{"n":"Maxi Rodriguez","m":1,"a":0,"t":1},{"n":"Maxi Rolheiser","m":1,"a":0,"t":1},{"n":"Maximiliano Gonzalez","m":1,"a":0,"t":1},{"n":"Maximiliano Gonzalez Centurion","m":1,"a":0,"t":1},{"n":"Maximiliano Hernández","m":1,"a":0,"t":1},{"n":"Maximiliano Jimenez","m":1,"a":0,"t":1},{"n":"Maximiliano Jiménez","m":1,"a":0,"t":1},{"n":"Maximiliano Porretta","m":1,"a":0,"t":1},{"n":"Maximiliano Vazquez","m":1,"a":0,"t":1},{"n":"Maximiliano Yman","m":1,"a":0,"t":1},{"n":"Maximo Armanino","m":1,"a":0,"t":1},{"n":"Mejdi Kraiem","m":1,"a":0,"t":1},{"n":"Melanie Dahab","m":1,"a":0,"t":1},{"n":"Melvin Laurent","m":1,"a":0,"t":1},{"n":"Micaela Balza","m":1,"a":0,"t":1},{"n":"Micaela Contreras","m":1,"a":0,"t":1},{"n":"Micaela Memmo","m":1,"a":0,"t":1},{"n":"Micaela Park","m":1,"a":0,"t":1},{"n":"Michael Garrote","m":1,"a":0,"t":1},{"n":"Miguel Damian Waltuch Pragier","m":1,"a":0,"t":1},{"n":"Miguel Gutierrez","m":1,"a":0,"t":1},{"n":"Mikhail Ivanov","m":1,"a":0,"t":1},{"n":"Mikhail Mikins","m":1,"a":0,"t":1},{"n":"Milton Gutierrez","m":1,"a":0,"t":1},{"n":"Mohammed Layouni","m":1,"a":0,"t":1},{"n":"Monica Ortiz","m":1,"a":0,"t":1},{"n":"Msrci Roman","m":1,"a":0,"t":1},{"n":"Nahuel Frezzo","m":1,"a":0,"t":1},{"n":"Nahuel González Piat","m":1,"a":0,"t":1},{"n":"Nahuel Jara","m":1,"a":0,"t":1},{"n":"Nahuel Krowicki","m":1,"a":0,"t":1},{"n":"Nahuel Loiacono","m":1,"a":0,"t":1},{"n":"Nahuel Muoron","m":1,"a":0,"t":1},{"n":"Nahuel Orosco","m":1,"a":0,"t":1},{"n":"Nahuel Paredes","m":1,"a":0,"t":1},{"n":"Nahuel Quiroz","m":1,"a":0,"t":1},{"n":"Nahuel Urriti","m":1,"a":0,"t":1},{"n":"Natalia Tugender","m":1,"a":0,"t":1},{"n":"Nazareno Andretto","m":1,"a":0,"t":1},{"n":"Nehuen Aguade","m":1,"a":0,"t":1},{"n":"Nico Safrinov","m":1,"a":0,"t":1},{"n":"Nicolas Ariel Caride","m":1,"a":0,"t":1},{"n":"Nicolas Barbero","m":1,"a":0,"t":1},{"n":"Nicolas Caso","m":1,"a":0,"t":1},{"n":"Nicolas Chaile","m":1,"a":0,"t":1},{"n":"Nicolas Collinet","m":1,"a":0,"t":1},{"n":"Nicolas De Leon","m":1,"a":0,"t":1},{"n":"Nicolas Gil","m":1,"a":0,"t":1},{"n":"Nicolas Giuffrida","m":1,"a":0,"t":1},{"n":"Nicolas Goya","m":1,"a":0,"t":1},{"n":"Nicolas Lim","m":1,"a":0,"t":1},{"n":"Nicolas Lukestik","m":1,"a":0,"t":1},{"n":"Nicolas Maidana","m":1,"a":0,"t":1},{"n":"Nicolas Pelliccioni","m":1,"a":0,"t":1},{"n":"Nicolas Pongelli","m":1,"a":0,"t":1},{"n":"Nicolas Reboreda","m":1,"a":0,"t":1},{"n":"Nicolas Semilla","m":1,"a":0,"t":1},{"n":"Nicolas Siso","m":1,"a":0,"t":1},{"n":"Nicolas Trejo","m":1,"a":0,"t":1},{"n":"Nicolas Ventura","m":1,"a":0,"t":1},{"n":"Nicolás Alvarez","m":1,"a":0,"t":1},{"n":"Nicolás Araujo","m":1,"a":0,"t":1},{"n":"Nicolás Corral","m":1,"a":0,"t":1},{"n":"Nicolás De Mattia","m":1,"a":0,"t":1},{"n":"Nicolás Emiliani","m":1,"a":0,"t":1},{"n":"Nicolás Gonzalez","m":1,"a":0,"t":1},{"n":"Nicolás Guarino","m":1,"a":0,"t":1},{"n":"Nicolás La Terra","m":1,"a":0,"t":1},{"n":"Nicolás Nahuel Giuffrida","m":1,"a":0,"t":1},{"n":"Nicolás Resco","m":1,"a":0,"t":1},{"n":"Nicolás Serpa","m":1,"a":0,"t":1},{"n":"Nicolás Silva","m":1,"a":0,"t":1},{"n":"Noelia Diaz","m":1,"a":0,"t":1},{"n":"Néstor Fuentes","m":1,"a":0,"t":1},{"n":"Octavio Anderson","m":1,"a":0,"t":1},{"n":"Oliver Dick","m":1,"a":0,"t":1},{"n":"Omar Pérez","m":1,"a":0,"t":1},{"n":"Oscar Cardenas","m":1,"a":0,"t":1},{"n":"Osvaldo Rodriguez","m":1,"a":0,"t":1},{"n":"Owen Cecchi","m":1,"a":0,"t":1},{"n":"Pablo Betancur","m":1,"a":0,"t":1},{"n":"Pablo Bullor","m":1,"a":0,"t":1},{"n":"Pablo Capurro","m":1,"a":0,"t":1},{"n":"Pablo Da Silva","m":1,"a":0,"t":1},{"n":"Pablo Frare","m":1,"a":0,"t":1},{"n":"Pablo Gabriel Fritz","m":1,"a":0,"t":1},{"n":"Pablo Garay","m":1,"a":0,"t":1},{"n":"Pablo Glait","m":1,"a":0,"t":1},{"n":"Pablo Gomez","m":1,"a":0,"t":1},{"n":"Pablo Jara","m":1,"a":0,"t":1},{"n":"Pablo Marino","m":1,"a":0,"t":1},{"n":"Pablo Medina","m":1,"a":0,"t":1},{"n":"Pablo Mercado","m":1,"a":0,"t":1},{"n":"Pablo Pietrapertosa","m":1,"a":0,"t":1},{"n":"Pablo Ruzo","m":1,"a":0,"t":1},{"n":"Pablo Scorcelli","m":1,"a":0,"t":1},{"n":"Pablo Zapala","m":1,"a":0,"t":1},{"n":"Pablo Zappala","m":1,"a":0,"t":1},{"n":"Pamela Davice","m":1,"a":0,"t":1},{"n":"Pamela Gomez","m":1,"a":0,"t":1},{"n":"Paola Stagnaro","m":1,"a":0,"t":1},{"n":"Patricio Bertolini","m":1,"a":0,"t":1},{"n":"Patricio Canepa","m":1,"a":0,"t":1},{"n":"Patricio Conca","m":1,"a":0,"t":1},{"n":"Patricio Costa","m":1,"a":0,"t":1},{"n":"Paula Agustina Garcia","m":1,"a":0,"t":1},{"n":"Paula Bargagna","m":1,"a":0,"t":1},{"n":"Paulo Alejandro Pereira","m":1,"a":0,"t":1},{"n":"Paulo Ramis","m":1,"a":0,"t":1},{"n":"Pedro Zuppelli","m":1,"a":0,"t":1},{"n":"Rafael Torres","m":1,"a":0,"t":1},{"n":"Ramiro Arias","m":1,"a":0,"t":1},{"n":"Ramiro Caiafa","m":1,"a":0,"t":1},{"n":"Ramiro Correa","m":1,"a":0,"t":1},{"n":"Ramiro Flores","m":1,"a":0,"t":1},{"n":"Ramiro Irvicelli","m":1,"a":0,"t":1},{"n":"Ramiro Matera","m":1,"a":0,"t":1},{"n":"Ramiro Morales","m":1,"a":0,"t":1},{"n":"Ramiro Uncal","m":1,"a":0,"t":1},{"n":"Ramon Dellavedova","m":1,"a":0,"t":1},{"n":"Ramses Dure","m":1,"a":0,"t":1},{"n":"Ricardo Rebola","m":1,"a":0,"t":1},{"n":"Ricardo Stankiewicz","m":1,"a":0,"t":1},{"n":"Richard Del Padre","m":1,"a":0,"t":1},{"n":"Robert Lafee","m":1,"a":0,"t":1},{"n":"Roberto Forte","m":1,"a":0,"t":1},{"n":"Rodolfo Galan","m":1,"a":0,"t":1},{"n":"Rodolfo Galleguillo","m":1,"a":0,"t":1},{"n":"Rodrigo Acevedo","m":1,"a":0,"t":1},{"n":"Rodrigo Alejandro Gallegos","m":1,"a":0,"t":1},{"n":"Rodrigo Caggiano","m":1,"a":0,"t":1},{"n":"Rodrigo Candeloro","m":1,"a":0,"t":1},{"n":"Rodrigo Cortiñas","m":1,"a":0,"t":1},{"n":"Rodrigo Dominici","m":1,"a":0,"t":1},{"n":"Rodrigo Hirigoyen","m":1,"a":0,"t":1},{"n":"Rodrigo Klier","m":1,"a":0,"t":1},{"n":"Rodrigo Portela","m":1,"a":0,"t":1},{"n":"Roly Serrano","m":1,"a":0,"t":1},{"n":"Roman Chshekin","m":1,"a":0,"t":1},{"n":"Romina Giangreco","m":1,"a":0,"t":1},{"n":"Romina Lambiris","m":1,"a":0,"t":1},{"n":"Roxana Gonzalez","m":1,"a":0,"t":1},{"n":"Roy Regueira","m":1,"a":0,"t":1},{"n":"Ruben Vecchiarelli","m":1,"a":0,"t":1},{"n":"Salvador Franchino","m":1,"a":0,"t":1},{"n":"Samanta Tropiani","m":1,"a":0,"t":1},{"n":"Santiago Bassano","m":1,"a":0,"t":1},{"n":"Santiago Bustamante","m":1,"a":0,"t":1},{"n":"Santiago Capalbo","m":1,"a":0,"t":1},{"n":"Santiago Cortiñas","m":1,"a":0,"t":1},{"n":"Santiago Domingo","m":1,"a":0,"t":1},{"n":"Santiago Geangrande","m":1,"a":0,"t":1},{"n":"Santiago Kenny","m":1,"a":0,"t":1},{"n":"Santiago Kim","m":1,"a":0,"t":1},{"n":"Santiago Ledesma","m":1,"a":0,"t":1},{"n":"Santiago Lema","m":1,"a":0,"t":1},{"n":"Santiago Lopez Couselo","m":1,"a":0,"t":1},{"n":"Santiago Loto","m":1,"a":0,"t":1},{"n":"Santiago Machado","m":1,"a":0,"t":1},{"n":"Santiago Moreno","m":1,"a":0,"t":1},{"n":"Santiago Notrica","m":1,"a":0,"t":1},{"n":"Santiago Perez","m":1,"a":0,"t":1},{"n":"Santiago Vigna","m":1,"a":0,"t":1},{"n":"Santino Canilongo","m":1,"a":0,"t":1},{"n":"Santino La Manna","m":1,"a":0,"t":1},{"n":"Santino Pellicari","m":1,"a":0,"t":1},{"n":"Sebastian Bressan","m":1,"a":0,"t":1},{"n":"Sebastian Capubilla","m":1,"a":0,"t":1},{"n":"Sebastian Kandel","m":1,"a":0,"t":1},{"n":"Sebastian Luis Fontana","m":1,"a":0,"t":1},{"n":"Sebastian Ricco","m":1,"a":0,"t":1},{"n":"Sebastian Rizzi","m":1,"a":0,"t":1},{"n":"Sebastian Sanchez","m":1,"a":0,"t":1},{"n":"Sebastián Castaño","m":1,"a":0,"t":1},{"n":"Sebastián Francione","m":1,"a":0,"t":1},{"n":"Sebastián Lucci","m":1,"a":0,"t":1},{"n":"Sebastián Sanchez","m":1,"a":0,"t":1},{"n":"Sergio Amico","m":1,"a":0,"t":1},{"n":"Sergio Baixauli","m":1,"a":0,"t":1},{"n":"Sergio Byun","m":1,"a":0,"t":1},{"n":"Silvio Ciaburri","m":1,"a":0,"t":1},{"n":"Simon Bautista Klier Guzman","m":1,"a":0,"t":1},{"n":"Sofia Garcia","m":1,"a":0,"t":1},{"n":"Soledad Corvalan","m":1,"a":0,"t":1},{"n":"Steven Alonzo","m":1,"a":0,"t":1},{"n":"Surak Nicotra","m":1,"a":0,"t":1},{"n":"Tadeo Vella","m":1,"a":0,"t":1},{"n":"Tamara Besada","m":1,"a":0,"t":1},{"n":"Tatiana Potochnik","m":1,"a":0,"t":1},{"n":"Tatiana Tortorelli","m":1,"a":0,"t":1},{"n":"Tayla Potochnik","m":1,"a":0,"t":1},{"n":"Teo Chang","m":1,"a":0,"t":1},{"n":"Teo Cobas Lauria","m":1,"a":0,"t":1},{"n":"Teo Meglio","m":1,"a":0,"t":1},{"n":"Tere Prieto","m":1,"a":0,"t":1},{"n":"Thiago Ali","m":1,"a":0,"t":1},{"n":"Thiago Ntotsikas","m":1,"a":0,"t":1},{"n":"Thiago Pernas","m":1,"a":0,"t":1},{"n":"Thiago Rivarola","m":1,"a":0,"t":1},{"n":"Thiago Torres","m":1,"a":0,"t":1},{"n":"Thomas Quint","m":1,"a":0,"t":1},{"n":"Thomas Truscelli","m":1,"a":0,"t":1},{"n":"Tiago Frias","m":1,"a":0,"t":1},{"n":"Tiago Kukulanski","m":1,"a":0,"t":1},{"n":"Tiziano Cipolla","m":1,"a":0,"t":1},{"n":"Tiziano Lanci","m":1,"a":0,"t":1},{"n":"Tobi Perez","m":1,"a":0,"t":1},{"n":"Tobias Garcia","m":1,"a":0,"t":1},{"n":"Tobias Haddad","m":1,"a":0,"t":1},{"n":"Tobías Motta","m":1,"a":0,"t":1},{"n":"Tomas Aladro","m":1,"a":0,"t":1},{"n":"Tomas Amico","m":1,"a":0,"t":1},{"n":"Tomas Balestrelli","m":1,"a":0,"t":1},{"n":"Tomas Beltrame","m":1,"a":0,"t":1},{"n":"Tomas Berzoni Falapp","m":1,"a":0,"t":1},{"n":"Tomas Bonaroti","m":1,"a":0,"t":1},{"n":"Tomas Canepa","m":1,"a":0,"t":1},{"n":"Tomas Carnero","m":1,"a":0,"t":1},{"n":"Tomas Castellano","m":1,"a":0,"t":1},{"n":"Tomas Chiaramondia","m":1,"a":0,"t":1},{"n":"Tomas Cobas Lauria","m":1,"a":0,"t":1},{"n":"Tomas De Berardis","m":1,"a":0,"t":1},{"n":"Tomas De Marziani","m":1,"a":0,"t":1},{"n":"Tomas Feldman","m":1,"a":0,"t":1},{"n":"Tomas Fenelli","m":1,"a":0,"t":1},{"n":"Tomas Gomory","m":1,"a":0,"t":1},{"n":"Tomas Ignacio Estruch","m":1,"a":0,"t":1},{"n":"Tomas Jaro","m":1,"a":0,"t":1},{"n":"Tomas Kapitanchuk","m":1,"a":0,"t":1},{"n":"Tomas Lampuri","m":1,"a":0,"t":1},{"n":"Tomas Peisci","m":1,"a":0,"t":1},{"n":"Tomas Sandona","m":1,"a":0,"t":1},{"n":"Tomas Szylo","m":1,"a":0,"t":1},{"n":"Tomas Tumio","m":1,"a":0,"t":1},{"n":"Tomas Tusso","m":1,"a":0,"t":1},{"n":"Tomas Valdez","m":1,"a":0,"t":1},{"n":"Tomas Vazquez Rudnicki","m":1,"a":0,"t":1},{"n":"Tomas Ventos Angelucci","m":1,"a":0,"t":1},{"n":"Uriel Fomin","m":1,"a":0,"t":1},{"n":"Vadi Cho","m":1,"a":0,"t":1},{"n":"Valentin Lopez","m":1,"a":0,"t":1},{"n":"Valentin Rego","m":1,"a":0,"t":1},{"n":"Valentin Salina","m":1,"a":0,"t":1},{"n":"Valentin Schiaffino","m":1,"a":0,"t":1},{"n":"Valentina Moreno","m":1,"a":0,"t":1},{"n":"Valentina Rosilo Quintana","m":1,"a":0,"t":1},{"n":"Valentino Caldiroli","m":1,"a":0,"t":1},{"n":"Valentino Fuillerat","m":1,"a":0,"t":1},{"n":"Valentino Sartori","m":1,"a":0,"t":1},{"n":"Valentino Testolini","m":1,"a":0,"t":1},{"n":"Valentín Alejo Aguilar","m":1,"a":0,"t":1},{"n":"Valentín Poggi","m":1,"a":0,"t":1},{"n":"Vicente Zuppelli Decaro","m":1,"a":0,"t":1},{"n":"Victor Lee","m":1,"a":0,"t":1},{"n":"Victoria Doval","m":1,"a":0,"t":1},{"n":"Viktoriia Shcherbakova","m":1,"a":0,"t":1},{"n":"Viltoriya Gorbaneva","m":1,"a":0,"t":1},{"n":"Vladislav Elfimov","m":1,"a":0,"t":1},{"n":"Walter Ariel Male","m":1,"a":0,"t":1},{"n":"Walter Lezcano","m":1,"a":0,"t":1},{"n":"Walter Mihaljevic","m":1,"a":0,"t":1},{"n":"Walter Ortiz","m":1,"a":0,"t":1},{"n":"Walter Sakida","m":1,"a":0,"t":1},{"n":"Yamil Mussa","m":1,"a":0,"t":1},{"n":"Yngrid Torres","m":1,"a":0,"t":1},{"n":"Zacarias Gonzales","m":1,"a":0,"t":1},{"n":"Aaron Caraballo","m":0,"a":1,"t":1},{"n":"Aaron Choi","m":0,"a":1,"t":1},{"n":"Abril Armaleo","m":0,"a":1,"t":1},{"n":"Adrian Butti","m":0,"a":1,"t":1},{"n":"Adrian Khon","m":0,"a":1,"t":1},{"n":"Adrian Veneziano","m":0,"a":1,"t":1},{"n":"Adriana Chong","m":0,"a":1,"t":1},{"n":"Adrián Gasparet","m":0,"a":1,"t":1},{"n":"Adrián Pineda","m":0,"a":1,"t":1},{"n":"Agostina Bellaescusa","m":0,"a":1,"t":1},{"n":"Agustin Amandule","m":0,"a":1,"t":1},{"n":"Agustin Bendersky","m":0,"a":1,"t":1},{"n":"Agustin Della Mea","m":0,"a":1,"t":1},{"n":"Agustin García","m":0,"a":1,"t":1},{"n":"Agustin Oderiz","m":0,"a":1,"t":1},{"n":"Agustin Ratto","m":0,"a":1,"t":1},{"n":"Agustin Roust","m":0,"a":1,"t":1},{"n":"Agustin Ruiz Rousseaux","m":0,"a":1,"t":1},{"n":"Agustin Scida","m":0,"a":1,"t":1},{"n":"Agustin Sung","m":0,"a":1,"t":1},{"n":"Agustina Franzi","m":0,"a":1,"t":1},{"n":"Agustín Carnevali","m":0,"a":1,"t":1},{"n":"Agustín Diosquez","m":0,"a":1,"t":1},{"n":"Agustín García","m":0,"a":1,"t":1},{"n":"Agustín Nordheim","m":0,"a":1,"t":1},{"n":"Agustín Salvo","m":0,"a":1,"t":1},{"n":"Agustín Stefanoni","m":0,"a":1,"t":1},{"n":"Alan Cahuana Rodriguez","m":0,"a":1,"t":1},{"n":"Alan Cardiff","m":0,"a":1,"t":1},{"n":"Alan Marina","m":0,"a":1,"t":1},{"n":"Alan Montero","m":0,"a":1,"t":1},{"n":"Alan Muzzo","m":0,"a":1,"t":1},{"n":"Alan Palatnik","m":0,"a":1,"t":1},{"n":"Alan Swanston","m":0,"a":1,"t":1},{"n":"Ale Gomez","m":0,"a":1,"t":1},{"n":"Alejadro Perrz","m":0,"a":1,"t":1},{"n":"Alejandro Basigalup","m":0,"a":1,"t":1},{"n":"Alejandro Bernabó Suárez","m":0,"a":1,"t":1},{"n":"Alejandro Branda","m":0,"a":1,"t":1},{"n":"Alejandro Campagna","m":0,"a":1,"t":1},{"n":"Alejandro Doria","m":0,"a":1,"t":1},{"n":"Alejandro Funosas","m":0,"a":1,"t":1},{"n":"Alejandro Orbach","m":0,"a":1,"t":1},{"n":"Alejandro Scala","m":0,"a":1,"t":1},{"n":"Alejandro Scoleri","m":0,"a":1,"t":1},{"n":"Alejandro Sibelli","m":0,"a":1,"t":1},{"n":"Alejandro Sosa Cabalin","m":0,"a":1,"t":1},{"n":"Alejo Cecco","m":0,"a":1,"t":1},{"n":"Alejo Sebastian Diaz","m":0,"a":1,"t":1},{"n":"Alejo Ybañez","m":0,"a":1,"t":1},{"n":"Alejo Zerbo Méndez","m":0,"a":1,"t":1},{"n":"Alvaro Dimier","m":0,"a":1,"t":1},{"n":"Amilcar German Gimenez Tombuer","m":0,"a":1,"t":1},{"n":"Amilcar Villafuerte","m":0,"a":1,"t":1},{"n":"Andrea Alvarez","m":0,"a":1,"t":1},{"n":"Andres Battista","m":0,"a":1,"t":1},{"n":"Andres Castro","m":0,"a":1,"t":1},{"n":"Andres La Grutta","m":0,"a":1,"t":1},{"n":"Andres Lee","m":0,"a":1,"t":1},{"n":"Andres Melendez","m":0,"a":1,"t":1},{"n":"Andres Rodríguez","m":0,"a":1,"t":1},{"n":"Angel Ramírez","m":0,"a":1,"t":1},{"n":"Angel Villagra","m":0,"a":1,"t":1},{"n":"Anna Sberegaeva","m":0,"a":1,"t":1},{"n":"Antonio Espada","m":0,"a":1,"t":1},{"n":"Anuar Abraham","m":0,"a":1,"t":1},{"n":"Arian Mansilla","m":0,"a":1,"t":1},{"n":"Ariel Calavera","m":0,"a":1,"t":1},{"n":"Ariel González","m":0,"a":1,"t":1},{"n":"Ariel Lachman","m":0,"a":1,"t":1},{"n":"Ariel Lubenfeld","m":0,"a":1,"t":1},{"n":"Ariel Saieva","m":0,"a":1,"t":1},{"n":"Ariel Sayago","m":0,"a":1,"t":1},{"n":"Arq Trovato","m":0,"a":1,"t":1},{"n":"Arturo Maydana","m":0,"a":1,"t":1},{"n":"Augusto Copola","m":0,"a":1,"t":1},{"n":"Axel Abregu","m":0,"a":1,"t":1},{"n":"Aylen Kim","m":0,"a":1,"t":1},{"n":"Aylen Simoes","m":0,"a":1,"t":1},{"n":"Ayrton Heredia","m":0,"a":1,"t":1},{"n":"Barbara Jimenez","m":0,"a":1,"t":1},{"n":"Barbara Ronchi","m":0,"a":1,"t":1},{"n":"Bautista Cerviño","m":0,"a":1,"t":1},{"n":"Bautista Perez Pla","m":0,"a":1,"t":1},{"n":"Bautista Radivoy","m":0,"a":1,"t":1},{"n":"Benicio  Aguero Vera","m":0,"a":1,"t":1},{"n":"Benicio Niedzwecki","m":0,"a":1,"t":1},{"n":"Brenda Lepiske","m":0,"a":1,"t":1},{"n":"Brian Leonson","m":0,"a":1,"t":1},{"n":"Brian Meier","m":0,"a":1,"t":1},{"n":"Bruno Bertora","m":0,"a":1,"t":1},{"n":"Bruno Krown","m":0,"a":1,"t":1},{"n":"Bruno Rubbo","m":0,"a":1,"t":1},{"n":"Bruno Vera","m":0,"a":1,"t":1},{"n":"Bryan Martínez","m":0,"a":1,"t":1},{"n":"Camila Kaizoji","m":0,"a":1,"t":1},{"n":"Camila Kang","m":0,"a":1,"t":1},{"n":"Camila Magno","m":0,"a":1,"t":1},{"n":"Candela Andreoli","m":0,"a":1,"t":1},{"n":"Candelaria Scorese","m":0,"a":1,"t":1},{"n":"Carlos Andrés Bernadou","m":0,"a":1,"t":1},{"n":"Carlos Carrega","m":0,"a":1,"t":1},{"n":"Carlos Ferreyra","m":0,"a":1,"t":1},{"n":"Carlos Furnari","m":0,"a":1,"t":1},{"n":"Carlos Martínez","m":0,"a":1,"t":1},{"n":"Catalina Villafañe","m":0,"a":1,"t":1},{"n":"Cecilia Han","m":0,"a":1,"t":1},{"n":"Celeste Concilio","m":0,"a":1,"t":1},{"n":"Celeste Khouri","m":0,"a":1,"t":1},{"n":"Chino Gómez Aparicio","m":0,"a":1,"t":1},{"n":"Christian Canadell","m":0,"a":1,"t":1},{"n":"Christian Gueikian","m":0,"a":1,"t":1},{"n":"Christian Konig","m":0,"a":1,"t":1},{"n":"Cinthia Pla","m":0,"a":1,"t":1},{"n":"Cintia Dodero","m":0,"a":1,"t":1},{"n":"Claudio Moni","m":0,"a":1,"t":1},{"n":"Claudio Moreira","m":0,"a":1,"t":1},{"n":"Claudio Zampaglione","m":0,"a":1,"t":1},{"n":"Constantino Leiva","m":0,"a":1,"t":1},{"n":"Cristian Chon","m":0,"a":1,"t":1},{"n":"Cristian Jeon","m":0,"a":1,"t":1},{"n":"Cristian Ley","m":0,"a":1,"t":1},{"n":"Cristian Montanari","m":0,"a":1,"t":1},{"n":"Cristian Pare","m":0,"a":1,"t":1},{"n":"Cristian Rivera","m":0,"a":1,"t":1},{"n":"Cristian Tapia","m":0,"a":1,"t":1},{"n":"Cristopher Ramos","m":0,"a":1,"t":1},{"n":"Cyrill Maslow","m":0,"a":1,"t":1},{"n":"Damian Gonzalez","m":0,"a":1,"t":1},{"n":"Damian Sayago","m":0,"a":1,"t":1},{"n":"Damián Canelas","m":0,"a":1,"t":1},{"n":"Damián Espona","m":0,"a":1,"t":1},{"n":"Damián Raimundo","m":0,"a":1,"t":1},{"n":"Daniel Barretta","m":0,"a":1,"t":1},{"n":"Daniel Fuentes","m":0,"a":1,"t":1},{"n":"Daniel Gambino","m":0,"a":1,"t":1},{"n":"Daniel González","m":0,"a":1,"t":1},{"n":"Daniela Buera","m":0,"a":1,"t":1},{"n":"Dante Ariete","m":0,"a":1,"t":1},{"n":"Dante Lo Presti","m":0,"a":1,"t":1},{"n":"Dario Higa","m":0,"a":1,"t":1},{"n":"Dario Taballa","m":0,"a":1,"t":1},{"n":"Darío Martin","m":0,"a":1,"t":1},{"n":"David Choi","m":0,"a":1,"t":1},{"n":"David Ezequiel Vinograd","m":0,"a":1,"t":1},{"n":"David Origlia","m":0,"a":1,"t":1},{"n":"Demian Bio","m":0,"a":1,"t":1},{"n":"Denise Lassaque","m":0,"a":1,"t":1},{"n":"Diego Alvarez","m":0,"a":1,"t":1},{"n":"Diego Capalbo","m":0,"a":1,"t":1},{"n":"Diego Castañeda","m":0,"a":1,"t":1},{"n":"Diego Diana","m":0,"a":1,"t":1},{"n":"Diego García","m":0,"a":1,"t":1},{"n":"Diego García Rosas","m":0,"a":1,"t":1},{"n":"Diego Liendo","m":0,"a":1,"t":1},{"n":"Diego Linetzky","m":0,"a":1,"t":1},{"n":"Diego Luna","m":0,"a":1,"t":1},{"n":"Diego Maldonado","m":0,"a":1,"t":1},{"n":"Diego Marin","m":0,"a":1,"t":1},{"n":"Diego Pacheco","m":0,"a":1,"t":1},{"n":"Diego Pereira","m":0,"a":1,"t":1},{"n":"Diego Pintos","m":0,"a":1,"t":1},{"n":"Diego Sanchez","m":0,"a":1,"t":1},{"n":"Diego Suarez","m":0,"a":1,"t":1},{"n":"Diego Veronelli","m":0,"a":1,"t":1},{"n":"Dunko Kim","m":0,"a":1,"t":1},{"n":"Eduardo Caselli","m":0,"a":1,"t":1},{"n":"Eduardo Flores","m":0,"a":1,"t":1},{"n":"Eduardo Minieri","m":0,"a":1,"t":1},{"n":"Eduardo Vicente","m":0,"a":1,"t":1},{"n":"Egor Kuznetsov","m":0,"a":1,"t":1},{"n":"Elias Rodriguez","m":0,"a":1,"t":1},{"n":"Emanuel Frias","m":0,"a":1,"t":1},{"n":"Emanuel Paik","m":0,"a":1,"t":1},{"n":"Emiliano Amans","m":0,"a":1,"t":1},{"n":"Emiliano Brunet","m":0,"a":1,"t":1},{"n":"Emiliano Macchi","m":0,"a":1,"t":1},{"n":"Emiliano Panizza","m":0,"a":1,"t":1},{"n":"Emiliano Pérez","m":0,"a":1,"t":1},{"n":"Emiliano Rahal","m":0,"a":1,"t":1},{"n":"Emmanuel Rodriguez","m":0,"a":1,"t":1},{"n":"Emmnuel Torres","m":0,"a":1,"t":1},{"n":"Enzo Di Nocco","m":0,"a":1,"t":1},{"n":"Enzo Tomas Bastiani","m":0,"a":1,"t":1},{"n":"Eric Choe","m":0,"a":1,"t":1},{"n":"Eric Kim","m":0,"a":1,"t":1},{"n":"Esteban Mazzotta","m":0,"a":1,"t":1},{"n":"Esteban Percovich","m":0,"a":1,"t":1},{"n":"Ezequiel Anastacion","m":0,"a":1,"t":1},{"n":"Ezequiel Fabian Rodriguez","m":0,"a":1,"t":1},{"n":"Ezequiel Monardez","m":0,"a":1,"t":1},{"n":"Ezequiel Rodriguez","m":0,"a":1,"t":1},{"n":"Ezequiel Zenteno","m":0,"a":1,"t":1},{"n":"Fabian Castelo","m":0,"a":1,"t":1},{"n":"Facundo Acosta","m":0,"a":1,"t":1},{"n":"Facundo Ballester","m":0,"a":1,"t":1},{"n":"Facundo Biano","m":0,"a":1,"t":1},{"n":"Facundo Cano","m":0,"a":1,"t":1},{"n":"Facundo Crozza","m":0,"a":1,"t":1},{"n":"Facundo Dangelo","m":0,"a":1,"t":1},{"n":"Facundo Dattilo","m":0,"a":1,"t":1},{"n":"Facundo Fedullo","m":0,"a":1,"t":1},{"n":"Facundo Garofalo","m":0,"a":1,"t":1},{"n":"Facundo Hernán Acosta","m":0,"a":1,"t":1},{"n":"Facundo Palópoli","m":0,"a":1,"t":1},{"n":"Facundo Paysse Moreno","m":0,"a":1,"t":1},{"n":"Facundo Perri","m":0,"a":1,"t":1},{"n":"Facundo Scaine","m":0,"a":1,"t":1},{"n":"Facundo Spagnuolo","m":0,"a":1,"t":1},{"n":"Federico Alagastino","m":0,"a":1,"t":1},{"n":"Federico Arriada","m":0,"a":1,"t":1},{"n":"Federico Buono","m":0,"a":1,"t":1},{"n":"Federico Caracciolo","m":0,"a":1,"t":1},{"n":"Federico Conti","m":0,"a":1,"t":1},{"n":"Federico Cuomo","m":0,"a":1,"t":1},{"n":"Federico Dalmeida","m":0,"a":1,"t":1},{"n":"Federico Damico","m":0,"a":1,"t":1},{"n":"Federico Decono","m":0,"a":1,"t":1},{"n":"Federico Ferreyra","m":0,"a":1,"t":1},{"n":"Federico Gueler","m":0,"a":1,"t":1},{"n":"Federico Kiwo","m":0,"a":1,"t":1},{"n":"Federico Martinez","m":0,"a":1,"t":1},{"n":"Federico Muzzo","m":0,"a":1,"t":1},{"n":"Federico Nehuen Gonzalez","m":0,"a":1,"t":1},{"n":"Federico Poggi","m":0,"a":1,"t":1},{"n":"Federico Romandini","m":0,"a":1,"t":1},{"n":"Federico Rómulo Borella Riganti","m":0,"a":1,"t":1},{"n":"Federico Tokashiki","m":0,"a":1,"t":1},{"n":"Federico Vacca","m":0,"a":1,"t":1},{"n":"Federico Zupicich","m":0,"a":1,"t":1},{"n":"Felipe Ferreiro","m":0,"a":1,"t":1},{"n":"Fernando Alvides","m":0,"a":1,"t":1},{"n":"Fernando Amorosino","m":0,"a":1,"t":1},{"n":"Fernando Garcia","m":0,"a":1,"t":1},{"n":"Fernando Greco","m":0,"a":1,"t":1},{"n":"Fernando Pablo Casero","m":0,"a":1,"t":1},{"n":"Fidel Jazan","m":0,"a":1,"t":1},{"n":"Flavia Leone","m":0,"a":1,"t":1},{"n":"Florencia Gago","m":0,"a":1,"t":1},{"n":"Florencia Kelly","m":0,"a":1,"t":1},{"n":"Florencia Villoldo","m":0,"a":1,"t":1},{"n":"Fran Servidio","m":0,"a":1,"t":1},{"n":"Francisco Doldan","m":0,"a":1,"t":1},{"n":"Francisco Eguia","m":0,"a":1,"t":1},{"n":"Francisco Gatica","m":0,"a":1,"t":1},{"n":"Francisco Javier Picullo","m":0,"a":1,"t":1},{"n":"Francisco Kiva Ripa","m":0,"a":1,"t":1},{"n":"Francisco Llantada","m":0,"a":1,"t":1},{"n":"Francisco Morello","m":0,"a":1,"t":1},{"n":"Francisco Sadler","m":0,"a":1,"t":1},{"n":"Franco Adrian Mezher","m":0,"a":1,"t":1},{"n":"Franco Capelletti","m":0,"a":1,"t":1},{"n":"Franco Chiesa","m":0,"a":1,"t":1},{"n":"Franco Ferrero","m":0,"a":1,"t":1},{"n":"Franco Figlioli","m":0,"a":1,"t":1},{"n":"Franco Ghirardosi","m":0,"a":1,"t":1},{"n":"Franco Gonzalez","m":0,"a":1,"t":1},{"n":"Franco Pivetta","m":0,"a":1,"t":1},{"n":"Franco Ramirez","m":0,"a":1,"t":1},{"n":"Franco Tosti","m":0,"a":1,"t":1},{"n":"Gabriel Ochoa","m":0,"a":1,"t":1},{"n":"Gabriel Rebolo","m":0,"a":1,"t":1},{"n":"Gabriel Segura","m":0,"a":1,"t":1},{"n":"Gabriel Trivelli","m":0,"a":1,"t":1},{"n":"Gabriela Suh","m":0,"a":1,"t":1},{"n":"Gaston Costa","m":0,"a":1,"t":1},{"n":"Gaston Spaccarotella","m":0,"a":1,"t":1},{"n":"Gaston Vieitez","m":0,"a":1,"t":1},{"n":"Gaston Vivas","m":0,"a":1,"t":1},{"n":"Gastón Hernán Gimenez","m":0,"a":1,"t":1},{"n":"Genaro Pullol","m":0,"a":1,"t":1},{"n":"George Zharik","m":0,"a":1,"t":1},{"n":"Gerardo Chacon","m":0,"a":1,"t":1},{"n":"Gerardo Landaida","m":0,"a":1,"t":1},{"n":"German Bruckner","m":0,"a":1,"t":1},{"n":"German Laffue","m":0,"a":1,"t":1},{"n":"German Sierra","m":0,"a":1,"t":1},{"n":"German Spampinato","m":0,"a":1,"t":1},{"n":"Gian Lucca Fimognares","m":0,"a":1,"t":1},{"n":"Gian Vazquez","m":0,"a":1,"t":1},{"n":"Gianni Castrovinci","m":0,"a":1,"t":1},{"n":"Gisela Peter","m":0,"a":1,"t":1},{"n":"Giuliano Di Virgilio","m":0,"a":1,"t":1},{"n":"Gonzalo Cabrera","m":0,"a":1,"t":1},{"n":"Gonzalo Caceres","m":0,"a":1,"t":1},{"n":"Gonzalo Dinolfo","m":0,"a":1,"t":1},{"n":"Gonzalo Ginocchio","m":0,"a":1,"t":1},{"n":"Gonzalo Ketlun","m":0,"a":1,"t":1},{"n":"Gonzalo Lopez","m":0,"a":1,"t":1},{"n":"Gonzalo Rodriguez Sulprizio","m":0,"a":1,"t":1},{"n":"Gonzalo Sztyrle","m":0,"a":1,"t":1},{"n":"Gonzalo Tomatis","m":0,"a":1,"t":1},{"n":"Gonzalo Urrutia","m":0,"a":1,"t":1},{"n":"Guido Bonggi","m":0,"a":1,"t":1},{"n":"Guido Loiacono","m":0,"a":1,"t":1},{"n":"Guido Mano","m":0,"a":1,"t":1},{"n":"Guido Serrentino","m":0,"a":1,"t":1},{"n":"Guido Vukicevic","m":0,"a":1,"t":1},{"n":"Guillermo Aguirre","m":0,"a":1,"t":1},{"n":"Guillermo Guixe","m":0,"a":1,"t":1},{"n":"Guillermo Santander","m":0,"a":1,"t":1},{"n":"Guillermo Speroni","m":0,"a":1,"t":1},{"n":"Gusein Soukaev","m":0,"a":1,"t":1},{"n":"Gustavo Cal","m":0,"a":1,"t":1},{"n":"Gustavo Glait","m":0,"a":1,"t":1},{"n":"Gustavo Guarriello","m":0,"a":1,"t":1},{"n":"Gustavo Perez","m":0,"a":1,"t":1},{"n":"Gustavo Vasquez","m":0,"a":1,"t":1},{"n":"Hernan Alvarez","m":0,"a":1,"t":1},{"n":"Hernan Ferreiro","m":0,"a":1,"t":1},{"n":"Hernan Gavidia","m":0,"a":1,"t":1},{"n":"Hernan Nasar","m":0,"a":1,"t":1},{"n":"Hernan Patocchi","m":0,"a":1,"t":1},{"n":"Hernan Rodriguez","m":0,"a":1,"t":1},{"n":"Hernán López","m":0,"a":1,"t":1},{"n":"Hernán Viola","m":0,"a":1,"t":1},{"n":"Horacio Massare","m":0,"a":1,"t":1},{"n":"Hugo Oscar Cardoso","m":0,"a":1,"t":1},{"n":"Ian Migueles","m":0,"a":1,"t":1},{"n":"Ian Salmi","m":0,"a":1,"t":1},{"n":"Ignacio Borello","m":0,"a":1,"t":1},{"n":"Ignacio Destuniano","m":0,"a":1,"t":1},{"n":"Ignacio Fernández","m":0,"a":1,"t":1},{"n":"Ignacio González","m":0,"a":1,"t":1},{"n":"Ignacio Mendez Liñan","m":0,"a":1,"t":1},{"n":"Ignacio Mongiardini","m":0,"a":1,"t":1},{"n":"Ignacio Renaud","m":0,"a":1,"t":1},{"n":"Ignacio San Roman","m":0,"a":1,"t":1},{"n":"Ignacio San Román","m":0,"a":1,"t":1},{"n":"Ignacio Ubaldi","m":0,"a":1,"t":1},{"n":"Igor Moroz","m":0,"a":1,"t":1},{"n":"Ilán Dorfman","m":0,"a":1,"t":1},{"n":"Ismael Iraola","m":0,"a":1,"t":1},{"n":"Ivan Gaona","m":0,"a":1,"t":1},{"n":"Ivan Song","m":0,"a":1,"t":1},{"n":"Iván Buffoni","m":0,"a":1,"t":1},{"n":"Iván Rosteghin","m":0,"a":1,"t":1},{"n":"Jairo Quintana","m":0,"a":1,"t":1},{"n":"Jano López Romay","m":0,"a":1,"t":1},{"n":"Javier Cerda","m":0,"a":1,"t":1},{"n":"Javier Gorosito","m":0,"a":1,"t":1},{"n":"Javier Pose Arce","m":0,"a":1,"t":1},{"n":"Javier Villarroel","m":0,"a":1,"t":1},{"n":"Jesus Gabriel Gonzalez","m":0,"a":1,"t":1},{"n":"Jesus Torres","m":0,"a":1,"t":1},{"n":"Jesus Trejo","m":0,"a":1,"t":1},{"n":"Joaco Abuchdid","m":0,"a":1,"t":1},{"n":"Joaquin Chamo","m":0,"a":1,"t":1},{"n":"Joaquín Otero","m":0,"a":1,"t":1},{"n":"Joaquín Walenten","m":0,"a":1,"t":1},{"n":"Joaquín Zanata","m":0,"a":1,"t":1},{"n":"Jonas Gutierrez","m":0,"a":1,"t":1},{"n":"Jonathan Navarro","m":0,"a":1,"t":1},{"n":"Juan Arostegui","m":0,"a":1,"t":1},{"n":"Juan Bigourdan","m":0,"a":1,"t":1},{"n":"Juan Canavese","m":0,"a":1,"t":1},{"n":"Juan Carlos Unda","m":0,"a":1,"t":1},{"n":"Juan Cruz Arbelais","m":0,"a":1,"t":1},{"n":"Juan Cruz Costa","m":0,"a":1,"t":1},{"n":"Juan Diego Terán Olaya","m":0,"a":1,"t":1},{"n":"Juan Erlijman","m":0,"a":1,"t":1},{"n":"Juan Feijoo","m":0,"a":1,"t":1},{"n":"Juan Felipe Montalvo","m":0,"a":1,"t":1},{"n":"Juan Fernando Torres","m":0,"a":1,"t":1},{"n":"Juan Ferrando","m":0,"a":1,"t":1},{"n":"Juan Giustina","m":0,"a":1,"t":1},{"n":"Juan Ignacio Maciel Paccini","m":0,"a":1,"t":1},{"n":"Juan Leguizamon","m":0,"a":1,"t":1},{"n":"Juan Lehmann","m":0,"a":1,"t":1},{"n":"Juan Manuel Delia","m":0,"a":1,"t":1},{"n":"Juan Manuel Gallardo","m":0,"a":1,"t":1},{"n":"Juan Manuel Peralta","m":0,"a":1,"t":1},{"n":"Juan Manuel Ruiz","m":0,"a":1,"t":1},{"n":"Juan Manuel Tre","m":0,"a":1,"t":1},{"n":"Juan Manuel Ubiedo","m":0,"a":1,"t":1},{"n":"Juan Martín Ottalagano","m":0,"a":1,"t":1},{"n":"Juan Martín Trocca","m":0,"a":1,"t":1},{"n":"Juan Ocampo","m":0,"a":1,"t":1},{"n":"Juan Pablo Alcocer","m":0,"a":1,"t":1},{"n":"Juan Pablo Daquila","m":0,"a":1,"t":1},{"n":"Juan Pablo Wyler","m":0,"a":1,"t":1},{"n":"Juan Patricio Sanders","m":0,"a":1,"t":1},{"n":"Juan Somoza","m":0,"a":1,"t":1},{"n":"Juan Ures","m":0,"a":1,"t":1},{"n":"Juan Varela","m":0,"a":1,"t":1},{"n":"Juan Vxquez","m":0,"a":1,"t":1},{"n":"Julian Isarrualde","m":0,"a":1,"t":1},{"n":"Julian Ramirez","m":0,"a":1,"t":1},{"n":"Julian Studnik","m":0,"a":1,"t":1},{"n":"Julian Zotelo","m":0,"a":1,"t":1},{"n":"Julieta Belmonte","m":0,"a":1,"t":1},{"n":"Julieta Corneli","m":0,"a":1,"t":1},{"n":"Julieta Vignoni","m":0,"a":1,"t":1},{"n":"Julio Basualdo","m":0,"a":1,"t":1},{"n":"Julio Caballero","m":0,"a":1,"t":1},{"n":"Kevin Galarce","m":0,"a":1,"t":1},{"n":"Kevin Kaplan","m":0,"a":1,"t":1},{"n":"Kevin Medina","m":0,"a":1,"t":1},{"n":"Kevin Reina","m":0,"a":1,"t":1},{"n":"Konstantin Finkelshtein","m":0,"a":1,"t":1},{"n":"Konstantin Voronin","m":0,"a":1,"t":1},{"n":"Laura Moglia","m":0,"a":1,"t":1},{"n":"Lautaro Acosta","m":0,"a":1,"t":1},{"n":"Lautaro Colantonio","m":0,"a":1,"t":1},{"n":"Lautaro Nizetich","m":0,"a":1,"t":1},{"n":"Lautaro Paludi","m":0,"a":1,"t":1},{"n":"Lautaro Romero","m":0,"a":1,"t":1},{"n":"Lautaro Villalba","m":0,"a":1,"t":1},{"n":"Layla Melina Tabares","m":0,"a":1,"t":1},{"n":"Leandro Bonafe","m":0,"a":1,"t":1},{"n":"Leandro Colello","m":0,"a":1,"t":1},{"n":"Leandro Di Stefano","m":0,"a":1,"t":1},{"n":"Leandro La Rosa","m":0,"a":1,"t":1},{"n":"Leandro Lauricella","m":0,"a":1,"t":1},{"n":"Leandro Niborski","m":0,"a":1,"t":1},{"n":"Leonel Tsusinsky","m":0,"a":1,"t":1},{"n":"Lionel Park","m":0,"a":1,"t":1},{"n":"Lionel Zalazar","m":0,"a":1,"t":1},{"n":"Loana Viapiani","m":0,"a":1,"t":1},{"n":"Lola Szkolnik","m":0,"a":1,"t":1},{"n":"Lourdes Ramalle","m":0,"a":1,"t":1},{"n":"Luca Navarro","m":0,"a":1,"t":1},{"n":"Lucas Aciar","m":0,"a":1,"t":1},{"n":"Lucas Andreoni","m":0,"a":1,"t":1},{"n":"Lucas Aragón","m":0,"a":1,"t":1},{"n":"Lucas Bonarrico","m":0,"a":1,"t":1},{"n":"Lucas Calisi","m":0,"a":1,"t":1},{"n":"Lucas Castro","m":0,"a":1,"t":1},{"n":"Lucas Cumbraos","m":0,"a":1,"t":1},{"n":"Lucas De Felipe","m":0,"a":1,"t":1},{"n":"Lucas Elnen","m":0,"a":1,"t":1},{"n":"Lucas Ferjanic","m":0,"a":1,"t":1},{"n":"Lucas Galarce","m":0,"a":1,"t":1},{"n":"Lucas Gilcosia","m":0,"a":1,"t":1},{"n":"Lucas Gorosito","m":0,"a":1,"t":1},{"n":"Lucas Kreimer","m":0,"a":1,"t":1},{"n":"Lucas Leonel Taritolay","m":0,"a":1,"t":1},{"n":"Lucas Morinico","m":0,"a":1,"t":1},{"n":"Lucas Nigelli","m":0,"a":1,"t":1},{"n":"Lucas Szabo","m":0,"a":1,"t":1},{"n":"Lucia Parodi","m":0,"a":1,"t":1},{"n":"Luciana Aondi","m":0,"a":1,"t":1},{"n":"Luciano Basso","m":0,"a":1,"t":1},{"n":"Luciano Diaz","m":0,"a":1,"t":1},{"n":"Luciano Garbezza","m":0,"a":1,"t":1},{"n":"Luciano Misitrano","m":0,"a":1,"t":1},{"n":"Luciano Rebolledo","m":0,"a":1,"t":1},{"n":"Luciano Tufro","m":0,"a":1,"t":1},{"n":"Luciano Vaca","m":0,"a":1,"t":1},{"n":"Luciano Vranjican","m":0,"a":1,"t":1},{"n":"Lucina Gomez","m":0,"a":1,"t":1},{"n":"Luis Picciochi","m":0,"a":1,"t":1},{"n":"Luis Rojas","m":0,"a":1,"t":1},{"n":"Luis Valdettaro","m":0,"a":1,"t":1},{"n":"Maksim Shchegolev","m":0,"a":1,"t":1},{"n":"Manuel Broysowski","m":0,"a":1,"t":1},{"n":"Manuel Ochoa","m":0,"a":1,"t":1},{"n":"Manuel Piscicelli","m":0,"a":1,"t":1},{"n":"Mara Doncelli","m":0,"a":1,"t":1},{"n":"Marcelo Salvatierra","m":0,"a":1,"t":1},{"n":"Marcos Florentin","m":0,"a":1,"t":1},{"n":"Marcos Kreimer","m":0,"a":1,"t":1},{"n":"Maria Del Rosario Herrera","m":0,"a":1,"t":1},{"n":"Maria Strobino","m":0,"a":1,"t":1},{"n":"Mariano Caballero","m":0,"a":1,"t":1},{"n":"Mariano Caseres","m":0,"a":1,"t":1},{"n":"Mariano Ceruti","m":0,"a":1,"t":1},{"n":"Mariano Elias","m":0,"a":1,"t":1},{"n":"Mariano Fiorenza","m":0,"a":1,"t":1},{"n":"Mariano Lucero","m":0,"a":1,"t":1},{"n":"Mariano Pellicani","m":0,"a":1,"t":1},{"n":"Mariano Pereyra","m":0,"a":1,"t":1},{"n":"Mariano Re","m":0,"a":1,"t":1},{"n":"Mariano Velazco","m":0,"a":1,"t":1},{"n":"Mariel Nuñez","m":0,"a":1,"t":1},{"n":"Mariela Bertola","m":0,"a":1,"t":1},{"n":"Mariela Laura Parlavechio","m":0,"a":1,"t":1},{"n":"Marlene Torraco","m":0,"a":1,"t":1},{"n":"Martin Alberto Direnzo","m":0,"a":1,"t":1},{"n":"Martin Alfandari","m":0,"a":1,"t":1},{"n":"Martin Antar","m":0,"a":1,"t":1},{"n":"Martin Barbieri","m":0,"a":1,"t":1},{"n":"Martin Barros","m":0,"a":1,"t":1},{"n":"Martin Barvato","m":0,"a":1,"t":1},{"n":"Martin Browarnik","m":0,"a":1,"t":1},{"n":"Martin Cainelli","m":0,"a":1,"t":1},{"n":"Martin Cardozo","m":0,"a":1,"t":1},{"n":"Martin Dominici","m":0,"a":1,"t":1},{"n":"Martin Fiori","m":0,"a":1,"t":1},{"n":"Martin Forti","m":0,"a":1,"t":1},{"n":"Martin Frojmowicz","m":0,"a":1,"t":1},{"n":"Martin Juarez","m":0,"a":1,"t":1},{"n":"Martin Khon","m":0,"a":1,"t":1},{"n":"Martin Kislauskis","m":0,"a":1,"t":1},{"n":"Martin Laguarda","m":0,"a":1,"t":1},{"n":"Martin Rionegro","m":0,"a":1,"t":1},{"n":"Martin Routaboul","m":0,"a":1,"t":1},{"n":"Martin Sierra","m":0,"a":1,"t":1},{"n":"Martin Sulas","m":0,"a":1,"t":1},{"n":"Martina Ortiz","m":0,"a":1,"t":1},{"n":"Martín Guixe","m":0,"a":1,"t":1},{"n":"Martín Marchetti","m":0,"a":1,"t":1},{"n":"Martín Moralejo","m":0,"a":1,"t":1},{"n":"Martín Parera","m":0,"a":1,"t":1},{"n":"Martín Rodriguez","m":0,"a":1,"t":1},{"n":"María Fernanda Calderon","m":0,"a":1,"t":1},{"n":"Massimo Colutta","m":0,"a":1,"t":1},{"n":"Mateo Dubcovsky","m":0,"a":1,"t":1},{"n":"Mateo Fascetto","m":0,"a":1,"t":1},{"n":"Mateo Feressian","m":0,"a":1,"t":1},{"n":"Matias Acosta","m":0,"a":1,"t":1},{"n":"Matias Bauta","m":0,"a":1,"t":1},{"n":"Matias Bloj","m":0,"a":1,"t":1},{"n":"Matias Bole","m":0,"a":1,"t":1},{"n":"Matias Bordon","m":0,"a":1,"t":1},{"n":"Matias Castriota","m":0,"a":1,"t":1},{"n":"Matias Chura","m":0,"a":1,"t":1},{"n":"Matias Fiorentino","m":0,"a":1,"t":1},{"n":"Matias Gabriel Sanchez","m":0,"a":1,"t":1},{"n":"Matias Hermida","m":0,"a":1,"t":1},{"n":"Matias Lanneponders Yonadi","m":0,"a":1,"t":1},{"n":"Matias Manduci","m":0,"a":1,"t":1},{"n":"Matias Nahuel Burgos","m":0,"a":1,"t":1},{"n":"Matias Rejnharc","m":0,"a":1,"t":1},{"n":"Matias Romeo","m":0,"a":1,"t":1},{"n":"Matias Tornatore","m":0,"a":1,"t":1},{"n":"Matias Varela","m":0,"a":1,"t":1},{"n":"Matién Torge","m":0,"a":1,"t":1},{"n":"Matías Alessandrello","m":0,"a":1,"t":1},{"n":"Matías Duric","m":0,"a":1,"t":1},{"n":"Matías Gallo Pinedo","m":0,"a":1,"t":1},{"n":"Matías Kim","m":0,"a":1,"t":1},{"n":"Matías Moncy","m":0,"a":1,"t":1},{"n":"Matías Oviedo","m":0,"a":1,"t":1},{"n":"Matías Platas","m":0,"a":1,"t":1},{"n":"Matías Ptascinsky","m":0,"a":1,"t":1},{"n":"Matías Sola","m":0,"a":1,"t":1},{"n":"Mauricio Di Giacomo","m":0,"a":1,"t":1},{"n":"Mauricio Zapata","m":0,"a":1,"t":1},{"n":"Mauro Araoz","m":0,"a":1,"t":1},{"n":"Mauro Ferreira","m":0,"a":1,"t":1},{"n":"Mauro Giovagnoli","m":0,"a":1,"t":1},{"n":"Mauro Machin","m":0,"a":1,"t":1},{"n":"Mauro Rivero","m":0,"a":1,"t":1},{"n":"Mauro Smahll","m":0,"a":1,"t":1},{"n":"Maxi Hong","m":0,"a":1,"t":1},{"n":"Maximiliano Baque","m":0,"a":1,"t":1},{"n":"Maximiliano Bonzon","m":0,"a":1,"t":1},{"n":"Maximiliano Cataya","m":0,"a":1,"t":1},{"n":"Maximiliano Esperanza","m":0,"a":1,"t":1},{"n":"Maximiliano Fontan","m":0,"a":1,"t":1},{"n":"Maximiliano Javier Waidelich","m":0,"a":1,"t":1},{"n":"Maximiliano Raverta","m":0,"a":1,"t":1},{"n":"Maximiliano Silva","m":0,"a":1,"t":1},{"n":"Maximiliano Suarez","m":0,"a":1,"t":1},{"n":"Maximo Annaratone","m":0,"a":1,"t":1},{"n":"Melisa Blanco","m":0,"a":1,"t":1},{"n":"Meliza Blanco","m":0,"a":1,"t":1},{"n":"Melody Lee","m":0,"a":1,"t":1},{"n":"Micaela Alen Gonzalez","m":0,"a":1,"t":1},{"n":"Miguel Kim","m":0,"a":1,"t":1},{"n":"Miguel Sampedro","m":0,"a":1,"t":1},{"n":"Milagros Rosilo Quintana","m":0,"a":1,"t":1},{"n":"Mili Ciol","m":0,"a":1,"t":1},{"n":"Milo Cainelli","m":0,"a":1,"t":1},{"n":"Milton Alessandrello","m":0,"a":1,"t":1},{"n":"Milton Larrea","m":0,"a":1,"t":1},{"n":"Milva Carpentieri","m":0,"a":1,"t":1},{"n":"Mohammed Benouda Layouni","m":0,"a":1,"t":1},{"n":"Moises Groisman","m":0,"a":1,"t":1},{"n":"Máximo Annaratone","m":0,"a":1,"t":1},{"n":"Nacho Borello","m":0,"a":1,"t":1},{"n":"Nahir Singh","m":0,"a":1,"t":1},{"n":"Nahuel Dolian","m":0,"a":1,"t":1},{"n":"Nahuel Ferrari","m":0,"a":1,"t":1},{"n":"Nahuel Podesta","m":0,"a":1,"t":1},{"n":"Nahuel Suvalski","m":0,"a":1,"t":1},{"n":"Natalia Natalia Ruiz","m":0,"a":1,"t":1},{"n":"Nazareno Zaralli","m":0,"a":1,"t":1},{"n":"Nehemias Galvan","m":0,"a":1,"t":1},{"n":"Nico Ferreira","m":0,"a":1,"t":1},{"n":"Nicolas Alonso","m":0,"a":1,"t":1},{"n":"Nicolas Athanassiou","m":0,"a":1,"t":1},{"n":"Nicolas Bono","m":0,"a":1,"t":1},{"n":"Nicolas Cayeta","m":0,"a":1,"t":1},{"n":"Nicolas Di Rino","m":0,"a":1,"t":1},{"n":"Nicolas Dominici","m":0,"a":1,"t":1},{"n":"Nicolas Flores","m":0,"a":1,"t":1},{"n":"Nicolas Gaetano","m":0,"a":1,"t":1},{"n":"Nicolas Laria","m":0,"a":1,"t":1},{"n":"Nicolas Lombardia","m":0,"a":1,"t":1},{"n":"Nicolas Manzoni","m":0,"a":1,"t":1},{"n":"Nicolas Massa","m":0,"a":1,"t":1},{"n":"Nicolas Novellino","m":0,"a":1,"t":1},{"n":"Nicolas Puf","m":0,"a":1,"t":1},{"n":"Nicolas Rodriguez","m":0,"a":1,"t":1},{"n":"Nicolas Salas","m":0,"a":1,"t":1},{"n":"Nicolas Sammartin","m":0,"a":1,"t":1},{"n":"Nicolas Villanie","m":0,"a":1,"t":1},{"n":"Nicolás Achetta","m":0,"a":1,"t":1},{"n":"Nicolás Arias","m":0,"a":1,"t":1},{"n":"Nicolás Debole","m":0,"a":1,"t":1},{"n":"Nicolás Diaz","m":0,"a":1,"t":1},{"n":"Nicolás Garcia","m":0,"a":1,"t":1},{"n":"Nicolás Julián Arias","m":0,"a":1,"t":1},{"n":"Nicolás Mascarini","m":0,"a":1,"t":1},{"n":"Nicolás Sorroche","m":0,"a":1,"t":1},{"n":"Nicolás Tesio","m":0,"a":1,"t":1},{"n":"Nicolás Toledo","m":0,"a":1,"t":1},{"n":"Nicolás Vanarelli","m":0,"a":1,"t":1},{"n":"Nicolás Vergara","m":0,"a":1,"t":1},{"n":"Nikita Glukhov","m":0,"a":1,"t":1},{"n":"Noelia Moreno","m":0,"a":1,"t":1},{"n":"Octavio Sigales","m":0,"a":1,"t":1},{"n":"Olga Potapova","m":0,"a":1,"t":1},{"n":"Omar Diaz","m":0,"a":1,"t":1},{"n":"Osvaldo Britez","m":0,"a":1,"t":1},{"n":"Pablo Beltrachini","m":0,"a":1,"t":1},{"n":"Pablo Damián Martorell","m":0,"a":1,"t":1},{"n":"Pablo Diez","m":0,"a":1,"t":1},{"n":"Pablo Durán","m":0,"a":1,"t":1},{"n":"Pablo Francisca","m":0,"a":1,"t":1},{"n":"Pablo Gamaleri","m":0,"a":1,"t":1},{"n":"Pablo Grande","m":0,"a":1,"t":1},{"n":"Pablo López Delgado","m":0,"a":1,"t":1},{"n":"Pablo Menendez","m":0,"a":1,"t":1},{"n":"Pablo Morandi","m":0,"a":1,"t":1},{"n":"Pablo Rodriguez","m":0,"a":1,"t":1},{"n":"Pablo Sokolic","m":0,"a":1,"t":1},{"n":"Pablo Sposaro","m":0,"a":1,"t":1},{"n":"Pablo Supino","m":0,"a":1,"t":1},{"n":"Pablo Trovato","m":0,"a":1,"t":1},{"n":"Paola Benozzi","m":0,"a":1,"t":1},{"n":"Patricio Ghirardosi","m":0,"a":1,"t":1},{"n":"Patricio Nizetich","m":0,"a":1,"t":1},{"n":"Patricio Pereyra","m":0,"a":1,"t":1},{"n":"Patricio Rocco","m":0,"a":1,"t":1},{"n":"Patricio Ruibal","m":0,"a":1,"t":1},{"n":"Patricio Troncoso","m":0,"a":1,"t":1},{"n":"Paula Cabrera","m":0,"a":1,"t":1},{"n":"Paula Moreo","m":0,"a":1,"t":1},{"n":"Priscila Rostagno","m":0,"a":1,"t":1},{"n":"Rafael Baik","m":0,"a":1,"t":1},{"n":"Ramiro Decono","m":0,"a":1,"t":1},{"n":"Ramiro Diato Vignolo","m":0,"a":1,"t":1},{"n":"Ramiro Diez","m":0,"a":1,"t":1},{"n":"Ramiro Ferreri","m":0,"a":1,"t":1},{"n":"Ramiro Manuel Ares","m":0,"a":1,"t":1},{"n":"Ramiro Natmona","m":0,"a":1,"t":1},{"n":"Ramiro Penna","m":0,"a":1,"t":1},{"n":"Raul  Cabello","m":0,"a":1,"t":1},{"n":"Renzo Taccini","m":0,"a":1,"t":1},{"n":"Roberto Andres Ardolino","m":0,"a":1,"t":1},{"n":"Roberto Miramontes","m":0,"a":1,"t":1},{"n":"Rodrigo Cala","m":0,"a":1,"t":1},{"n":"Rodrigo González","m":0,"a":1,"t":1},{"n":"Rodrigo Iubatti","m":0,"a":1,"t":1},{"n":"Rodrigo Jimenez Becares","m":0,"a":1,"t":1},{"n":"Rodrigo Lencioni","m":0,"a":1,"t":1},{"n":"Rodrigo Martorell","m":0,"a":1,"t":1},{"n":"Rodrigo Moreno","m":0,"a":1,"t":1},{"n":"Rodrigo Pablo Martorell","m":0,"a":1,"t":1},{"n":"Rodrigo Quintana","m":0,"a":1,"t":1},{"n":"Rodrigo Soria","m":0,"a":1,"t":1},{"n":"Rodrigo Suarez","m":0,"a":1,"t":1},{"n":"Rodrigo Svarzman","m":0,"a":1,"t":1},{"n":"Roman Heilbrunn","m":0,"a":1,"t":1},{"n":"Roman Migliano","m":0,"a":1,"t":1},{"n":"Romina Paik","m":0,"a":1,"t":1},{"n":"Ruben Kim","m":0,"a":1,"t":1},{"n":"Ruben Pereyra","m":0,"a":1,"t":1},{"n":"Samuel Han","m":0,"a":1,"t":1},{"n":"Santiago Cañaz","m":0,"a":1,"t":1},{"n":"Santiago Dominguez","m":0,"a":1,"t":1},{"n":"Santiago Esparza","m":0,"a":1,"t":1},{"n":"Santiago Gagl Indicó","m":0,"a":1,"t":1},{"n":"Santiago Greschek","m":0,"a":1,"t":1},{"n":"Santiago Guido Maeso","m":0,"a":1,"t":1},{"n":"Santiago Herrera","m":0,"a":1,"t":1},{"n":"Santiago Luzza","m":0,"a":1,"t":1},{"n":"Santiago Megias","m":0,"a":1,"t":1},{"n":"Santiago Megias Spinozza","m":0,"a":1,"t":1},{"n":"Santiago Rodriguez","m":0,"a":1,"t":1},{"n":"Santiago Rodriguez Beron","m":0,"a":1,"t":1},{"n":"Santiago Saine","m":0,"a":1,"t":1},{"n":"Santino Besio","m":0,"a":1,"t":1},{"n":"Santino Coniglio","m":0,"a":1,"t":1},{"n":"Santisgo Olmos","m":0,"a":1,"t":1},{"n":"Sebastian Bresan","m":0,"a":1,"t":1},{"n":"Sebastian Cuda","m":0,"a":1,"t":1},{"n":"Sebastian Garcia","m":0,"a":1,"t":1},{"n":"Sebastian Mihura Bochini","m":0,"a":1,"t":1},{"n":"Sebastian Perez","m":0,"a":1,"t":1},{"n":"Sebastián Garcia Montes","m":0,"a":1,"t":1},{"n":"Sebastián Portela","m":0,"a":1,"t":1},{"n":"Sebstian Pastorino","m":0,"a":1,"t":1},{"n":"Sergei Vorobev","m":0,"a":1,"t":1},{"n":"Sergio Castreje","m":0,"a":1,"t":1},{"n":"Sergio Ferreyra","m":0,"a":1,"t":1},{"n":"Sergio Meza","m":0,"a":1,"t":1},{"n":"Sergio Pedreros","m":0,"a":1,"t":1},{"n":"Seung Man Chi","m":0,"a":1,"t":1},{"n":"Sicher Malena","m":0,"a":1,"t":1},{"n":"Silvio Benedeti","m":0,"a":1,"t":1},{"n":"Sofia Kim","m":0,"a":1,"t":1},{"n":"Sol Lebars","m":0,"a":1,"t":1},{"n":"Stefano Suto","m":0,"a":1,"t":1},{"n":"Susana Ham","m":0,"a":1,"t":1},{"n":"Tatiana Nass","m":0,"a":1,"t":1},{"n":"Teo Zupicich Plo","m":0,"a":1,"t":1},{"n":"Teresita Burs","m":0,"a":1,"t":1},{"n":"Thiago Hilu","m":0,"a":1,"t":1},{"n":"Thiago Lucich","m":0,"a":1,"t":1},{"n":"Thiaho Ali","m":0,"a":1,"t":1},{"n":"Thomas Salinas","m":0,"a":1,"t":1},{"n":"Tobias Groisman","m":0,"a":1,"t":1},{"n":"Tobias Tassara","m":0,"a":1,"t":1},{"n":"Tobías Snieg","m":0,"a":1,"t":1},{"n":"Tomas Cambours","m":0,"a":1,"t":1},{"n":"Tomas Cressi","m":0,"a":1,"t":1},{"n":"Tomas Galvicchio","m":0,"a":1,"t":1},{"n":"Tomas Garcia Reidel","m":0,"a":1,"t":1},{"n":"Tomas González","m":0,"a":1,"t":1},{"n":"Tomas Miranda","m":0,"a":1,"t":1},{"n":"Tomas Pascual","m":0,"a":1,"t":1},{"n":"Tomas Raimondo","m":0,"a":1,"t":1},{"n":"Tomas Sandoval","m":0,"a":1,"t":1},{"n":"Tomas Solis","m":0,"a":1,"t":1},{"n":"Tomás Agustin Perez","m":0,"a":1,"t":1},{"n":"Tomás Calicchio","m":0,"a":1,"t":1},{"n":"Uziel Ivan Di Paola","m":0,"a":1,"t":1},{"n":"Valentin Coqui","m":0,"a":1,"t":1},{"n":"Valentin Flores","m":0,"a":1,"t":1},{"n":"Valentino Felicetti","m":0,"a":1,"t":1},{"n":"Valentín Lombino","m":0,"a":1,"t":1},{"n":"Valeria Albonico","m":0,"a":1,"t":1},{"n":"Victor Nicolas Ramirez","m":0,"a":1,"t":1},{"n":"Viktoriya Gorbaneva","m":0,"a":1,"t":1},{"n":"Vito Veneziano","m":0,"a":1,"t":1},{"n":"Viviana Silvia Rodriguez","m":0,"a":1,"t":1},{"n":"Walter Alcaraz","m":0,"a":1,"t":1},{"n":"Williams Marcelo Vargas","m":0,"a":1,"t":1},{"n":"Williams Marcelo Vargas Sena","m":0,"a":1,"t":1},{"n":"Yair Fornari","m":0,"a":1,"t":1},{"n":"Yamil Urchipia","m":0,"a":1,"t":1},{"n":"Yoel Ibarra","m":0,"a":1,"t":1},{"n":"Zoe Sandoval","m":0,"a":1,"t":1}],"damas":[{"n":"Yanina Rubino","m":5,"a":5,"t":10},{"n":"Adrian Sarikamichian","m":5,"a":4,"t":9},{"n":"Gladys Govi","m":4,"a":5,"t":9},{"n":"Catalina Tewes","m":5,"a":2,"t":7},{"n":"Daniela Conti","m":4,"a":3,"t":7},{"n":"Antonina Doroganova","m":5,"a":1,"t":6},{"n":"Arina Ushakova","m":5,"a":1,"t":6},{"n":"Barbara Jimenez","m":4,"a":2,"t":6},{"n":"Ludmila Villalba","m":4,"a":2,"t":6},{"n":"Florencia Frega Ferrare","m":3,"a":3,"t":6},{"n":"Romina Lambiris","m":3,"a":3,"t":6},{"n":"Sabrina Capurro","m":3,"a":3,"t":6},{"n":"Geraldine Kennedy","m":2,"a":4,"t":6},{"n":"Agustina Solis","m":4,"a":1,"t":5},{"n":"Eugenia Matioucheva","m":4,"a":1,"t":5},{"n":"Sabrina Ciavatta","m":4,"a":1,"t":5},{"n":"Gabriela Espariz","m":3,"a":2,"t":5},{"n":"Gal Lischi","m":3,"a":2,"t":5},{"n":"Karina Palermo","m":3,"a":2,"t":5},{"n":"María Laura Mazzoli","m":3,"a":2,"t":5},{"n":"Rocio Risoluto","m":3,"a":2,"t":5},{"n":"Victoria Amoroso","m":3,"a":2,"t":5},{"n":"Eleonora Daneri","m":2,"a":3,"t":5},{"n":"Olga Sipkina","m":2,"a":3,"t":5},{"n":"Paola Veronica Pascual","m":2,"a":3,"t":5},{"n":"Ana Chang","m":4,"a":0,"t":4},{"n":"Benjamin Arapchuk","m":4,"a":0,"t":4},{"n":"Candelaria Alonso","m":4,"a":0,"t":4},{"n":"Claudia Cravchik","m":4,"a":0,"t":4},{"n":"Micaela Min","m":4,"a":0,"t":4},{"n":"Sabrina Rabotnicoff","m":4,"a":0,"t":4},{"n":"Debora Yang","m":3,"a":1,"t":4},{"n":"Esperanza Kim","m":3,"a":1,"t":4},{"n":"Mariana González","m":3,"a":1,"t":4},{"n":"Natalia Aguirre","m":3,"a":1,"t":4},{"n":"Nicole Hackbartt","m":3,"a":1,"t":4},{"n":"Paz Coarasa","m":3,"a":1,"t":4},{"n":"Tomas Leyria","m":3,"a":1,"t":4},{"n":"Adriana Chong","m":2,"a":2,"t":4},{"n":"Cintia Pérez","m":2,"a":2,"t":4},{"n":"Diana Park","m":2,"a":2,"t":4},{"n":"Erika Posternak","m":2,"a":2,"t":4},{"n":"Florencia Cardozo","m":2,"a":2,"t":4},{"n":"Jazmín López","m":2,"a":2,"t":4},{"n":"Marina Kurlenko","m":2,"a":2,"t":4},{"n":"Nancy Valeria Dorsa","m":2,"a":2,"t":4},{"n":"Silvio Sotelo","m":2,"a":2,"t":4},{"n":"Tamara Colagero","m":2,"a":2,"t":4},{"n":"Veronica Romero","m":2,"a":2,"t":4},{"n":"Anabella Mosenson","m":1,"a":3,"t":4},{"n":"Anastasia Galiamova","m":1,"a":3,"t":4},{"n":"Carolina Leyria","m":1,"a":3,"t":4},{"n":"Cynthia Arnedo","m":1,"a":3,"t":4},{"n":"Ilse Castellano","m":1,"a":3,"t":4},{"n":"María Florencia Bonelli","m":1,"a":3,"t":4},{"n":"Romina Vietri","m":1,"a":3,"t":4},{"n":"Agustina Hernandez","m":0,"a":4,"t":4},{"n":"Micaela Pendas","m":0,"a":4,"t":4},{"n":"Paula Vanesa Lopez","m":0,"a":4,"t":4},{"n":"Alan Soria","m":3,"a":0,"t":3},{"n":"Camila Belén Fernández","m":3,"a":0,"t":3},{"n":"Eugenia Romero","m":3,"a":0,"t":3},{"n":"Flavia Castellini","m":3,"a":0,"t":3},{"n":"Lara Abelleira","m":3,"a":0,"t":3},{"n":"Mariela Sivori","m":3,"a":0,"t":3},{"n":"Melany Testa","m":3,"a":0,"t":3},{"n":"Pablo Estremadoyro","m":3,"a":0,"t":3},{"n":"Romina Jimena","m":3,"a":0,"t":3},{"n":"Romina Orozco","m":3,"a":0,"t":3},{"n":"Sicher Malena","m":3,"a":0,"t":3},{"n":"Agustina Zaffino","m":2,"a":1,"t":3},{"n":"Ailén Bernardi","m":2,"a":1,"t":3},{"n":"Analia Analia Perez","m":2,"a":1,"t":3},{"n":"Anto Amicucci","m":2,"a":1,"t":3},{"n":"Ariel Antognini","m":2,"a":1,"t":3},{"n":"Aylen Ripoll","m":2,"a":1,"t":3},{"n":"Barbara Mazzoni","m":2,"a":1,"t":3},{"n":"Cecilia Figini","m":2,"a":1,"t":3},{"n":"Claudio Chura","m":2,"a":1,"t":3},{"n":"Daniela Bauleo","m":2,"a":1,"t":3},{"n":"Daniela Fernández","m":2,"a":1,"t":3},{"n":"Daniela Gutierrez","m":2,"a":1,"t":3},{"n":"Delfina Estarellas","m":2,"a":1,"t":3},{"n":"Emilce Belen Zerda","m":2,"a":1,"t":3},{"n":"Esteban Chung","m":2,"a":1,"t":3},{"n":"Evelyn Lee","m":2,"a":1,"t":3},{"n":"Gabreila Gimenez","m":2,"a":1,"t":3},{"n":"Ignacio Luis Alsogaray","m":2,"a":1,"t":3},{"n":"Karina Sanchez","m":2,"a":1,"t":3},{"n":"Lourdes Picciochi","m":2,"a":1,"t":3},{"n":"Luciana Paula Santin Molina","m":2,"a":1,"t":3},{"n":"Lula Gutierrez","m":2,"a":1,"t":3},{"n":"Magali Grasso","m":2,"a":1,"t":3},{"n":"Mailen Mauccione","m":2,"a":1,"t":3},{"n":"Melina Moggia","m":2,"a":1,"t":3},{"n":"Micaela Dolagaray","m":2,"a":1,"t":3},{"n":"Michelle Pak","m":2,"a":1,"t":3},{"n":"Morena Scarafia","m":2,"a":1,"t":3},{"n":"Nary Kim","m":2,"a":1,"t":3},{"n":"Nicolas Perez","m":2,"a":1,"t":3},{"n":"Paloma Vila","m":2,"a":1,"t":3},{"n":"Roberto Lugones","m":2,"a":1,"t":3},{"n":"Sofia Kim","m":2,"a":1,"t":3},{"n":"Uriel Simone","m":2,"a":1,"t":3},{"n":"Vanesa Sepliarsky","m":2,"a":1,"t":3},{"n":"Angela Cho","m":1,"a":2,"t":3},{"n":"Barbara Dercye","m":1,"a":2,"t":3},{"n":"Carolina Alonso","m":1,"a":2,"t":3},{"n":"Carolina Medina","m":1,"a":2,"t":3},{"n":"Erika Natasha Kodelia","m":1,"a":2,"t":3},{"n":"Fabiola Marchueta","m":1,"a":2,"t":3},{"n":"Florencia Arbizu","m":1,"a":2,"t":3},{"n":"Gabriela Ceretti","m":1,"a":2,"t":3},{"n":"Gusein Soukaev","m":1,"a":2,"t":3},{"n":"Julian Ruiz","m":1,"a":2,"t":3},{"n":"Karen Peña","m":1,"a":2,"t":3},{"n":"Mariana Alonso","m":1,"a":2,"t":3},{"n":"Marias Soledad Jordan","m":1,"a":2,"t":3},{"n":"Romina Cho","m":1,"a":2,"t":3},{"n":"Sol Romero","m":1,"a":2,"t":3},{"n":"Tatiana Del Roio","m":1,"a":2,"t":3},{"n":"Vanesa Viñales","m":1,"a":2,"t":3},{"n":"Vanina Soca","m":1,"a":2,"t":3},{"n":"Yanina Victoria Maglio","m":1,"a":2,"t":3},{"n":"Daniela Antognini","m":0,"a":3,"t":3},{"n":"Marianela Sopeña","m":0,"a":3,"t":3},{"n":"Onix Velardez","m":0,"a":3,"t":3},{"n":"Valeria Sateriano","m":0,"a":3,"t":3},{"n":"Agustina Alzola","m":2,"a":0,"t":2},{"n":"Ana Laura Vinsenzo","m":2,"a":0,"t":2},{"n":"Ana Lis López García","m":2,"a":0,"t":2},{"n":"Andrea Azcarate","m":2,"a":0,"t":2},{"n":"Andrea Estevez","m":2,"a":0,"t":2},{"n":"Andrea Garcia","m":2,"a":0,"t":2},{"n":"Andrés Alzola","m":2,"a":0,"t":2},{"n":"Belén González Zavalia","m":2,"a":0,"t":2},{"n":"Berenice Hortal","m":2,"a":0,"t":2},{"n":"Camila Licenblat","m":2,"a":0,"t":2},{"n":"Carolina Benitez","m":2,"a":0,"t":2},{"n":"Celeste Vita","m":2,"a":0,"t":2},{"n":"Daiana Ambrocio","m":2,"a":0,"t":2},{"n":"Daniela Porta","m":2,"a":0,"t":2},{"n":"Daria Barsukova Krajem","m":2,"a":0,"t":2},{"n":"Emanuel Paik","m":2,"a":0,"t":2},{"n":"Estefania Gateno","m":2,"a":0,"t":2},{"n":"Estefania Rizzo","m":2,"a":0,"t":2},{"n":"Eunji Kang","m":2,"a":0,"t":2},{"n":"Eva Beatriz Bonifacio","m":2,"a":0,"t":2},{"n":"Facundo Lahittette","m":2,"a":0,"t":2},{"n":"Fiorella Gamazo","m":2,"a":0,"t":2},{"n":"Florencia Keuyluian","m":2,"a":0,"t":2},{"n":"Florencia Lee","m":2,"a":0,"t":2},{"n":"Florencia Muraca","m":2,"a":0,"t":2},{"n":"Francisco Ricciardi","m":2,"a":0,"t":2},{"n":"Gustavo Redrado","m":2,"a":0,"t":2},{"n":"Irina Cattaneo","m":2,"a":0,"t":2},{"n":"Jose Meretta","m":2,"a":0,"t":2},{"n":"Juan Bouza","m":2,"a":0,"t":2},{"n":"Juan Hourcade","m":2,"a":0,"t":2},{"n":"Julieta Ojeda","m":2,"a":0,"t":2},{"n":"Leandro Ferigo","m":2,"a":0,"t":2},{"n":"Lucas Martino","m":2,"a":0,"t":2},{"n":"Lucia Pazos","m":2,"a":0,"t":2},{"n":"Malena Luna","m":2,"a":0,"t":2},{"n":"Malena Moran","m":2,"a":0,"t":2},{"n":"Marcela Canziani","m":2,"a":0,"t":2},{"n":"Mariana Cocucci","m":2,"a":0,"t":2},{"n":"Mariela Sisa","m":2,"a":0,"t":2},{"n":"Michelle Yi","m":2,"a":0,"t":2},{"n":"Miguel Angel Dotta","m":2,"a":0,"t":2},{"n":"Milena Pedacreda","m":2,"a":0,"t":2},{"n":"Moises Navarro","m":2,"a":0,"t":2},{"n":"Nicolas Pongelli","m":2,"a":0,"t":2},{"n":"Paula Marin","m":2,"a":0,"t":2},{"n":"Paula Rodriguez","m":2,"a":0,"t":2},{"n":"Ricardo Bazzi","m":2,"a":0,"t":2},{"n":"Rocio Ferrari","m":2,"a":0,"t":2},{"n":"Rocío Lucía Arolfo","m":2,"a":0,"t":2},{"n":"Romina Walter","m":2,"a":0,"t":2},{"n":"Roxana Lori","m":2,"a":0,"t":2},{"n":"Sabrina Rabinovich","m":2,"a":0,"t":2},{"n":"Sergio Calvo","m":2,"a":0,"t":2},{"n":"Sol Guenzi","m":2,"a":0,"t":2},{"n":"Soledad Alonso","m":2,"a":0,"t":2},{"n":"Soledad Veron","m":2,"a":0,"t":2},{"n":"Tamara Alendres","m":2,"a":0,"t":2},{"n":"Valentina Novo","m":2,"a":0,"t":2},{"n":"Vanesa Vazquez","m":2,"a":0,"t":2},{"n":"Vanina Saul","m":2,"a":0,"t":2},{"n":"Viktoriia Shcherbakova","m":2,"a":0,"t":2},{"n":"Yamila Sánchez Suárez","m":2,"a":0,"t":2},{"n":"Abtil Son","m":1,"a":1,"t":2},{"n":"Adrián Butti","m":1,"a":1,"t":2},{"n":"Agustina De Vivo","m":1,"a":1,"t":2},{"n":"Agustina Stefani","m":1,"a":1,"t":2},{"n":"Albano Crocci","m":1,"a":1,"t":2},{"n":"Alejandra Pia Azpiazu","m":1,"a":1,"t":2},{"n":"Amalia Sere","m":1,"a":1,"t":2},{"n":"Anabella Kim","m":1,"a":1,"t":2},{"n":"Antonela Rodriguez","m":1,"a":1,"t":2},{"n":"Antonella Di Paolo","m":1,"a":1,"t":2},{"n":"Barbara Pirisi","m":1,"a":1,"t":2},{"n":"Beatriz Martinez","m":1,"a":1,"t":2},{"n":"Candela Garat","m":1,"a":1,"t":2},{"n":"Carla Aiello","m":1,"a":1,"t":2},{"n":"Celeste Ahn","m":1,"a":1,"t":2},{"n":"Cintia Esteban","m":1,"a":1,"t":2},{"n":"Daria Trunova","m":1,"a":1,"t":2},{"n":"Denise Vetta","m":1,"a":1,"t":2},{"n":"Edgardo Byun","m":1,"a":1,"t":2},{"n":"Emilia Errandonea","m":1,"a":1,"t":2},{"n":"Facundo Cantizano","m":1,"a":1,"t":2},{"n":"Fernanda Etchart Ponce","m":1,"a":1,"t":2},{"n":"Fernando Verdecchia","m":1,"a":1,"t":2},{"n":"Flavia Fileni","m":1,"a":1,"t":2},{"n":"Flavio Maldonado","m":1,"a":1,"t":2},{"n":"Florencia Mendez","m":1,"a":1,"t":2},{"n":"Florencia Perez","m":1,"a":1,"t":2},{"n":"Florencia Seppacuercia","m":1,"a":1,"t":2},{"n":"Gisela Garrone","m":1,"a":1,"t":2},{"n":"Hernan Blumenfeld","m":1,"a":1,"t":2},{"n":"Ileana Soto","m":1,"a":1,"t":2},{"n":"Jesica Frias","m":1,"a":1,"t":2},{"n":"Jimena Porcel","m":1,"a":1,"t":2},{"n":"Juan Corvalan","m":1,"a":1,"t":2},{"n":"Juan Jose Varela","m":1,"a":1,"t":2},{"n":"Judy Vaccarezza","m":1,"a":1,"t":2},{"n":"Julieta Outon","m":1,"a":1,"t":2},{"n":"Karen Gonzalez","m":1,"a":1,"t":2},{"n":"Karina Caruso","m":1,"a":1,"t":2},{"n":"Kuki Valenti","m":1,"a":1,"t":2},{"n":"Lara Rogovsky","m":1,"a":1,"t":2},{"n":"Laura Garcia","m":1,"a":1,"t":2},{"n":"Lorena Ahn","m":1,"a":1,"t":2},{"n":"Lucas Ezequiel Artaza","m":1,"a":1,"t":2},{"n":"Lucia Rodriguez","m":1,"a":1,"t":2},{"n":"Luis Iglesias","m":1,"a":1,"t":2},{"n":"Macarena Crnich","m":1,"a":1,"t":2},{"n":"Macarena Staino","m":1,"a":1,"t":2},{"n":"Maria Lee","m":1,"a":1,"t":2},{"n":"Mariana Gacio Velo","m":1,"a":1,"t":2},{"n":"Marisol Wetzel","m":1,"a":1,"t":2},{"n":"María Belén Cáceres","m":1,"a":1,"t":2},{"n":"María Paz Rodríguez","m":1,"a":1,"t":2},{"n":"Matias Bovio","m":1,"a":1,"t":2},{"n":"Medellin Helfenstein","m":1,"a":1,"t":2},{"n":"Nahuel Di Dio","m":1,"a":1,"t":2},{"n":"Nicolas Lim","m":1,"a":1,"t":2},{"n":"Nicolas Zacarias","m":1,"a":1,"t":2},{"n":"Noelia Campostrini","m":1,"a":1,"t":2},{"n":"Pamela Gomez","m":1,"a":1,"t":2},{"n":"Paula Lestani","m":1,"a":1,"t":2},{"n":"Priscila Rostagno","m":1,"a":1,"t":2},{"n":"Silvana Zaccaro","m":1,"a":1,"t":2},{"n":"Soledad Torres","m":1,"a":1,"t":2},{"n":"Sonia Lee","m":1,"a":1,"t":2},{"n":"Tomas Brillo","m":1,"a":1,"t":2},{"n":"Vanesa Tammaro","m":1,"a":1,"t":2},{"n":"Adriana Lesieur","m":0,"a":2,"t":2},{"n":"Ailin Velgil","m":0,"a":2,"t":2},{"n":"Aldana La Grutta","m":0,"a":2,"t":2},{"n":"Aldana Mazzuchi","m":0,"a":2,"t":2},{"n":"Ana Martínez Graziano","m":0,"a":2,"t":2},{"n":"Andrea Mariel Nuñez","m":0,"a":2,"t":2},{"n":"Andrea Nadia Alvarez","m":0,"a":2,"t":2},{"n":"Camila Kaizoji","m":0,"a":2,"t":2},{"n":"Carina F","m":0,"a":2,"t":2},{"n":"Carolina Gutierrez","m":0,"a":2,"t":2},{"n":"Cecilia Celeste Frascaroli","m":0,"a":2,"t":2},{"n":"Constanza Cardenas Mancini","m":0,"a":2,"t":2},{"n":"Diego Fabian Martínez","m":0,"a":2,"t":2},{"n":"Elizabeth Rivas","m":0,"a":2,"t":2},{"n":"Emanuel Vaccaro","m":0,"a":2,"t":2},{"n":"Emmanuel Saenz","m":0,"a":2,"t":2},{"n":"Fiorella Scriveri","m":0,"a":2,"t":2},{"n":"Florencia Robles","m":0,"a":2,"t":2},{"n":"Gabriela Gimenez","m":0,"a":2,"t":2},{"n":"Jessica De Caro","m":0,"a":2,"t":2},{"n":"Julian Barriola","m":0,"a":2,"t":2},{"n":"Laura Peredo","m":0,"a":2,"t":2},{"n":"Lia Cerdeira","m":0,"a":2,"t":2},{"n":"Maria Eugenia Barrenechea","m":0,"a":2,"t":2},{"n":"Martina Arena","m":0,"a":2,"t":2},{"n":"María Daniela Guardati","m":0,"a":2,"t":2},{"n":"María Victoria Cáceres","m":0,"a":2,"t":2},{"n":"Matías Ezequiel Quintana","m":0,"a":2,"t":2},{"n":"Melany Chao","m":0,"a":2,"t":2},{"n":"Pablo Bauta","m":0,"a":2,"t":2},{"n":"Pamela Carpentier","m":0,"a":2,"t":2},{"n":"Paula Cleves","m":0,"a":2,"t":2},{"n":"Rina Lee","m":0,"a":2,"t":2},{"n":"Rocío Belén García","m":0,"a":2,"t":2},{"n":"Romina Paz","m":0,"a":2,"t":2},{"n":"Silvia Nanut","m":0,"a":2,"t":2},{"n":"Silvina Sorichetti","m":0,"a":2,"t":2},{"n":"Solange Dubois","m":0,"a":2,"t":2},{"n":"Tamara Milagros Espinola","m":0,"a":2,"t":2},{"n":"Valeria Luvera","m":0,"a":2,"t":2},{"n":"Vania Leguia","m":0,"a":2,"t":2},{"n":"Veronica Mastrangelo","m":0,"a":2,"t":2},{"n":"Verónica Leonor González","m":0,"a":2,"t":2},{"n":"Victoria Doval","m":0,"a":2,"t":2},{"n":"Virginia Majluff","m":0,"a":2,"t":2},{"n":"Víctor Zamora","m":0,"a":2,"t":2},{"n":"Abril Julieta Rosano","m":1,"a":0,"t":1},{"n":"Adrian Molinelli","m":1,"a":0,"t":1},{"n":"Adrián Cordoba","m":1,"a":0,"t":1},{"n":"Agostina Boned","m":1,"a":0,"t":1},{"n":"Agustin Radziusz","m":1,"a":0,"t":1},{"n":"Agustin Sciutto","m":1,"a":0,"t":1},{"n":"Agustina Banega","m":1,"a":0,"t":1},{"n":"Agustina Covazzi Cerato","m":1,"a":0,"t":1},{"n":"Agustina Fernández","m":1,"a":0,"t":1},{"n":"Agustina Kicillof","m":1,"a":0,"t":1},{"n":"Agustina Santi","m":1,"a":0,"t":1},{"n":"Agustina Serrano","m":1,"a":0,"t":1},{"n":"Alan Di Schiena","m":1,"a":0,"t":1},{"n":"Alan Dubroff","m":1,"a":0,"t":1},{"n":"Aldana Abollo","m":1,"a":0,"t":1},{"n":"Alejandra Olivera","m":1,"a":0,"t":1},{"n":"Alejandra Vernieri","m":1,"a":0,"t":1},{"n":"Alina Kriuchkova","m":1,"a":0,"t":1},{"n":"Ana Anita","m":1,"a":0,"t":1},{"n":"Ana Kim","m":1,"a":0,"t":1},{"n":"Anabella Molina","m":1,"a":0,"t":1},{"n":"Anahi Di Gregorio","m":1,"a":0,"t":1},{"n":"Andrea Barrio","m":1,"a":0,"t":1},{"n":"Andrea Masot","m":1,"a":0,"t":1},{"n":"Andrea Pompe","m":1,"a":0,"t":1},{"n":"Antonella Cattaneo","m":1,"a":0,"t":1},{"n":"Ariel Garcia","m":1,"a":0,"t":1},{"n":"Ariel Perez","m":1,"a":0,"t":1},{"n":"Ayelen Kang","m":1,"a":0,"t":1},{"n":"Aylen Macinskas","m":1,"a":0,"t":1},{"n":"Barbara Martinez","m":1,"a":0,"t":1},{"n":"Barbara Mujoli","m":1,"a":0,"t":1},{"n":"Barbara Radl","m":1,"a":0,"t":1},{"n":"Belen Bargagna","m":1,"a":0,"t":1},{"n":"Belen Gervasoni","m":1,"a":0,"t":1},{"n":"Belen Guc","m":1,"a":0,"t":1},{"n":"Belen Mengo","m":1,"a":0,"t":1},{"n":"Brian Filossi","m":1,"a":0,"t":1},{"n":"Brian Testa","m":1,"a":0,"t":1},{"n":"Camila B Galeano","m":1,"a":0,"t":1},{"n":"Camila Belén Urquiza","m":1,"a":0,"t":1},{"n":"Camila Colacci","m":1,"a":0,"t":1},{"n":"Camila Dal Bono","m":1,"a":0,"t":1},{"n":"Camila Lacoste","m":1,"a":0,"t":1},{"n":"Camila Lamberti","m":1,"a":0,"t":1},{"n":"Camila Milici","m":1,"a":0,"t":1},{"n":"Carina Ballesteros","m":1,"a":0,"t":1},{"n":"Carlos Andrade","m":1,"a":0,"t":1},{"n":"Carlos Bazan","m":1,"a":0,"t":1},{"n":"Carolina Borinsky","m":1,"a":0,"t":1},{"n":"Carolina Cortez","m":1,"a":0,"t":1},{"n":"Carolina D’Alessandro","m":1,"a":0,"t":1},{"n":"Carolina Lombraña","m":1,"a":0,"t":1},{"n":"Cecilia Han","m":1,"a":0,"t":1},{"n":"Cecilia Loiacono","m":1,"a":0,"t":1},{"n":"Celeste Maneiro","m":1,"a":0,"t":1},{"n":"Celina Koo","m":1,"a":0,"t":1},{"n":"Chechu Loiacono","m":1,"a":0,"t":1},{"n":"Cinthia Plá","m":1,"a":0,"t":1},{"n":"Claudia Park","m":1,"a":0,"t":1},{"n":"Cristian Pare","m":1,"a":0,"t":1},{"n":"Cristian Schultheis","m":1,"a":0,"t":1},{"n":"Cynthia Eleonora Rossi","m":1,"a":0,"t":1},{"n":"Damian Espina","m":1,"a":0,"t":1},{"n":"Daniel Choi","m":1,"a":0,"t":1},{"n":"Daniela Barrionuevo","m":1,"a":0,"t":1},{"n":"Daniela Genovois","m":1,"a":0,"t":1},{"n":"Daniela Park","m":1,"a":0,"t":1},{"n":"Daniela Purciariello","m":1,"a":0,"t":1},{"n":"Daniela Ramos","m":1,"a":0,"t":1},{"n":"Danisa Di Paolo","m":1,"a":0,"t":1},{"n":"Danisa Rendon","m":1,"a":0,"t":1},{"n":"Dara Sotelo","m":1,"a":0,"t":1},{"n":"David Aquino","m":1,"a":0,"t":1},{"n":"Denise Betancurt","m":1,"a":0,"t":1},{"n":"Denisse Golbert","m":1,"a":0,"t":1},{"n":"Diego Aguirre","m":1,"a":0,"t":1},{"n":"Diego Montesano","m":1,"a":0,"t":1},{"n":"Diego Villavicencio","m":1,"a":0,"t":1},{"n":"Dolores Catala","m":1,"a":0,"t":1},{"n":"Eduardo Daniel Busciglio","m":1,"a":0,"t":1},{"n":"Elisabeth Rivas","m":1,"a":0,"t":1},{"n":"Elizabeth Bardas Paz","m":1,"a":0,"t":1},{"n":"Elizabeth Gagiotti","m":1,"a":0,"t":1},{"n":"Emilce Garcia","m":1,"a":0,"t":1},{"n":"Emilce Rico","m":1,"a":0,"t":1},{"n":"Emilse Meng","m":1,"a":0,"t":1},{"n":"Enzo Cosentino","m":1,"a":0,"t":1},{"n":"Erika Liparelli","m":1,"a":0,"t":1},{"n":"Eugenia Costa","m":1,"a":0,"t":1},{"n":"Fabian Rinaldi","m":1,"a":0,"t":1},{"n":"Fabian Vera","m":1,"a":0,"t":1},{"n":"Fabián Cardozo","m":1,"a":0,"t":1},{"n":"Facundo Quiroga","m":1,"a":0,"t":1},{"n":"Federico Beun","m":1,"a":0,"t":1},{"n":"Federico Hasner","m":1,"a":0,"t":1},{"n":"Fernando Jara","m":1,"a":0,"t":1},{"n":"Flor Caamaño","m":1,"a":0,"t":1},{"n":"Florencia  Arbizu","m":1,"a":0,"t":1},{"n":"Florencia Caminos","m":1,"a":0,"t":1},{"n":"Florencia Villoldo","m":1,"a":0,"t":1},{"n":"Fran Di Rocco","m":1,"a":0,"t":1},{"n":"Francisco Ricciaedi","m":1,"a":0,"t":1},{"n":"Franco Briguori","m":1,"a":0,"t":1},{"n":"Franco López","m":1,"a":0,"t":1},{"n":"Franco Ponce","m":1,"a":0,"t":1},{"n":"Gabriela Di Marco","m":1,"a":0,"t":1},{"n":"Gabriela Smith","m":1,"a":0,"t":1},{"n":"Gastón García","m":1,"a":0,"t":1},{"n":"Gilda Castro Luque","m":1,"a":0,"t":1},{"n":"Giselle Campero","m":1,"a":0,"t":1},{"n":"Gonzalo Busto","m":1,"a":0,"t":1},{"n":"Gonzalo Carreras","m":1,"a":0,"t":1},{"n":"Gonzalo Robles","m":1,"a":0,"t":1},{"n":"Graciela Kollmann","m":1,"a":0,"t":1},{"n":"Guadalupe Estabillo","m":1,"a":0,"t":1},{"n":"Guadalupe Ezquerra","m":1,"a":0,"t":1},{"n":"Guillermo Santander","m":1,"a":0,"t":1},{"n":"Gustavo Beck","m":1,"a":0,"t":1},{"n":"Hernan Griffo","m":1,"a":0,"t":1},{"n":"Hernan Niñe","m":1,"a":0,"t":1},{"n":"Hernan Rodriguez","m":1,"a":0,"t":1},{"n":"Ian Palasciano","m":1,"a":0,"t":1},{"n":"Ignacio Andrade","m":1,"a":0,"t":1},{"n":"Imanol Machuca","m":1,"a":0,"t":1},{"n":"Indira Ozan","m":1,"a":0,"t":1},{"n":"Ivan Lee","m":1,"a":0,"t":1},{"n":"Jacqueline Rivero","m":1,"a":0,"t":1},{"n":"Jenifer Yang","m":1,"a":0,"t":1},{"n":"Jimena Rajoy","m":1,"a":0,"t":1},{"n":"Joana Cornejo","m":1,"a":0,"t":1},{"n":"Johanna Barcena","m":1,"a":0,"t":1},{"n":"Jonathan Hong","m":1,"a":0,"t":1},{"n":"Josefina Perns","m":1,"a":0,"t":1},{"n":"Juan Francisco Brunati Vera","m":1,"a":0,"t":1},{"n":"Juan Ignacio Castro","m":1,"a":0,"t":1},{"n":"Juan Ignacio García Olalla","m":1,"a":0,"t":1},{"n":"Juan Manuel González","m":1,"a":0,"t":1},{"n":"Juan Torandell","m":1,"a":0,"t":1},{"n":"Juana Cubas","m":1,"a":0,"t":1},{"n":"Juana García Monti","m":1,"a":0,"t":1},{"n":"Julian Lahittette","m":1,"a":0,"t":1},{"n":"Julieta Bernal","m":1,"a":0,"t":1},{"n":"Julieta Cardozo","m":1,"a":0,"t":1},{"n":"Julieta Estable","m":1,"a":0,"t":1},{"n":"Julieta Fernandez","m":1,"a":0,"t":1},{"n":"Julieta Perez","m":1,"a":0,"t":1},{"n":"Julieta Rosales","m":1,"a":0,"t":1},{"n":"Julio Caballero","m":1,"a":0,"t":1},{"n":"Karina Sánchez","m":1,"a":0,"t":1},{"n":"Kevin Tata","m":1,"a":0,"t":1},{"n":"Kevin Villagomez","m":1,"a":0,"t":1},{"n":"Kiara Azul Caminos","m":1,"a":0,"t":1},{"n":"Laura Leon","m":1,"a":0,"t":1},{"n":"Leo Juarez","m":1,"a":0,"t":1},{"n":"Leticia Del Rosario","m":1,"a":0,"t":1},{"n":"Lila Eva Lanza","m":1,"a":0,"t":1},{"n":"Lorena Azpiazu","m":1,"a":0,"t":1},{"n":"Lorena Castro","m":1,"a":0,"t":1},{"n":"Lorena Ceglie","m":1,"a":0,"t":1},{"n":"Lorena Ramos","m":1,"a":0,"t":1},{"n":"Lorena Rodriguez","m":1,"a":0,"t":1},{"n":"Lucas Micheli","m":1,"a":0,"t":1},{"n":"Lucia Cuña","m":1,"a":0,"t":1},{"n":"Lucia Lallana","m":1,"a":0,"t":1},{"n":"Luciano Luggren","m":1,"a":0,"t":1},{"n":"Lucila Aquino","m":1,"a":0,"t":1},{"n":"Lucila Samperisi","m":1,"a":0,"t":1},{"n":"Ludmila Avemaria","m":1,"a":0,"t":1},{"n":"Luna Sagratella","m":1,"a":0,"t":1},{"n":"Macarena Arango","m":1,"a":0,"t":1},{"n":"Magali Somella","m":1,"a":0,"t":1},{"n":"Malena Caporaso","m":1,"a":0,"t":1},{"n":"Manuela Chaves","m":1,"a":0,"t":1},{"n":"Manuela Peiro","m":1,"a":0,"t":1},{"n":"Marco Tymczyszyn","m":1,"a":0,"t":1},{"n":"Maria Camila Salamanca","m":1,"a":0,"t":1},{"n":"Maria Celeste Tamburino","m":1,"a":0,"t":1},{"n":"Maria Del Rosario Bernasconi","m":1,"a":0,"t":1},{"n":"Maria Eugenia Arias","m":1,"a":0,"t":1},{"n":"Maria Jose Palmentiere","m":1,"a":0,"t":1},{"n":"Maria Lorena Elorga","m":1,"a":0,"t":1},{"n":"Maria Lujan Davalos","m":1,"a":0,"t":1},{"n":"Mariana Vische","m":1,"a":0,"t":1},{"n":"Mariano Echarri","m":1,"a":0,"t":1},{"n":"Mariano Maiola","m":1,"a":0,"t":1},{"n":"Mariano Pellicani","m":1,"a":0,"t":1},{"n":"Mariano Rodriguez","m":1,"a":0,"t":1},{"n":"Maribel Yanina Clarens","m":1,"a":0,"t":1},{"n":"Mariela Rafael","m":1,"a":0,"t":1},{"n":"Mario Bargagna","m":1,"a":0,"t":1},{"n":"Marisel Alarcón","m":1,"a":0,"t":1},{"n":"Martin Mendez","m":1,"a":0,"t":1},{"n":"Martin Rioseco","m":1,"a":0,"t":1},{"n":"Martina Caccavielo","m":1,"a":0,"t":1},{"n":"Martina Fotia","m":1,"a":0,"t":1},{"n":"María Agustina Verde","m":1,"a":0,"t":1},{"n":"María Alejandra Velgil","m":1,"a":0,"t":1},{"n":"María Belén Fernandez","m":1,"a":0,"t":1},{"n":"María Florencia Caminos","m":1,"a":0,"t":1},{"n":"Matias Alessandrello","m":1,"a":0,"t":1},{"n":"Matias Fausti","m":1,"a":0,"t":1},{"n":"Matias Garavagno","m":1,"a":0,"t":1},{"n":"Matias Gentile","m":1,"a":0,"t":1},{"n":"Matias Gonzalez","m":1,"a":0,"t":1},{"n":"Matias Pallero","m":1,"a":0,"t":1},{"n":"Matias Spinelli","m":1,"a":0,"t":1},{"n":"Maximiliano Leonel Toledo","m":1,"a":0,"t":1},{"n":"Maylen Werbrauck","m":1,"a":0,"t":1},{"n":"Mel Chaij","m":1,"a":0,"t":1},{"n":"Melanie Gago","m":1,"a":0,"t":1},{"n":"Melina Ossana","m":1,"a":0,"t":1},{"n":"Melina Rodriguez","m":1,"a":0,"t":1},{"n":"Melissa Vargas","m":1,"a":0,"t":1},{"n":"Mica Tagliacozzo","m":1,"a":0,"t":1},{"n":"Micaela Alen Gonzalez","m":1,"a":0,"t":1},{"n":"Micaela Ariadna Nayar","m":1,"a":0,"t":1},{"n":"Micaela Cantore","m":1,"a":0,"t":1},{"n":"Micaela Gargiulo","m":1,"a":0,"t":1},{"n":"Micaela Gonzalez","m":1,"a":0,"t":1},{"n":"Micaela Soledad Brandan","m":1,"a":0,"t":1},{"n":"Micaela Zirmer","m":1,"a":0,"t":1},{"n":"Micol Kim","m":1,"a":0,"t":1},{"n":"Milagros Peon","m":1,"a":0,"t":1},{"n":"Milagros Rosilo Quintana","m":1,"a":0,"t":1},{"n":"Milagros Tomasella","m":1,"a":0,"t":1},{"n":"Mili Bustos","m":1,"a":0,"t":1},{"n":"Mili Ciol","m":1,"a":0,"t":1},{"n":"Morena Diaz Machado","m":1,"a":0,"t":1},{"n":"Morena Garcia","m":1,"a":0,"t":1},{"n":"Morena Sola Estigarribia","m":1,"a":0,"t":1},{"n":"Mónica Ferrari","m":1,"a":0,"t":1},{"n":"Nadia Calcaterra","m":1,"a":0,"t":1},{"n":"Nadia Robledo","m":1,"a":0,"t":1},{"n":"Nadia Scornavache","m":1,"a":0,"t":1},{"n":"Nahime Baliosian","m":1,"a":0,"t":1},{"n":"Nahuel Dermisache","m":1,"a":0,"t":1},{"n":"Nahuel Gaggieta","m":1,"a":0,"t":1},{"n":"Nancy Lopez","m":1,"a":0,"t":1},{"n":"Natalia Lorena Gonzalez","m":1,"a":0,"t":1},{"n":"Natalia Napoli","m":1,"a":0,"t":1},{"n":"Natalia Natalia Ruiz","m":1,"a":0,"t":1},{"n":"Natalia Quinteros","m":1,"a":0,"t":1},{"n":"Natalia Verónica Sánchez","m":1,"a":0,"t":1},{"n":"Nataly Rolla","m":1,"a":0,"t":1},{"n":"Nicolas Goldberg","m":1,"a":0,"t":1},{"n":"Nicolás Eum","m":1,"a":0,"t":1},{"n":"Nicolás Pongelli","m":1,"a":0,"t":1},{"n":"Noelia Amaya","m":1,"a":0,"t":1},{"n":"Noelia Carreño","m":1,"a":0,"t":1},{"n":"Noelia Viccini","m":1,"a":0,"t":1},{"n":"Olga Ro","m":1,"a":0,"t":1},{"n":"Oriana Michelucci","m":1,"a":0,"t":1},{"n":"Pablo  Garriga","m":1,"a":0,"t":1},{"n":"Pablo Alonso","m":1,"a":0,"t":1},{"n":"Paloma Chaves Chaves","m":1,"a":0,"t":1},{"n":"Paola Rodríguez","m":1,"a":0,"t":1},{"n":"Paola Sanchez","m":1,"a":0,"t":1},{"n":"Patricia Daniela Suarez","m":1,"a":0,"t":1},{"n":"Patricio Arias","m":1,"a":0,"t":1},{"n":"Priscila Solange Andrada","m":1,"a":0,"t":1},{"n":"Ramiro Cardona","m":1,"a":0,"t":1},{"n":"Roberta Lee","m":1,"a":0,"t":1},{"n":"Rocio Arias","m":1,"a":0,"t":1},{"n":"Rocio Garcia","m":1,"a":0,"t":1},{"n":"Rodrigo Anzovino","m":1,"a":0,"t":1},{"n":"Rodrigo Nasso","m":1,"a":0,"t":1},{"n":"Romina Gabutti","m":1,"a":0,"t":1},{"n":"Romina Genovois","m":1,"a":0,"t":1},{"n":"Romina Ines Quiroga","m":1,"a":0,"t":1},{"n":"Romina Lambiri","m":1,"a":0,"t":1},{"n":"Romina Paik","m":1,"a":0,"t":1},{"n":"Roy Ferreyra","m":1,"a":0,"t":1},{"n":"Ruben Calabrese","m":1,"a":0,"t":1},{"n":"Ruth Rilla","m":1,"a":0,"t":1},{"n":"Sabrina Varela","m":1,"a":0,"t":1},{"n":"Santiago Fretes","m":1,"a":0,"t":1},{"n":"Santiago Rodriguez","m":1,"a":0,"t":1},{"n":"Sebastián Ripoll","m":1,"a":0,"t":1},{"n":"Sergio Maciel","m":1,"a":0,"t":1},{"n":"Sergio Ventura","m":1,"a":0,"t":1},{"n":"Silvana Suarez","m":1,"a":0,"t":1},{"n":"Silvia Gigena","m":1,"a":0,"t":1},{"n":"Silvia Jimenez","m":1,"a":0,"t":1},{"n":"Sofia Chung","m":1,"a":0,"t":1},{"n":"Sofia Dlabach","m":1,"a":0,"t":1},{"n":"Sofia Genova","m":1,"a":0,"t":1},{"n":"Sofía Güerrissi","m":1,"a":0,"t":1},{"n":"Sol Soldano","m":1,"a":0,"t":1},{"n":"Solange Vidal","m":1,"a":0,"t":1},{"n":"Sora Yoon","m":1,"a":0,"t":1},{"n":"Stella Maris Mazza","m":1,"a":0,"t":1},{"n":"Sveta Peskova","m":1,"a":0,"t":1},{"n":"Sylvia Martinez","m":1,"a":0,"t":1},{"n":"Tatiana Tortorelli","m":1,"a":0,"t":1},{"n":"Tatiana Vedronik","m":1,"a":0,"t":1},{"n":"Tomas Fortunati","m":1,"a":0,"t":1},{"n":"Tomas Wolaniuk","m":1,"a":0,"t":1},{"n":"Uma Cervigni","m":1,"a":0,"t":1},{"n":"Valentina Boned","m":1,"a":0,"t":1},{"n":"Valentina Rosilo Quintana","m":1,"a":0,"t":1},{"n":"Valeria Caruso","m":1,"a":0,"t":1},{"n":"Valeria Ingegnieros","m":1,"a":0,"t":1},{"n":"Valeria Lacivita","m":1,"a":0,"t":1},{"n":"Valeria Miguelez","m":1,"a":0,"t":1},{"n":"Valeria Tallaferro","m":1,"a":0,"t":1},{"n":"Vanesa Larrosa","m":1,"a":0,"t":1},{"n":"Vanesa Sánchez","m":1,"a":0,"t":1},{"n":"Vanesa Tolosa","m":1,"a":0,"t":1},{"n":"Vanessa Azuaga","m":1,"a":0,"t":1},{"n":"Vanessa Ledezma","m":1,"a":0,"t":1},{"n":"Vanina Moreira","m":1,"a":0,"t":1},{"n":"Vanina Sorrentino","m":1,"a":0,"t":1},{"n":"Vanina Vidal","m":1,"a":0,"t":1},{"n":"Veronica Micelotta","m":1,"a":0,"t":1},{"n":"Veronica Smal","m":1,"a":0,"t":1},{"n":"Victoria Aylen Gonzalez","m":1,"a":0,"t":1},{"n":"Victoria Polverini","m":1,"a":0,"t":1},{"n":"Villar Mauro","m":1,"a":0,"t":1},{"n":"Viviana Gonzalez","m":1,"a":0,"t":1},{"n":"Walter Alcaraz","m":1,"a":0,"t":1},{"n":"Abril Armaleo","m":0,"a":1,"t":1},{"n":"Adriana Palazzani","m":0,"a":1,"t":1},{"n":"Agus Rodriguez","m":0,"a":1,"t":1},{"n":"Agustina Branca","m":0,"a":1,"t":1},{"n":"Agustina Florencia Arroyo","m":0,"a":1,"t":1},{"n":"Aldana Caprara","m":0,"a":1,"t":1},{"n":"Aldana Escudero","m":0,"a":1,"t":1},{"n":"Alex Kim","m":0,"a":1,"t":1},{"n":"Amaya Vidador","m":0,"a":1,"t":1},{"n":"Amparo Saenz","m":0,"a":1,"t":1},{"n":"Ana Cioncio","m":0,"a":1,"t":1},{"n":"Ana Julia Brassara","m":0,"a":1,"t":1},{"n":"Ana Laura Menendez","m":0,"a":1,"t":1},{"n":"Ana Paula Silvetti","m":0,"a":1,"t":1},{"n":"Anabel Farías","m":0,"a":1,"t":1},{"n":"Anabela Vergara","m":0,"a":1,"t":1},{"n":"Anais Márquez","m":0,"a":1,"t":1},{"n":"Andrea Dimasi","m":0,"a":1,"t":1},{"n":"Angie Romano","m":0,"a":1,"t":1},{"n":"Angie Woo","m":0,"a":1,"t":1},{"n":"Anna Sberegaeva","m":0,"a":1,"t":1},{"n":"Antonella Corleto","m":0,"a":1,"t":1},{"n":"Antonella Victoria Corleto","m":0,"a":1,"t":1},{"n":"Argenis Barreto","m":0,"a":1,"t":1},{"n":"Ariel León","m":0,"a":1,"t":1},{"n":"Ariel Tanferna","m":0,"a":1,"t":1},{"n":"Ayelen Yoon","m":0,"a":1,"t":1},{"n":"Ayelén Debasto","m":0,"a":1,"t":1},{"n":"Aylen Pascual","m":0,"a":1,"t":1},{"n":"Aylen Torres","m":0,"a":1,"t":1},{"n":"Azul Pelayes","m":0,"a":1,"t":1},{"n":"Azul Spinelli","m":0,"a":1,"t":1},{"n":"Barbara Trebbiani","m":0,"a":1,"t":1},{"n":"Belen Pintos","m":0,"a":1,"t":1},{"n":"Berenice Alonso","m":0,"a":1,"t":1},{"n":"Bettina Rizzo","m":0,"a":1,"t":1},{"n":"Branislava Stojanovic","m":0,"a":1,"t":1},{"n":"Brenda Marianucci","m":0,"a":1,"t":1},{"n":"Bárbara Vieyra","m":0,"a":1,"t":1},{"n":"Camila Brando","m":0,"a":1,"t":1},{"n":"Camila Manon Rodero","m":0,"a":1,"t":1},{"n":"Camila Mansilla","m":0,"a":1,"t":1},{"n":"Camila Perez","m":0,"a":1,"t":1},{"n":"Camila Tolot","m":0,"a":1,"t":1},{"n":"Candela Arrieta","m":0,"a":1,"t":1},{"n":"Carla Montes","m":0,"a":1,"t":1},{"n":"Carla Ramos","m":0,"a":1,"t":1},{"n":"Carlina Cebolla","m":0,"a":1,"t":1},{"n":"Carlos Alberto Castrogiovanni","m":0,"a":1,"t":1},{"n":"Carolina Bidegain","m":0,"a":1,"t":1},{"n":"Carolina Caniza","m":0,"a":1,"t":1},{"n":"Carolina Diez","m":0,"a":1,"t":1},{"n":"Carolina Gomez","m":0,"a":1,"t":1},{"n":"Carolina Gonzalez","m":0,"a":1,"t":1},{"n":"Carolina Zembi","m":0,"a":1,"t":1},{"n":"Cecilia Galarza","m":0,"a":1,"t":1},{"n":"Cecilia Kim","m":0,"a":1,"t":1},{"n":"Cecilia Toledo","m":0,"a":1,"t":1},{"n":"Cecilia Tracogna","m":0,"a":1,"t":1},{"n":"Cecilia Uboldi","m":0,"a":1,"t":1},{"n":"Celeste Batista","m":0,"a":1,"t":1},{"n":"Celeste Concilio","m":0,"a":1,"t":1},{"n":"Celeste Di Maria","m":0,"a":1,"t":1},{"n":"Celeste Enrique","m":0,"a":1,"t":1},{"n":"Celeste Pisicchio","m":0,"a":1,"t":1},{"n":"Celia Jeon","m":0,"a":1,"t":1},{"n":"Christina Florio","m":0,"a":1,"t":1},{"n":"Cintia Jimena Ramirez","m":0,"a":1,"t":1},{"n":"Clara Iglesias","m":0,"a":1,"t":1},{"n":"Claudia Sayago","m":0,"a":1,"t":1},{"n":"Cynthia Lupi","m":0,"a":1,"t":1},{"n":"Daiana Blanco","m":0,"a":1,"t":1},{"n":"Damian Scafidi","m":0,"a":1,"t":1},{"n":"Daniel Marquez","m":0,"a":1,"t":1},{"n":"Daniela De Rito","m":0,"a":1,"t":1},{"n":"Daniela G","m":0,"a":1,"t":1},{"n":"Dante Gaston Cabeza","m":0,"a":1,"t":1},{"n":"Deimon Noh","m":0,"a":1,"t":1},{"n":"Delfina Gambaro","m":0,"a":1,"t":1},{"n":"Dolores García Masilla","m":0,"a":1,"t":1},{"n":"Eduardo Caselli","m":0,"a":1,"t":1},{"n":"Eliana Giselle Gómez","m":0,"a":1,"t":1},{"n":"Elisa Verónica Lipochaki","m":0,"a":1,"t":1},{"n":"Emma Hong","m":0,"a":1,"t":1},{"n":"Enzo Di Nocco","m":0,"a":1,"t":1},{"n":"Estefania Byun","m":0,"a":1,"t":1},{"n":"Ezequiel Cuellar","m":0,"a":1,"t":1},{"n":"Ezequiel Cuniolo","m":0,"a":1,"t":1},{"n":"Facundo Breglia","m":0,"a":1,"t":1},{"n":"Fatima Fabiana Rivero","m":0,"a":1,"t":1},{"n":"Federico Arriada","m":0,"a":1,"t":1},{"n":"Federico Gleizer","m":0,"a":1,"t":1},{"n":"Federico Morales","m":0,"a":1,"t":1},{"n":"Federico Pucciarelli","m":0,"a":1,"t":1},{"n":"Fernanda Plaza","m":0,"a":1,"t":1},{"n":"Fernando Bengler","m":0,"a":1,"t":1},{"n":"Fernando Jauregui","m":0,"a":1,"t":1},{"n":"Fiorella Occhiuzzi","m":0,"a":1,"t":1},{"n":"Flor Fredes","m":0,"a":1,"t":1},{"n":"Florencia Armando","m":0,"a":1,"t":1},{"n":"Florencia López Picasso","m":0,"a":1,"t":1},{"n":"Florencia Retrivi","m":0,"a":1,"t":1},{"n":"Florencia Salomé","m":0,"a":1,"t":1},{"n":"Florencia, Florencia Lopez, López","m":0,"a":1,"t":1},{"n":"Floriana Ronco","m":0,"a":1,"t":1},{"n":"Gabriel D’ Alessandri","m":0,"a":1,"t":1},{"n":"Gabriel Esplugas","m":0,"a":1,"t":1},{"n":"Gabriel Roman Garcia","m":0,"a":1,"t":1},{"n":"Gabriela Donadío","m":0,"a":1,"t":1},{"n":"Gabriela Filipi","m":0,"a":1,"t":1},{"n":"Gabriela Judith Carnebale","m":0,"a":1,"t":1},{"n":"Gabriela Maranzano","m":0,"a":1,"t":1},{"n":"Gabriela Suh","m":0,"a":1,"t":1},{"n":"Gaston Garcia","m":0,"a":1,"t":1},{"n":"Gaston Mauricio Bacchetto","m":0,"a":1,"t":1},{"n":"Gastón Sinigalli","m":0,"a":1,"t":1},{"n":"Georgina Zerbini","m":0,"a":1,"t":1},{"n":"Gimena Rajoy","m":0,"a":1,"t":1},{"n":"Gisela Amati","m":0,"a":1,"t":1},{"n":"Gisela Donadio","m":0,"a":1,"t":1},{"n":"Gisele Alejandra Reidel","m":0,"a":1,"t":1},{"n":"Gonzalo Reus","m":0,"a":1,"t":1},{"n":"Guadalupe Barbeito","m":0,"a":1,"t":1},{"n":"Guido Capria","m":0,"a":1,"t":1},{"n":"Guido Lopez","m":0,"a":1,"t":1},{"n":"Guido Suarez","m":0,"a":1,"t":1},{"n":"Guillermo De Lorenzi","m":0,"a":1,"t":1},{"n":"Hanny Chung","m":0,"a":1,"t":1},{"n":"Hernán Tommaso","m":0,"a":1,"t":1},{"n":"Ian Migueles","m":0,"a":1,"t":1},{"n":"Ignacio Gomez","m":0,"a":1,"t":1},{"n":"Ileana García Mariani","m":0,"a":1,"t":1},{"n":"Inés Rubio","m":0,"a":1,"t":1},{"n":"Isabella Crescio Reale","m":0,"a":1,"t":1},{"n":"Ivan Fonin","m":0,"a":1,"t":1},{"n":"Ivan Ortiz","m":0,"a":1,"t":1},{"n":"Ivan Quetglas","m":0,"a":1,"t":1},{"n":"Ivana Ferradas","m":0,"a":1,"t":1},{"n":"Jazmin López","m":0,"a":1,"t":1},{"n":"Jennifer Lasso","m":0,"a":1,"t":1},{"n":"Jennifer Lasso Gonzalez","m":0,"a":1,"t":1},{"n":"Jennifer Yang","m":0,"a":1,"t":1},{"n":"Jesica Uget","m":0,"a":1,"t":1},{"n":"Jhosé Ayram","m":0,"a":1,"t":1},{"n":"Joao Vermelho","m":0,"a":1,"t":1},{"n":"Joaquin Gagliardi","m":0,"a":1,"t":1},{"n":"Johanna Pirrello","m":0,"a":1,"t":1},{"n":"Jonathan Belascuain","m":0,"a":1,"t":1},{"n":"Jorgelina Marani","m":0,"a":1,"t":1},{"n":"Juana Paradela","m":0,"a":1,"t":1},{"n":"Julieta Gómez Nieto","m":0,"a":1,"t":1},{"n":"Julieta Romano","m":0,"a":1,"t":1},{"n":"Karen Dubo","m":0,"a":1,"t":1},{"n":"Karen Pak","m":0,"a":1,"t":1},{"n":"Karina Arcidiacono","m":0,"a":1,"t":1},{"n":"Karina Rodriguez","m":0,"a":1,"t":1},{"n":"Karina Thome","m":0,"a":1,"t":1},{"n":"Lara Barbiero","m":0,"a":1,"t":1},{"n":"Laura Alvarez","m":0,"a":1,"t":1},{"n":"Laura Amigorena","m":0,"a":1,"t":1},{"n":"Laura Casas","m":0,"a":1,"t":1},{"n":"Laura Cecilia Perez","m":0,"a":1,"t":1},{"n":"Lautaro Coqui","m":0,"a":1,"t":1},{"n":"Leonardo Berejano","m":0,"a":1,"t":1},{"n":"Leonella Delle Chiaie","m":0,"a":1,"t":1},{"n":"Lilian Verde","m":0,"a":1,"t":1},{"n":"Liliana Del Valle Ruiz","m":0,"a":1,"t":1},{"n":"Lorena Aparicio","m":0,"a":1,"t":1},{"n":"Lorena Gemignani","m":0,"a":1,"t":1},{"n":"Lorena Ricart","m":0,"a":1,"t":1},{"n":"Lourdes Crncevic","m":0,"a":1,"t":1},{"n":"Lourdes Haddad","m":0,"a":1,"t":1},{"n":"Lucas Amicucci","m":0,"a":1,"t":1},{"n":"Lucas Gravano","m":0,"a":1,"t":1},{"n":"Lucas Leonel Taritolay","m":0,"a":1,"t":1},{"n":"Lucas Núñez","m":0,"a":1,"t":1},{"n":"Luciana Massetti","m":0,"a":1,"t":1},{"n":"Lucía Laura Sosa","m":0,"a":1,"t":1},{"n":"Macarena Diaz","m":0,"a":1,"t":1},{"n":"Macarena Picciochi","m":0,"a":1,"t":1},{"n":"Magali Sommella","m":0,"a":1,"t":1},{"n":"Manuela Demaría Lamas","m":0,"a":1,"t":1},{"n":"Mara Armani","m":0,"a":1,"t":1},{"n":"Marcela Robla","m":0,"a":1,"t":1},{"n":"Marcela Zalazar","m":0,"a":1,"t":1},{"n":"Marcelo Luján","m":0,"a":1,"t":1},{"n":"Maria Carolina Machado Ferreira","m":0,"a":1,"t":1},{"n":"Maria Eduarda Moreira Pereira","m":0,"a":1,"t":1},{"n":"Maria Jose Zamora","m":0,"a":1,"t":1},{"n":"Maria Natalia Astrada","m":0,"a":1,"t":1},{"n":"Mariana Fuentes","m":0,"a":1,"t":1},{"n":"Mariana Goñi Chiappara","m":0,"a":1,"t":1},{"n":"Marianela Mateo","m":0,"a":1,"t":1},{"n":"Mariano Pellicari","m":0,"a":1,"t":1},{"n":"Maribel Peral","m":0,"a":1,"t":1},{"n":"Mariela Privitello","m":0,"a":1,"t":1},{"n":"Marina Rossi","m":0,"a":1,"t":1},{"n":"Marita Costa","m":0,"a":1,"t":1},{"n":"Marta Rossello","m":0,"a":1,"t":1},{"n":"Martin Ernesto Barros","m":0,"a":1,"t":1},{"n":"Martin Marcelo Isaac","m":0,"a":1,"t":1},{"n":"Martin Santagati","m":0,"a":1,"t":1},{"n":"Martin Stabilito","m":0,"a":1,"t":1},{"n":"Martina Scarola","m":0,"a":1,"t":1},{"n":"Martina Soto","m":0,"a":1,"t":1},{"n":"María Celeste Di Maria","m":0,"a":1,"t":1},{"n":"María Eugenia Belen","m":0,"a":1,"t":1},{"n":"María Gabriela Torres","m":0,"a":1,"t":1},{"n":"María Gonzalez","m":0,"a":1,"t":1},{"n":"María Laura Cordero Mata","m":0,"a":1,"t":1},{"n":"María Son","m":0,"a":1,"t":1},{"n":"María Victoria Gutierrez","m":0,"a":1,"t":1},{"n":"Matias Marletto","m":0,"a":1,"t":1},{"n":"Matias Martins","m":0,"a":1,"t":1},{"n":"Matías Martins","m":0,"a":1,"t":1},{"n":"Maximiliano Guiraldes","m":0,"a":1,"t":1},{"n":"Maximiliano Marinelli","m":0,"a":1,"t":1},{"n":"Maximiliano Meurer","m":0,"a":1,"t":1},{"n":"Melanie Dobarro","m":0,"a":1,"t":1},{"n":"Melanie Siverino","m":0,"a":1,"t":1},{"n":"Melina Cortizas","m":0,"a":1,"t":1},{"n":"Melisa Blanco","m":0,"a":1,"t":1},{"n":"Mercedes Castagnino","m":0,"a":1,"t":1},{"n":"Mercedes Cruz","m":0,"a":1,"t":1},{"n":"Mercedes Higgins","m":0,"a":1,"t":1},{"n":"Mercedes Rojo","m":0,"a":1,"t":1},{"n":"Micaela Contreras","m":0,"a":1,"t":1},{"n":"Micaela Palavecino","m":0,"a":1,"t":1},{"n":"Micaela Park","m":0,"a":1,"t":1},{"n":"Micaela Romero","m":0,"a":1,"t":1},{"n":"Mirian Gutierrez","m":0,"a":1,"t":1},{"n":"Nadia Nardi","m":0,"a":1,"t":1},{"n":"Nadia Vallejos","m":0,"a":1,"t":1},{"n":"Nahuel Romero","m":0,"a":1,"t":1},{"n":"Nanet Sánchez","m":0,"a":1,"t":1},{"n":"Natalia López","m":0,"a":1,"t":1},{"n":"Natalia Muniz","m":0,"a":1,"t":1},{"n":"Natalia Sinagra","m":0,"a":1,"t":1},{"n":"Natalia Vergara","m":0,"a":1,"t":1},{"n":"Natalin Valeria Gaudio","m":0,"a":1,"t":1},{"n":"Nicole Curel","m":0,"a":1,"t":1},{"n":"Nicole Nicole","m":0,"a":1,"t":1},{"n":"Nicolás Campitelli","m":0,"a":1,"t":1},{"n":"Nora Plaza","m":0,"a":1,"t":1},{"n":"Norali Chaliy","m":0,"a":1,"t":1},{"n":"Oriana Lombardi","m":0,"a":1,"t":1},{"n":"Ornella Marcelli","m":0,"a":1,"t":1},{"n":"Ornella Tangherlini","m":0,"a":1,"t":1},{"n":"Pabla Caballero","m":0,"a":1,"t":1},{"n":"Pablo Ariel Recanatti","m":0,"a":1,"t":1},{"n":"Pablo Cesar Perna","m":0,"a":1,"t":1},{"n":"Pamela Doring","m":0,"a":1,"t":1},{"n":"Paola Blas","m":0,"a":1,"t":1},{"n":"Paola Chappeta","m":0,"a":1,"t":1},{"n":"Paola Iannattone","m":0,"a":1,"t":1},{"n":"Paola Poggio","m":0,"a":1,"t":1},{"n":"Paola Stagnaro","m":0,"a":1,"t":1},{"n":"Paula Cardozo","m":0,"a":1,"t":1},{"n":"Paula Coboc","m":0,"a":1,"t":1},{"n":"Paz Miguel","m":0,"a":1,"t":1},{"n":"Pilar Spinelli","m":0,"a":1,"t":1},{"n":"Ramiro Joaquin Diato Vignolo","m":0,"a":1,"t":1},{"n":"Ricardo Lee","m":0,"a":1,"t":1},{"n":"Rocio Lopez","m":0,"a":1,"t":1},{"n":"Rocio Pereyra","m":0,"a":1,"t":1},{"n":"Rodrigo Bringas","m":0,"a":1,"t":1},{"n":"Rodrigo Ferluga","m":0,"a":1,"t":1},{"n":"Rodrigo Salduna","m":0,"a":1,"t":1},{"n":"Romina Fontana","m":0,"a":1,"t":1},{"n":"Romina Pignatto","m":0,"a":1,"t":1},{"n":"Sabrina Pardini","m":0,"a":1,"t":1},{"n":"Santiago Caffaro","m":0,"a":1,"t":1},{"n":"Santiago Martinez","m":0,"a":1,"t":1},{"n":"Santino Sanchez Peral","m":0,"a":1,"t":1},{"n":"Sebastian Choi","m":0,"a":1,"t":1},{"n":"Silvia Massone","m":0,"a":1,"t":1},{"n":"Silvia Trevisan","m":0,"a":1,"t":1},{"n":"Sofia Argañaraz","m":0,"a":1,"t":1},{"n":"Sofia Balderresse","m":0,"a":1,"t":1},{"n":"Sofis Brigante","m":0,"a":1,"t":1},{"n":"Sol Filgueira","m":0,"a":1,"t":1},{"n":"Sol Lopez","m":0,"a":1,"t":1},{"n":"Soledad Visedo","m":0,"a":1,"t":1},{"n":"Sonia Cremer","m":0,"a":1,"t":1},{"n":"Sonia Kim","m":0,"a":1,"t":1},{"n":"Sopeña Matianela","m":0,"a":1,"t":1},{"n":"Stella Maris Pellegrino","m":0,"a":1,"t":1},{"n":"Susana Andrade","m":0,"a":1,"t":1},{"n":"Susana Ham","m":0,"a":1,"t":1},{"n":"Svetlana Peskova","m":0,"a":1,"t":1},{"n":"Tamara Calogero","m":0,"a":1,"t":1},{"n":"Tatiana Maddalena","m":0,"a":1,"t":1},{"n":"Tatiana Muntaabski","m":0,"a":1,"t":1},{"n":"Tatu Schepis","m":0,"a":1,"t":1},{"n":"Tomas Bautista Vanegas","m":0,"a":1,"t":1},{"n":"Tomas García Reidel","m":0,"a":1,"t":1},{"n":"Valentina Grynczyk","m":0,"a":1,"t":1},{"n":"Vanesa Julieta Arias","m":0,"a":1,"t":1},{"n":"Vanesa Privitera","m":0,"a":1,"t":1},{"n":"Vanina Almandoz","m":0,"a":1,"t":1},{"n":"Veronica Lettieri","m":0,"a":1,"t":1},{"n":"Veronica Rivarola","m":0,"a":1,"t":1},{"n":"Victoria Corsi","m":0,"a":1,"t":1},{"n":"Victoria Herrera","m":0,"a":1,"t":1},{"n":"Yamila Alejandra Rifon","m":0,"a":1,"t":1},{"n":"Yamila Solla","m":0,"a":1,"t":1},{"n":"Yanina Sauco","m":0,"a":1,"t":1},{"n":"Yurena Falcon Lima","m":0,"a":1,"t":1}],"kpis":{"torneos_totales":{"marzo":135,"abril":107,"total":242},"torneos_caballeros":{"marzo":115,"abril":88,"total":203},"torneos_damas":{"marzo":54,"abril":40,"total":94},"jugadores_unicos":{"marzo":1891,"abril":1510,"total":2739},"jugadoras_unicas":{"marzo":572,"abril":532,"total":933},"prom_torneos_cab":{"marzo":16.4,"abril":17.2,"total":13.5},"prom_torneos_dam":{"marzo":10.6,"abril":13.3,"total":9.9}},"distribucion_cab":{"1":1722,"2":491,"3":221,"4":129,"5":56,"6-9":95,"10+":25},"distribucion_dam":{"1":629,"2":176,"3":69,"4":34,"5":12,"6-9":12,"10+":1}};
+
+// ============ NAVIGATION ============
+const navBtns = document.querySelectorAll('.nav-item');
+const sections = document.querySelectorAll('section');
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.target;
+    navBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    sections.forEach(s => s.classList.remove('active'));
+    document.getElementById(target).classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    triggerAnims();
+  });
+});
+
+// ============ NUMBER FORMAT ============
+const fmt = n => n.toLocaleString('es-AR');
+
+// ============ TABLE RENDER ============
+const STATE = {
+  cab: { data: DATA.caballeros, filtered: DATA.caballeros, sort: 't', limit: 20, expanded: false, query: '' },
+  dam: { data: DATA.damas, filtered: DATA.damas, sort: 't', limit: 20, expanded: false, query: '' },
+};
+
+function maxFor(list, key) {
+  let m = 0;
+  for (const p of list) if (p[key] > m) m = p[key];
+  return m || 1;
+}
+
+function renderTable(kind) {
+  const s = STATE[kind];
+  const tbody = document.querySelector(`#table-${kind} tbody`);
+  const count = document.getElementById(`count-${kind}`);
+  const expandBtn = document.getElementById(`expand-${kind}`);
+
+  // Sort
+  const sortKey = s.sort;
+  const sorted = [...s.filtered].sort((a, b) => {
+    if (b[sortKey] !== a[sortKey]) return b[sortKey] - a[sortKey];
+    return a.n.localeCompare(b.n);
+  });
+
+  const shown = s.expanded ? sorted : sorted.slice(0, s.limit);
+  const maxVal = maxFor(sorted, sortKey);
+
+  count.textContent = `${fmt(sorted.length)} ${kind === 'cab' ? 'jugadores' : 'jugadoras'}`;
+
+  const rows = shown.map((p, i) => {
+    const w = Math.max(6, (p[sortKey] / maxVal) * 100);
+    const isPodium = i < 3 && !s.query;
+    return `
+      <tr class="${isPodium ? 'podium' : ''}">
+        <td class="rank">${String(i+1).padStart(2,'0')}</td>
+        <td class="name">${p.n}</td>
+        <td class="num ${p.m === 0 ? 'muted' : ''}">${p.m || '—'}</td>
+        <td class="num ${p.a === 0 ? 'muted' : ''}">${p.a || '—'}</td>
+        <td class="num total">${p.t}</td>
+        <td class="bar-cell"><div class="bar-wrap"><div class="bar-fill" style="width:${w}%"></div></div></td>
+      </tr>
+    `;
+  }).join('');
+
+  tbody.innerHTML = rows || `<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--otp-muted)">Sin resultados</td></tr>`;
+
+  // Expand button state
+  if (sorted.length <= s.limit || s.query) {
+    expandBtn.style.display = 'none';
+  } else {
+    expandBtn.style.display = 'inline-flex';
+    const labelTxt = expandBtn.querySelector('span');
+    if (s.expanded) {
+      labelTxt.textContent = `Mostrar solo el top 20`;
+      expandBtn.classList.add('expanded');
+    } else {
+      labelTxt.textContent = `Ver todos los ${fmt(sorted.length)} ${kind === 'cab' ? 'caballeros' : 'damas'}`;
+      expandBtn.classList.remove('expanded');
+    }
+  }
+}
+
+// Search
+function hookSearch(kind) {
+  const input = document.getElementById(`search-${kind}`);
+  input.addEventListener('input', e => {
+    const q = e.target.value.trim().toLowerCase();
+    STATE[kind].query = q;
+    if (!q) {
+      STATE[kind].filtered = STATE[kind].data;
+    } else {
+      STATE[kind].filtered = STATE[kind].data.filter(p => p.n.toLowerCase().includes(q));
+    }
+    renderTable(kind);
+  });
+}
+
+// Sort segments
+function hookSegment(kind) {
+  const seg = document.getElementById(`seg-${kind}`);
+  seg.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      seg.querySelectorAll('button').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      STATE[kind].sort = btn.dataset.sort;
+      renderTable(kind);
+    });
+  });
+}
+
+// Expand
+function hookExpand(kind) {
+  document.getElementById(`expand-${kind}`).addEventListener('click', () => {
+    STATE[kind].expanded = !STATE[kind].expanded;
+    renderTable(kind);
+  });
+}
+
+['cab', 'dam'].forEach(k => { hookSearch(k); hookSegment(k); hookExpand(k); renderTable(k); });
+
+// ============ DISTRIBUCIÓN ============
+function renderDistribution() {
+  const bucketsOrder = ['1','2','3','4','5','6-9','10+'];
+  const labels = {
+    '1':'1 torneo','2':'2 torneos','3':'3 torneos','4':'4 torneos',
+    '5':'5 torneos','6-9':'6 a 9 torneos','10+':'10 o más'
+  };
+
+  function build(container, dist, total) {
+    const maxC = Math.max(...Object.values(dist));
+    container.innerHTML = bucketsOrder.map((b, i) => {
+      const count = dist[b] || 0;
+      const pct = ((count / total) * 100).toFixed(1).replace('.', ',');
+      const w = (count / maxC) * 100;
+      const isTop = count === maxC;
+      return `
+        <div class="dist-item ${isTop ? 'highlight' : ''}">
+          <div class="bucket">${labels[b]}</div>
+          <div class="count">${fmt(count)}</div>
+          <div class="pct">${pct}% del total</div>
+          <div class="mini-bar"><span style="width:${w}%"></span></div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  build(document.getElementById('dist-cab'), DATA.distribucion_cab, 2739);
+  build(document.getElementById('dist-dam'), DATA.distribucion_dam, 933);
+}
+renderDistribution();
+
+// ============ COMPARATIVA ============
+function renderCompare() {
+  const rows = [
+    { label: 'Torneos', cab: 203, dam: 94 },
+    { label: 'Jugadores únicos', cab: 2739, dam: 933 },
+    { label: 'Torneos Marzo', cab: 115, dam: 54 },
+    { label: 'Torneos Abril', cab: 88, dam: 40 },
+    { label: 'Jug. Marzo', cab: 1891, dam: 572 },
+    { label: 'Jug. Abril', cab: 1510, dam: 532 },
+  ];
+  const html = rows.map(r => {
+    const total = r.cab + r.dam;
+    const cabPct = (r.cab / total) * 100;
+    const damPct = (r.dam / total) * 100;
+    return `
+      <div class="compare-row">
+        <div class="label">${r.label}</div>
+        <div class="split-bar">
+          <div class="cab-part" style="width:${cabPct}%">${fmt(r.cab)}</div>
+          <div class="dam-part" style="width:${damPct}%">${fmt(r.dam)}</div>
+        </div>
+        <div class="total">${fmt(total)}</div>
+      </div>
+    `;
+  }).join('');
+  document.getElementById('compare-rows').innerHTML = html;
+}
+renderCompare();
+
+// ============ ANIMATIONS ============
+function triggerAnims() {
+  // Animar barras de promedio
+  document.querySelectorAll('.avg-bars .fill').forEach((el, i) => {
+    const w = el.dataset.w;
+    el.style.width = '0%';
+    setTimeout(() => { el.style.width = w + '%'; }, 80 + i * 60);
+  });
+  // Animar mini-bars
+  document.querySelectorAll('.mini-bar span').forEach((el, i) => {
+    const origW = el.style.width;
+    el.style.width = '0%';
+    setTimeout(() => { el.style.width = origW; }, 100 + i * 40);
+  });
+  // Animar KPIs contador
+  document.querySelectorAll('.kpi-value[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    if (el.dataset.animated) return;
+    el.dataset.animated = '1';
+    const duration = 1000;
+    const start = performance.now();
+    const step = (now) => {
+      const prog = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - prog, 3);
+      const val = Math.round(eased * target);
+      el.textContent = fmt(val);
+      if (prog < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  });
+}
+
+// Trigger inicial
+setTimeout(triggerAnims, 150);
+</script>
+</body>
+</html>
